@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <!--Hero Image-->
+    <section class="hero">
+        <div class="hero__image">
+            <div class="hero-inner">
+                <h1 class="hero__title">Featured Cocktail</h1>
+                <h2 class="hero__cocktail">Bramble</h2>
+                <hr class="hero__page-line page-line page-line--brand page-line--left">
+                <h3 class="hero__tagline">A Summer Classic<br>with sweet blackberries and a dash of sour.</h3>
+                <a class="hero__cta cta" href="#">Try It At Home</a>
+            </div>
+        </div>
+    </section>
+    {% for cocktails in cocktails %}
+        {{ cocktails.cocktail_name }}<br>
+        {{ cocktails.alcohol }}<br>
+    {% endfor %}
+{% endblock %}

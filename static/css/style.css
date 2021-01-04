@@ -1,5 +1,6 @@
-/*------------------------------------------------------Google Font*/
+/*------------------------------------------------------Google Font--*/
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap');
 
 /*------------------------------------------------------Basic Structure Styling--*/
 html {
@@ -17,7 +18,7 @@ body {
 }
 
 main {
-    padding: 88px 30px;
+    padding: 100px 30px;
     min-height: 100%;
 
 }
@@ -38,13 +39,50 @@ ul {
 /*---------------------------Brand Colours--*/
 :root {
     --brand-color: purple;
+    --brand-cta: orange;
+}
+
+/*---------------------------Page Lines--*/
+.page-line {
+    border: 1px solid;
+}
+
+.page-line--page {
+    border-color: var(--brand-cta);
+    width: 100%;
+}
+
+.page-line--brand {
+    border-color:var(--brand-cta);
+}
+
+.page-line--fw {
+    width: 100%;
+    max-width: none;
+}
+
+.page-line--left {
+    margin-left: 0;
+}
+
+/*------------------------------------------------------Buttons / Call To Actions--*/
+.cta {
+    background-color: var(--brand-cta);
+    color: black;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+.btn-icon {
+    font-size: 2rem;
+    padding-right: 22px;
 }
 
 /*------------------------------------------------------Site Header--*/
 .site-header {
     width: 100%;
-    background-color: var(--brand-color);;
-    z-index: 3;
+    background-color: var(--brand-color);
     position: fixed;
     color: white;
     filter: drop-shadow(0px 0px 5px #000000);
@@ -54,6 +92,7 @@ ul {
 .logo {
     line-height: 2;
     font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
 }
 
 .site-header__nav {
@@ -76,19 +115,62 @@ ul {
     border-color: white;
 }
 
-/*------------------------------------------------------Buttons / Call To Actions--*/
-.cta {
-    background-color: yellow;
-    color: black;
-    font-weight: 700;
-    padding: 10px 15px;
-    border-radius: 6px;
+/*------------------------------------------------------Hero Image-- */
+.hero {
+    width: 100%;
+    font-family: 'Playfair Display', serif;
 }
 
-.btn-icon {
-    font-size: 2rem;
-    padding-right: 22px;
+.hero__image {
+    background: url(../images/bramble.jpg) no-repeat center center;
+    background-position: 0% 75%;
+    position: relative;
+    height: 80vh;
+    width: 100%;
+    background-size: cover;
+    background-attachment: fixed;
 }
+
+.hero-inner {
+    color: #ffffff;
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.hero__title {
+    font-weight: 700;
+    font-size: 3.25rem;
+    color: yellow;
+}
+
+.hero__cocktail {
+    font-weight: 700;
+    font-size: 6rem;
+} 
+
+.hero__page-line {
+    width: 375px;
+}
+
+.hero__tagline {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.hero__cta {
+    font-size: 2rem;
+    margin-top: 15px;
+    display: inline-block;
+    background-color: limegreen;
+    color: white;
+}
+
 
 /*------------------------------------------------------Footer--*/
 .footer{
