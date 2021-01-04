@@ -19,6 +19,7 @@ body {
 main {
     padding: 88px 30px;
     min-height: 100%;
+
 }
 
 a, a:hover {
@@ -28,6 +29,10 @@ a, a:hover {
 
 ul {
     margin-bottom: 0;
+}
+
+.bottom-mar {
+    margin-bottom: 16px;
 }
 
 /*---------------------------Brand Colours--*/
@@ -43,7 +48,7 @@ ul {
     position: fixed;
     color: white;
     filter: drop-shadow(0px 0px 5px #000000);
-    padding: 20px 30px;
+    padding: 10px 45px 10px 30px;
 }
 
 .logo {
@@ -85,6 +90,26 @@ ul {
     padding-right: 22px;
 }
 
-.search-icon {
-    font-weight: 100;
+/*------------------------------------------------------Footer--*/
+.footer{
+    background-color: #383838;
+    color: white;
+}
+
+.footer_container {
+    padding: 30px;
+    width: 100%;;
+}
+
+.footer_list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer_social {
+    font-size: 4rem;
+}
+
+.footer_social li {
+    display: inline;
 }
