@@ -1,7 +1,7 @@
 /*------------------------------------------------------Google Font*/
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 
-/*------------------------------------------------------Basic Structure Styling*/
+/*------------------------------------------------------Basic Structure Styling--*/
 html {
     height: 100%;
 }
@@ -17,7 +17,7 @@ body {
 }
 
 main {
-    padding-top: 60px;
+    padding: 88px 30px;
     min-height: 100%;
 }
 
@@ -30,5 +30,61 @@ ul {
     margin-bottom: 0;
 }
 
-/*------------------------------------------------------Site Header*/
+/*---------------------------Brand Colours--*/
+:root {
+    --brand-color: purple;
+}
 
+/*------------------------------------------------------Site Header--*/
+.site-header {
+    width: 100%;
+    background-color: var(--brand-color);;
+    z-index: 3;
+    position: fixed;
+    color: white;
+    filter: drop-shadow(0px 0px 5px #000000);
+    padding: 20px 30px;
+}
+
+.logo {
+    line-height: 2;
+    font-size: 1.5rem;
+}
+
+.site-header__nav {
+    display: inline;
+}
+
+.site-header__nav>.navbar-collapse{
+    float: right;
+}
+
+.site-header__navbar li {
+    display: inline;
+    padding-right: 22px;
+}
+
+.site-header__navbar a:hover,
+.site-header__navbar a:active,
+.site-header__navbar .active {
+    border-bottom: 2px solid;
+    border-color: white;
+}
+
+/*------------------------------------------------------Buttons / Call To Actions--*/
+.cta {
+    background-color: yellow;
+    color: black;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+.btn-icon {
+    font-size: 2rem;
+    padding-right: 22px;
+}
+
+.search-icon {
+    font-weight: 100;
+}
