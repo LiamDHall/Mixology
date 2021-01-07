@@ -36,6 +36,10 @@ ul {
     margin-bottom: 16px;
 }
 
+.section {
+    margin-top: 20px;
+}
+
 /*---------------------------Brand Colours--*/
 :root {
     --brand-color: purple;
@@ -171,6 +175,51 @@ ul {
     color: white;
 }
 
+/*------------------------------------------------------Product Card--*/
+.rec-card {
+    width: 575px;
+    display: inline-block;
+    background: purple;
+    color: white;
+    margin-left: 20px;
+}
+
+.rec-card_title {
+    font-size: 1.75rem;
+}
+
+.card-body {
+    padding: 15px 0;
+}
+
+.card-body p{
+    margin: 10px 0;
+}
+
+.card-rating {
+    font-size: 1.5rem;
+}
+
+.card-cta {
+    border: none;
+}
+
+/*------------------------------------------------------Recipe Carsousel--*/
+.rec-carsousel {
+    margin-top: 25px;
+}
+
+.rec-carsousel_title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 3rem;
+    margin: 0 0 5px 20px;
+    color: purple;
+}
+
+.rec-carsousel_page-line {
+    margin: 0 0 20px 0;
+}
 
 /*------------------------------------------------------Footer--*/
 .footer{

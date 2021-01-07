@@ -12,8 +12,30 @@
             </div>
         </div>
     </section>
-    {% for cocktails in cocktails %}
-        {{ cocktails.cocktail_name }}<br>
-        {{ cocktails.alcohol }}<br>
-    {% endfor %}
+    <section class="rec-carsousel">
+        <h2 class="rec-carsousel_title">Newly Added</h2>
+        <hr class="rec-carsousel_page-line page-line page-line--brand">
+        {% for tail in cocktails %}
+        <div class="rec-card">
+            <div class="row">
+                <div class="rec-card_col rec-card_col--left col-7">
+                    <img class="rec-card_img card-img" src="static/images/bramble.jpg" alt="#">
+                </div>
+                <div class="rec-card_col rec-card_col--right col-5">
+                    <div class="card-body">
+                        <h5 class="rec-card_title">{{ tail.cocktail_name }}</h5>
+                            <p class="card-rating">
+                                {%  for i in range (0, tail.rating) %}
+                                    <i class="fas fa-star"></i>
+                                {% endfor %}
+                            </p>
+                        <p class="card-text">{{ tail.alcohol }} Based</p>
+                        <p class="card-text"><strong>No. of Steps:</strong> {{ tail.number_of_steps }}</p>
+                        <a href="#" class="card-cta cta btn btn-primary">Make It!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
 {% endblock %}
