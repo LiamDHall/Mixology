@@ -18,7 +18,7 @@ body {
 }
 
 main {
-    padding: 100px 30px;
+    padding: 100px 40px;
     min-height: 100%;
 
 }
@@ -38,6 +38,18 @@ ul {
 
 .section {
     margin-top: 20px;
+}
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+.inline-block {
+    display: inline-block;
 }
 
 /*---------------------------Brand Colours--*/
@@ -175,38 +187,10 @@ ul {
     color: white;
 }
 
-/*------------------------------------------------------Product Card--*/
-.rec-card {
-    width: 575px;
-    display: inline-block;
-    background: purple;
-    color: white;
-    margin-left: 20px;
-}
-
-.rec-card_title {
-    font-size: 1.75rem;
-}
-
-.card-body {
-    padding: 15px 0;
-}
-
-.card-body p{
-    margin: 10px 0;
-}
-
-.card-rating {
-    font-size: 1.5rem;
-}
-
-.card-cta {
-    border: none;
-}
-
 /*------------------------------------------------------Recipe Carsousel--*/
 .rec-carsousel {
     margin-top: 25px;
+    position: relative;
 }
 
 .rec-carsousel_title {
@@ -219,6 +203,117 @@ ul {
 
 .rec-carsousel_page-line {
     margin: 0 0 20px 0;
+}
+
+.rec-carsousel_swiper-button {
+    height: 101%;
+    width: 150px;
+    top: 64%;
+    margin: -15px;
+    transform: translateY(-60%);
+    color: var(--brand-color);
+    font-weight: 800;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: left;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-pagination {
+    position: static;
+    margin-left: 20px;
+}
+
+.swiper-pagination-bullet {
+    border-radius: 0;
+    margin: 5px;
+    height: 20px;
+    width: 20px;
+    background: var(--brand-color);
+}
+
+.swiper-button-prev {
+    background: linear-gradient(-90deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255, 1) 100%);
+}
+
+.swiper-button-next {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255, 1) 100%);
+}
+
+.swiper-button-next.swiper-button-disabled, 
+.swiper-button-prev.swiper-button-disabled {
+    display: none;
+}
+
+
+
+/*------------------------------------------------------Product Card--*/
+.rec-card {
+    background: purple;
+    color: white;
+    border: 0;
+    border-radius: 7.5px;
+}
+
+.rec-card_container {
+    margin: 0;
+}
+
+.rec-card_item {
+    padding: 0;
+}
+
+.rec-card_title {
+    font-size: 2rem;
+}
+
+.rec-card_img {
+   height: 245px;
+   width: 100%;
+   border-top-left-radius: 7.5px;
+   border-top-right-radius: 7.5px;
+}
+
+.rec-card_info {
+    width: 100%;
+    padding: 20px 15px;
+}
+
+.rec-card_info p{
+    margin: 10px 0;
+}
+
+.rec-card_star-rating {
+    font-size: 1.5rem;
+}
+
+.rec-card_col {
+    text-align: right;
+}
+
+.rec-card_cta {
+    font-size: 1.5rem;
 }
 
 /*------------------------------------------------------Footer--*/
