@@ -28,12 +28,10 @@
 
             <div id="site-header-collapsible-navbar" class="navbar-collapse collapse">
                 <ul class="site-header__navbar">
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#">Vodka</a></li>
-                    <li><a href="#">Whiskey</a></li>
-                    <li><a href="#">Gin</a></li>
-                    <li><a href="#">Rum</a></li>
-                    <li><a href="#">Tequila</a></li>
+                    <li><a href="{{ url_for('home') }}" class="active">Home</a></li>
+                    {% for alcohol in alcohol_categories %}
+                        <li><a href="{{ url_for('category', alcohol_name=alcohol.alcohol_name) }}">{{ alcohol.alcohol_name }}</a></li>
+                    {% endfor %}
                 </ul>
                 <a class="btn-icon" href="#"><i class="fas fa-search"></i></a>
                 <a class="btn-icon" href="#"><i class="fas fa-user-circle"></i></a>
