@@ -18,3 +18,23 @@ var mySwiper = new Swiper('.swiper-container', {
         el: '.swiper-pagination',
     },
 })
+
+//  Navbar Active Link Toggler
+$('.nav-item').click(function() {
+    $('.nav-item').removeClass('active');               //  Remove active class off the one that has it
+    currentPage = `#${this.id}`;                        //  Set page/link ID
+    localStorage.setItem('currentPageId', currentPage); //  Add it to local storage to be called by function below
+});
+
+$( document ).ready(function() {
+    var storeId = localStorage.getItem('currentPageId'); //  Retrieve page/link ID from local storage 
+    if(storeId == '#logo') {                             //  Puts acitve class on home if logo is clicked
+        $('#home').addClass('active')
+    }
+    else if(storeId == '#') {                            //  If an item not in the navbar is clicked
+        return
+    }
+    else {                                               //  Adds the active class onto the click link after page re-load
+        $(storeId).addClass('active')
+    };
+});

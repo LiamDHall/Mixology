@@ -21,7 +21,7 @@
 <body>
     <!--Site Header-->
     <header class="site-header">
-        <a class="logo" href="{{ url_for('home') }}"><i class="fas fa-glass-martini-alt"></i> Mixology</a>
+        <a id="logo" class="logo nav-item" href="{{ url_for('home') }}"><i class="fas fa-glass-martini-alt"></i> Mixology</a>
         <!--Bootstrap Collapsible Menu-->
         <nav class="site-header__nav navbar-expand-lg">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-header-collapsible-navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,14 +30,14 @@
 
             <div id="site-header-collapsible-navbar" class="navbar-collapse collapse">
                 <ul class="site-header__navbar">
-                    <li><a href="{{ url_for('home') }}" class="active">Home</a></li>
+                    <li><a href="{{ url_for('home') }}" id="home" class="nav-item">Home</a></li>
                     {% for alcohol in alcohol_categories %}
-                        <li><a href="{{ url_for('category', alcohol_name=alcohol.alcohol_name) }}">{{ alcohol.alcohol_name }}</a></li>
+                        <li><a href="{{ url_for('category', alcohol_name=alcohol.alcohol_name) }}" id="{{ alcohol.alcohol_name.lower() }}" class="nav-item">{{ alcohol.alcohol_name }}</a></li>
                     {% endfor %}
                 </ul>
-                <a class="btn-icon" href="#"><i class="fas fa-search"></i></a>
-                <a class="btn-icon" href="#"><i class="fas fa-user-circle"></i></a>
-                <a class="cta" href="#">Register</a>
+                <a class="btn-icon nav-item" href="#"><i class="fas fa-search"></i></a>
+                <a class="btn-icon nav-item" href="#"><i class="fas fa-user-circle"></i></a>
+                <a class="cta nav-item" href="#">Register</a>
             </div>
         </nav>
     </header>
@@ -96,7 +96,7 @@
         </div>
     </footer>
     <!--JQuery-->
-    <script defer src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

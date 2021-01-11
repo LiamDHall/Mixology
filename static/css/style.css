@@ -128,8 +128,8 @@ ul {
 .site-header__navbar a:hover,
 .site-header__navbar a:active,
 .site-header__navbar .active {
-    border-bottom: 2px solid;
-    border-color: white;
+    border-bottom: 3px solid;
+    border-color: var(--brand-cta);
 }
 
 /*------------------------------------------------------Hero Image-- */
