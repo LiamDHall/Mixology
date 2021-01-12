@@ -36,8 +36,16 @@
                     {% endfor %}
                 </ul>
                 <a class="btn-icon nav-item" href="#"><i class="fas fa-search"></i></a>
-                <a class="btn-icon nav-item" href="#"><i class="fas fa-user-circle"></i></a>
-                <a class="cta nav-item" href="#">Register</a>
+                <div class="nav-dropdown">
+                    <a class="nav-dropdown_btn btn-icon nav-item" href="#"><i class="fas fa-user-circle"></i></a>
+                    <div class="nav-dropdown_menu">
+                        <a href="#" class="nav-dropdown_menu-item">Profile</a>
+                        <a href="#" class="nav-dropdown_menu-item">Logout</a>
+                        <a href="#" class="nav-dropdown_menu-item">Register</a>
+                        <a href="#" class="nav-dropdown_menu-item">Login</a>
+                    </div>
+                </div>
+                <a class="cta" href="#">Register</a>
             </div>
         </nav>
     </header>
