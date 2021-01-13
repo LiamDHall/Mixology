@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="center-page">
+    <h1 class="page-title">Login</h1>
+    <form id="login-form" class="form" action="#" target="_blank" method="post">
+        <div class="row">
+            <div class="col-12">
+                <label for="login-username" class="form_label">Username</label>
+                <input type="text" name="login-username" class="form_input" id="login-username" placeholder="examplebartender" maxlength="25" required>
+            </div>
+            <div class="col-12">
+                <label for="login-password" class="form_label">Password</label>
+                <input type="passsword" name="login-password" class="form_input" id="login-password" placeholder="Type your passsword here" maxlength="25" required>
+            </div>
+            <input type="submit" class="cta cta--form" id="login-submit" value="Login" aria-label="login button">
+        </div>  
+    </form>
+    <p class="center-text">Don't have an account? <strong>Sign up <a href="{{ url_for('register') }}" class="brand-color bold">here</a></strong></p>
+</section>
+{% endblock %}
