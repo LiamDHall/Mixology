@@ -223,6 +223,12 @@ ul {
     clear: both;
 }
 
+.page-icon {
+    text-align: center;
+    font-size: 10rem;
+    color: var(--brand-color);
+}
+
 /*------------------------------------------------------Hero Image-- */
 .hero {
     width: 100%;
