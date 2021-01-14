@@ -442,6 +442,14 @@ ul {
    border-top-right-radius: 7.5px;
 }
 
+.rec-card__bookmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 3rem;
+    color: var(--brand-cta)
+}
+
 .rec-card__info {
     width: 100%;
     padding: 20px 15px;
