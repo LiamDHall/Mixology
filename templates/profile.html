@@ -24,21 +24,23 @@
 
 <!--User Cocktails-->
 <section class="section-spacing">
-    <div class="rec-carsousel_header">
-        <h2 class="rec-carsousel_title inline-block">Your Cocktails</h2>
+    <div class="rec-carsousel__header">
+        <h2 class="rec-carsousel__title inline-block">Your Cocktails</h2>
         <a href="#" class="rec-carsousel__cta cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
     </div>
     <hr class="page-line page-line--brand">
+
     <!--User Cocktails Filter-->
-    <div class="rec-carsousel_filter float-left">
-        <h3 class="rec-carsousel_tag inline-block">Filter:</h3>
+    <div class="rec-carsousel__filter float-left">
+        <h3 class="rec-carsousel__tag inline-block">Filter:</h3>
         {% for alcohol in alcohol_categories %}
             <button class="cta cta--filter">{{ alcohol.alcohol_name }}</button>
         {% endfor %}
     </div>
+
     <!--User Cocktails Sort-->
-    <div class="rec-carsousel_sort float-right">
-        <h3 class="rec-carsousel_tag inline-block">Sort:</h3>
+    <div class="rec-carsousel__sort float-right">
+        <h3 class="rec-carsousel__tag inline-block">Sort:</h3>
         <button class="cta cta--filter">A-Z</button>
         <button class="cta cta--filter">Rating</button>
         <button class="cta cta--filter">Popularity</button>
@@ -47,20 +49,22 @@
 
 <!--User Bookmarks-->
 <section class="section-spacing">
-    <div class="rec-carsousel_header">
-        <h2 class="rec-carsousel_title inline-block">Your Bookmarks</h2>
+    <div class="rec-carsousel__header">
+        <h2 class="rec-carsousel__title inline-block">Your Bookmarks</h2>
     </div>
     <hr class="page-line page-line--brand">
+
     <!--User Bookmark Filter-->
-    <div class="rec-carsousel_filter float-left">
-        <h3 class="rec-carsousel_tag inline-block">Filter:</h3>
+    <div class="rec-carsousel__filter float-left">
+        <h3 class="rec-carsousel__tag inline-block">Filter:</h3>
         {% for alcohol in alcohol_categories %}
             <button class="cta cta--filter">{{ alcohol.alcohol_name }}</button>
         {% endfor %}
     </div>
+
     <!--User Bookmark Sort-->
-    <div class="rec-carsousel_sort float-right">
-        <h3 class="rec-carsousel_tag inline-block">Sort:</h3>
+    <div class="rec-carsousel__sort float-right">
+        <h3 class="rec-carsousel__tag inline-block">Sort:</h3>
         <button class="cta cta--filter">A-Z</button>
         <button class="cta cta--filter">Rating</button>
         <button class="cta cta--filter">Popularity</button>

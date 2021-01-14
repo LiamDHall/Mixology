@@ -22,6 +22,7 @@
     <!--Site Header-->
     <header class="site-header">
         <a id="logo" class="logo nav-item" href="{{ url_for('home') }}"><i class="fas fa-glass-martini-alt"></i> Mixology</a>
+
         <!--Bootstrap Collapsible Menu-->
         <nav class="site-header__nav navbar-expand-lg">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-header-collapsible-navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,12 +38,12 @@
                 </ul>
                 <a class="btn-icon nav-item" href="#"><i class="fas fa-search"></i></a>
                 <div class="nav-dropdown">
-                    <a class="nav-dropdown_btn btn-icon nav-item" href="#"><i class="fas fa-user-circle"></i></a>
-                    <div class="nav-dropdown_menu">
-                        <a href="#" class="nav-dropdown_menu-item">Profile</a>
-                        <a href="#" class="nav-dropdown_menu-item">Logout</a>
-                        <a href="#" class="nav-dropdown_menu-item">Register</a>
-                        <a href="#" class="nav-dropdown_menu-item">Login</a>
+                    <a class="nav-dropdown__btn btn-icon nav-item" href="#"><i class="fas fa-user-circle"></i></a>
+                    <div class="nav-dropdown__menu">
+                        <a href="{{ url_for('profile') }}" class="nav-dropdown_menu-item">Profile</a>
+                        <a href="#" class="nav-dropdown__menu-item">Logout</a>
+                        <a href="#" class="nav-dropdown__menu-item">Register</a>
+                        <a href="#" class="nav-dropdown__menu-item">Login</a>
                     </div>
                 </div>
                 <a class="btn-icon nav-item" href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i></a>
@@ -52,15 +53,16 @@
     </header>
     <main>
     {% block content %}
+
     {% endblock %}
     </main>
     <!--Footer-->
     <footer class="footer">
-        <div class="footer_container row">
+        <div class="footer__container row">
             <!--Site Map-->
             <div class="col-3">
                 <h4>Site Map</h4>
-                <ul class="footer_list">
+                <ul class="footer__list">
                     <li><a href="#"><i class="fas fa-search"></i> Search</a></li>
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Vodka</a></li>
@@ -73,7 +75,7 @@
              <!--Account-->
             <div class="col-3">
                 <h4>Account</h4>
-                <ul class="footer_list">
+                <ul class="footer__list">
                     <li><a href="#">Login</a></li>
                     <li><a href="#">Register</a></li>
                     <li><a href="#">Profile</a></li>
@@ -95,7 +97,7 @@
             <!--Social-->
             <div class="col-3">
                 <h4>Find Us On</h4>
-                <ul class="footer_social footer_list">
+                <ul class="footer__social footer__list">
                     <li><a href="https://www.facebook.com/" target="_blank" aria-label="open our facebook page"><i class="fab fa-facebook-square"></i></a></li>
                     <li><a href="https://www.youtube.com/" target="_blank" aria-label="open our youtube page"><i class="fab fa-youtube"></i></a></li>
                     <li><a href="https://www.twitter.com/" target="_blank" aria-label="open our twitter page"><i class="fab fa-twitter"></i></a></li>
