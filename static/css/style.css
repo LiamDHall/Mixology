@@ -96,6 +96,13 @@ ul {
     font-weight: 700;
     padding: 10px 15px;
     border-radius: 6px;
+    border: 0px;
+}
+
+.cta--create {
+    background-color: limegreen;
+    padding: 12.5px 17.5px;
+    color: white;
 }
 
 .cta--form {
@@ -104,6 +111,17 @@ ul {
     width: 50%;
     padding: 20px 15px;
     font-size: 1.25rem;
+}
+
+.cta--delete {
+    background: red;
+    color: white;
+}
+
+.cta--filter {
+    border: 2px solid var(--brand-color);
+    background: transparent;
+    color: var(--brand-color);
 }
 
 .btn-icon {
@@ -198,6 +216,11 @@ ul {
 .page-tagline {
     font-size: 1.5rem;
     padding-top: 20px;;
+}
+
+.section-spacing {
+    padding-top: 50px;
+    clear: both;
 }
 
 /*------------------------------------------------------Hero Image-- */
@@ -298,6 +321,17 @@ ul {
 .rec-carsousel {
     margin-top: 25px;
     position: relative;
+}
+
+.rec-carsousel_header {
+    position: relative;
+    width: 100%;
+}
+
+.rec-carsousel__cta {
+    position: absolute;
+    right: 20px;
+    top: 7.5px;
 }
 
 .rec-carsousel_title {
@@ -421,6 +455,41 @@ ul {
 
 .rec-card_cta {
     font-size: 1.5rem;
+}
+/*------------------------------------------------------Profile--*/
+.profile {
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+}
+
+.profile__container--img {
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.profile__img {
+    width: 300px;
+    height: 300px;
+}
+
+.profile__container--text {
+    text-align: left;
+    position: relative;
+    bottom: -20px;
+    margin-left: 50px;
+}
+
+.profile__name {
+    font-size: 5rem;
+}
+
+.profile__info {
+    font-size: 1.5rem;
+}
+
+.profile__confirmation {
+    margin-top: 20px;
 }
 
 /*------------------------------------------------------Footer--*/

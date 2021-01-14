@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<!--Profile Info-->
+<section class="section-spacing">
+    <div class="profile">
+        <div class="profile__container profile__container--img inline-block">
+            <img class="profile__img" src="../static/images/pornstar-martini.jpg">
+        </div>
+        <div class="profile__container profile__container--text inline-block">
+            <h1 class="profile__name">Username</h1>
+            <p class="profile__info">Number of Recipes: <span>000 add link from template</span></p>
+            <p class="profile__info">Date Joined: <span>DD/MM/YYYY add link from template</span></p>
+            <div class="profile__actions">
+                <button class="cta"><i class="fas fa-user-edit"></i> Edit</button>
+                <button class="cta cta--delete"><i class="fas fa-times"></i> Delete Profile</button>
+            </div>
+            <div class="profile__confirmation">
+                <button class="cta cta--delete">Cancel</button>
+                <button class="cta cta--create">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--User Cocktails-->
+<section class="section-spacing">
+    <div class="rec-carsousel_header">
+        <h2 class="rec-carsousel_title inline-block">Your Cocktails</h2>
+        <a href="#" class="rec-carsousel__cta cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
+    </div>
+    <hr class="page-line page-line--brand">
+    <!--User Cocktails Filter-->
+    <div class="rec-carsousel_filter float-left">
+        <h3 class="rec-carsousel_tag inline-block">Filter:</h3>
+        {% for alcohol in alcohol_categories %}
+            <button class="cta cta--filter">{{ alcohol.alcohol_name }}</button>
+        {% endfor %}
+    </div>
+    <!--User Cocktails Sort-->
+    <div class="rec-carsousel_sort float-right">
+        <h3 class="rec-carsousel_tag inline-block">Sort:</h3>
+        <button class="cta cta--filter">A-Z</button>
+        <button class="cta cta--filter">Rating</button>
+        <button class="cta cta--filter">Popularity</button>
+    </div>
+</section>
+
+<!--User Bookmarks-->
+<section class="section-spacing">
+    <div class="rec-carsousel_header">
+        <h2 class="rec-carsousel_title inline-block">Your Bookmarks</h2>
+    </div>
+    <hr class="page-line page-line--brand">
+    <!--User Bookmark Filter-->
+    <div class="rec-carsousel_filter float-left">
+        <h3 class="rec-carsousel_tag inline-block">Filter:</h3>
+        {% for alcohol in alcohol_categories %}
+            <button class="cta cta--filter">{{ alcohol.alcohol_name }}</button>
+        {% endfor %}
+    </div>
+    <!--User Bookmark Sort-->
+    <div class="rec-carsousel_sort float-right">
+        <h3 class="rec-carsousel_tag inline-block">Sort:</h3>
+        <button class="cta cta--filter">A-Z</button>
+        <button class="cta cta--filter">Rating</button>
+        <button class="cta cta--filter">Popularity</button>
+    </div>
+</section> 
+{% endblock %}
