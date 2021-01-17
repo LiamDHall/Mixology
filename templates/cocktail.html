@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+    <!--Cocktail Header-->
+    <section class="cocktail-header">
+        <h1 class="page-title inline-block">Cocktail Name</h1>
+        <i class="cocktail-header__bookmark far fa-bookmark inline-block"></i>
+        <div class="cocktail-header__star-rating">
+            <i class="fas fa-star"></i>
+        </div>
+        <p class="cocktail-header__author"><a href="#">by USERNAME</a></p>
+        <button class="cta cta--cocktail">Rate This Cocktail</button>
+    </section>
+
+    <!--Cocktail Info-->
+    <section class="cocktail">
+        <div class="cocktail__row row">
+
+            <!--Cocktail Ingredients-->
+            <div class="cocktail__ingredients col-4">
+                <h2 class="cocktail__item-title">Ingredients</h2>
+                <ul class="cocktail__info">
+                    <li><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                </ul>
+                <div class="cocktail__affiliate">
+                    <h4>Get What You Need</h4>
+                    <p>Find a wide range of alcohol and mixers here:</p>
+                    <a class="bottom-mar" href="#">www.website.com</a>
+                </div>
+            </div>
+
+            <!--Cocktail Tools-->
+            <div class="cocktail__tools col-4">
+                <h2 class="cocktail__item-title">Tools</h2>
+                <ul class="cocktail__info">
+                    <li><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                </ul>
+                <div class="cocktail__affiliate">
+                    <h4>Missing a Tool</h4>
+                    <p>Grab all the tools you need:</p>
+                    <a href="#">www.website.com</a>
+                </div>
+            </div>
+            <div class="cocktail__img-contianer col-4">
+                <img class="cocktail__img" src="/static/images/bramble.jpg">
+            </div>
+        </div>
+
+        <!--Cocktail Intructions-->
+        <div class="cocktail__row row">
+            <div class="cocktail__intructions col-8">
+                <h2 class="cocktail__item-title">Intructions</h2>
+                <ol class="cocktail__info">
+                    <li><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                </ol>
+            </div>
+
+            <!--Cocktail Tips-->
+            <div class="cocktail__tips col-4">
+                <h2 class="cocktail__item-title">Tips</h2>
+                <div class="cocktail__tips-wrapper">
+                    <ul class="cocktail__tip-list">
+                        <li>
+                            <div class="tip">
+                                <div class="tip__profile-container inline-block">
+                                    <img class="tip__profile-img" src="../static/images/pornstar-martini.jpg">
+                                </div>
+                                <p class="tip__text inline-block">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.<span class="tip__author"><br>by <a href="#">USERNAME</a></span></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--Leave a Tip Form-->
+                <div>
+                    <form id="tip-form" action="#" target="_blank" method="post">
+                        <label class="tip-form-label" for="tip-form-text">Leave a Tip</label>
+                        <textarea name="tip-form-text" class="form__text-area" id="tip-form-text" rows="3" placeholder="Type your tip here" maxlength="200"></textarea>
+                        <input type="submit" class="cta cta--form" id="tip-submit" value="Leave Tip" aria-label="login button">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -52,6 +52,10 @@ ul {
     display: inline-block;
 }
 
+.block {
+    display: block;
+}
+
 .center-text {
     text-align: center;
 }
@@ -110,6 +114,11 @@ ul {
     margin: 35px auto;
     width: 50%;
     padding: 20px 15px;
+    font-size: 1.25rem;
+}
+
+.cta--cocktail {
+    padding: 20px;
     font-size: 1.25rem;
 }
 
@@ -207,6 +216,10 @@ ul {
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.page-title {
+    font-size: 3rem;
 }
 
 .page-title {
@@ -323,6 +336,14 @@ ul {
     margin-right: 30px;
 }
 
+.form__text-area {
+    width: 100%;
+    display: block;
+    border: 2px solid var(--brand-color);
+    border-radius: 5px;
+    padding: 15px;
+}
+
 /*------------------------------------------------------Recipe Carsousel--*/
 .rec-carsousel {
     margin-top: 25px;
@@ -413,8 +434,6 @@ ul {
     display: none;
 }
 
-
-
 /*------------------------------------------------------Product Card--*/
 .rec-card {
     background: purple;
@@ -470,6 +489,7 @@ ul {
 .rec-card__cta {
     font-size: 1.5rem;
 }
+
 /*------------------------------------------------------Profile--*/
 .profile {
     margin: 0 auto;
@@ -504,6 +524,99 @@ ul {
 
 .profile__confirmation {
     margin-top: 20px;
+}
+
+/*------------------------------------------------------Cocktail--*/
+.cocktail,
+.cocktail-header {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.cocktail-header__bookmark {
+    font-size: 2.5rem;
+    margin-left: 30px;
+}
+
+.cocktail-header__star-rating {
+    margin-bottom: 16px;
+    font-size: 2rem;
+    color: var(--brand-cta);
+}
+
+.cocktail-header__author {
+    font-size: 1.5rem;
+}
+
+.cocktail__item-title {
+    margin-bottom: 30px;
+}
+
+.cocktail__row {
+    margin-top: 100px;
+}
+
+.cocktail__img-contianer {
+    text-align: center;
+}
+
+.cocktail__img {
+    width: 900px;
+    height: 900px;
+}
+
+.cocktail__info {
+    font-size: 1.5rem;
+    padding-inline-start: 25px;
+}
+
+.cocktail__checkbox {
+    font-size: 2rem;
+}
+
+.cocktail__affiliate {
+    margin-top: 50px;
+}
+
+.cocktail__tips-wrapper {
+    margin-bottom: 100px;
+}
+
+.cocktail__tip-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+/*--Tips--*/
+.tip {
+    position: relative;
+}
+
+.tip__profile-container {
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.tip__profile-img {
+    height: 100px;
+    width: 100px;
+}
+
+.tip__text {
+    position: absolute;
+    margin-left: 20px;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+}
+
+.tip__author {
+    margin: 5px 0 0 120px;
+    font-size: 1.25rem;
+}
+
+.tip-form-label {
+    font-size: 1.5rem;
+    font-weight: 500;
 }
 
 /*------------------------------------------------------Footer--*/
