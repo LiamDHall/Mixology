@@ -6,20 +6,27 @@
     </div>
     <h1 class="page-title">Sign Up</h1>
     <h2 class="page-tagline center-text">Allows you to bookmark your favourite recipes and add your own.</h2>
-    <form id="login-form" class="form" action="#" target="_blank" method="post">
+    <form id="login-form" class="form" action="POST" target="{{ url_for('register') }}" method="post">
+         <!--Reg Usernane-->
         <div class="row">
             <div class="col-12">
-                <label for="signup-username" class="form__label">Username <span class="form__input-info">Max 12 characters.</span></label>
-                <input type="text" name="signup-username" class="form__input" id="signup-username" placeholder="examplebartender" maxlength="12" required>
+                <label for="reg-username" class="form__label">Username <span class="form__input-info">Max 12 characters.</span></label>
+                <input type="text" name="reg-username" class="form__input" id="reg-username" placeholder="examplebartender" maxlength="12" required>
             </div>
+        </div>
+
+        <!--Reg Password-->
+        <div class="row">
             <div class="col-12">
-                <label for="signup-password" class="form__label">Password <span class="form__input-info">No specail characters.</span></label>
-                <input type="passsword" name="signup-password" class="form__input" id="signup-password" placeholder="Type your passsword here" maxlength="25" required>
+                <label for="reg-password" class="form__label">Password <span class="form__input-info">No specail characters.</span></label>
+                <input type="password" name="reg-password" class="form__input" id="reg-password" placeholder="Type your passsword here" maxlength="25" required>
+                
+                <!--Reg ConfirmPassword-->
                 <label for="confirm-password" class="form__label">Confirm Password</label>
-                <input type="passsword" name="confirm-password" class="form__input" id="confirm-password" placeholder="Make sure it matches" maxlength="25" required>
+                <input type="password" name="confirm-password" class="form__input" id="confirm-password" placeholder="Make sure it matches" maxlength="25" required>
             </div>
             <input type="submit" class="cta cta--form" id="signup-submit" value="Sign Up" aria-label="sign up button">
-        </div>  
+        </div> 
     </form>
     <p class="center-text">Already have an account? <strong>Login <a href="{{ url_for('login') }}" class="brand-color bold">here</a></strong></p>
 </section>
