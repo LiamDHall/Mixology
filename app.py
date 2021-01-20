@@ -3,6 +3,7 @@ from flask import (
     Flask, flash, render_template, redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
@@ -42,8 +43,29 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        # Check username isnt already taken by another user
+        user_in_db = mongo.db.users.find_one(
+            {"username": request.form.get("reg-username").lower()})
+
+        # Tells user if the username is taken
+        if user_in_db:
+            flash("Username unavailable. Please choose another.")
+            return redirect(url_for("register"))
+
+        # Stages the form information into the correct formate for db
+        register = {
+            "username": request.form.get("reg-username").lower(),
+            "password": generate_password_hash(request.form.get("reg-password"))
+        }
+
+        # Add staged form information to the db
+        mongo.db.users.insert_one(register)
+
+        # Tells user they are successfil register
+        flash("Success! Thank You for signing up to Mixology")
     return render_template("register.html")
 
 

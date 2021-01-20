@@ -331,9 +331,21 @@ ul {
 }
 
 .form__input-info {
-    float: right;
     font-weight: 300;
+}
+
+.form__input-info--right {
+    float: right;
     margin-right: 30px;
+}
+
+.form__input-info--bottom {
+    margin: 10px 0 0 15px;
+}
+
+.form__input-check {
+    margin: 0 auto;
+    margin-top: 16px;
 }
 
 .form__text-area {
