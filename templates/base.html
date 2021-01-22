@@ -38,18 +38,40 @@
                 </ul>
                 <a class="btn-icon nav-item" href="#"><i class="fas fa-search"></i></a>
                 <div class="nav-dropdown">
-                    <a class="nav-dropdown__btn btn-icon nav-item" href="#"><i class="fas fa-user-circle"></i></a>
+                    <a class="nav-dropdown__btn btn-icon nav-item" href="#"><i class="nav-dropdown__profile fas fa-user-circle"></i>
+                        <span class="nav-dropdown__profile nav-dropdown__profile--username"> 
+                            {% if session.user %} 
+                                {{ session.user }}
+                            {% else %}
+                                Log In
+                            {% endif %}
+                        </span>
+                    </a>
                     <div class="nav-dropdown__menu">
-                        <a href="{{ url_for('profile') }}" class="nav-dropdown_menu-item">Profile</a>
-                        <a href="#" class="nav-dropdown__menu-item">Logout</a>
-                        <a href="#" class="nav-dropdown__menu-item">Register</a>
-                        <a href="#" class="nav-dropdown__menu-item">Login</a>
+                        {% if session.user %} 
+                            <a href="{{ url_for('profile') }}" class="nav-dropdown__menu-item"><i class="fas fa-user-circle"></i> Profile</a>
+                            <a href="{{ url_for('profile') }}" class="nav-dropdown__menu-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        {% else %}
+                            <a href="{{ url_for('register') }}" class="nav-dropdown__menu-item">Register</a>
+                        {% endif %}
                     </div>
                 </div>
-                <a class="btn-icon nav-item" href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i></a>
-                <a class="cta" href="{{ url_for('register') }}">Register</a>
+                {% if session.user %}
+                    <a href="#" class="cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
+                {% else %}
+                    <a class="cta" href="{{ url_for('register') }}">Register</a>
+                {% endif %}
             </div>
         </nav>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-massage under-header">
+                        <h4>{{ message }}</h4>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </header>
     <main>
     {% block content %}
@@ -76,10 +98,13 @@
             <div class="col-3">
                 <h4>Account</h4>
                 <ul class="footer__list">
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Logout</a></li>
+                    {% if session.user %}
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Logout</a></li>
+                    {% else %}
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Register</a></li>
+                    {% endif %}
                 </ul>
             </div>
             <!--Referral Links-->

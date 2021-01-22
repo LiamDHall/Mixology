@@ -36,6 +36,10 @@ ul {
     margin-bottom: 16px;
 }
 
+.under-header {
+    margin-top: 67.35;
+}
+
 .section {
     margin-top: 20px;
 }
@@ -190,14 +194,28 @@ ul {
     display: inline-block;
 }
 
+.nav-dropdown__btn {
+    display: table;
+}
+
+.nav-dropdown__profile {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.nav-dropdown__profile--username {
+    font-size: 1.25rem;
+    padding-left: 10px;
+}
+
 .nav-dropdown__menu {
     display: none;
     position: absolute;
-    left: -50%;
     text-align: center;
     background-color: var(--brand-color);
     border-radius: 10px;
     z-index: 120;
+    width: 100%;
 }
 
 .nav-dropdown__menu-item {
