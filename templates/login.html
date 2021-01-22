@@ -5,7 +5,7 @@
         <i class="far fa-user-circle"></i>
     </div>
     <h1 class="page-title">Login</h1>
-    <form id="login-form" class="form" action="#" target="_blank" method="post">
+    <form id="login-form" class="form" action="{{ url_for('login') }}" method="POST">
         <div class="row">
             <div class="col-12">
                 <label for="login-username" class="form__label">Username</label>
@@ -13,7 +13,7 @@
             </div>
             <div class="col-12">
                 <label for="login-password" class="form__label">Password</label>
-                <input type="passsword" name="login-password" class="form__input" id="login-password" placeholder="Type your passsword here" maxlength="25" required>
+                <input type="password" name="login-password" class="form__input" id="login-password" placeholder="Type your passsword here" maxlength="25" required>
             </div>
             <input type="submit" class="cta cta--form" id="login-submit" value="Login" aria-label="login button">
         </div>  

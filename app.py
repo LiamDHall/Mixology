@@ -38,8 +38,32 @@ def category(alcohol_name):
         "category.html", alcohol=alcohol)
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        # Check username is in database
+        user_in_db = mongo.db.users.find_one(
+            {"username": request.form.get("login-username").lower()})
+
+        if user_in_db:
+            # Check password of username matches password in datebase
+            if check_password_hash(user_in_db["password"], request.form.get("login-password")):
+                # If the password matches
+                session["user"] = request.form.get("login-username").lower()
+                flash("Welcome, {}".format(request.form.get("login-username")))
+                # Return the user to the home page logged in
+                return redirect(url_for("home"))
+
+            else:
+                # If passwords don't matach
+                flash("Username or Password is Incorrect")
+                return redirect(url_for("login"))
+
+        else:
+            # If username isn't in datebase
+            flash("Username or Password is Incorrect")
+            return redirect(url_for("login"))
+
     return render_template("login.html")
 
 
@@ -77,6 +101,7 @@ def profile():
 @app.route("/cocktail")
 def cocktail():
     return render_template("cocktail.html")
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
