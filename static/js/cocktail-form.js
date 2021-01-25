@@ -86,13 +86,13 @@ $(document).on('click', '#add-garnish', function() {
     var garnishInput = `
         <li class="garnish">
             <!--Amount-->
-            <input type="text" id="garish-amount-${garnishCount + 1}" name="garish-amount-${garnishCount + 1}" 
+            <input type="text" id="garnish-amount-${garnishCount + 1}" name="garnish-amount-${garnishCount + 1}" 
                 class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" 
-                placeholder="1" aria-label="enter garish amount" required>
+                placeholder="1" aria-label="enter garnish amount" required>
             
             <!--Name-->
-            <input type="text" id="garish-name-${garnishCount + 1}" name="garish-name-${garnishCount + 1}" 
-                class="form-cocktail__input" placeholder="Garnish Name" aria-label="enter garish name" required>
+            <input type="text" id="garnish-name-${garnishCount + 1}" name="garnish-name-${garnishCount + 1}" 
+                class="form-cocktail__input" placeholder="Garnish Name" aria-label="enter garnish name" required>
             
             <!--Remove Item Button-->
             <button class="remove-garnish cocktail-btn cocktail-btn--remove" type="button">
@@ -129,7 +129,7 @@ $(document).on('click', '.remove-garnish', function() {
     if (garnishCount == 0) {
         noGarnish = `
             <li id="no-garnish" class="no-bullet">
-                <input type="text" id="garish-name-1" name="garish-name-1" class="no-item" value="No Garnish" readonly>
+                <input type="text" id="garnish-name-1" name="garnish-name-1" class="no-item" value="No Garnish" readonly>
             </li>`;
         $('#cocktail-garnish').append(noGarnish);
     }
