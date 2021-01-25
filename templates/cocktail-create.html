@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% block content %}
+    <!--Cocktail Header-->
+    <section class="cocktail-header">
+        <h1>Cocktail Creation</h1>
+        <form id="cocktail-create" class="form-cocktail" action="{{ url_for('cocktail_create') }}" method="POST">
+            <input type="text" name="cocktail-name" class="form-cocktail__input form-cocktail__input--title" id="cocktail-name" placeholder="Enter Cocktail Name" maxlength="20" required>
+            <i class="cocktail-header__bookmark far fa-bookmark inline-block"></i>
+            <div class="cocktail-header__star-rating">
+                <p>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(No rating yets)</span>
+                </p>
+            </div>
+            <p class="cocktail-header__author">by <a href="#">{{ session.user }}</a></p>
+
+        <!--Cocktail Info-->
+            <div class="cocktail row">
+
+                <!--Cocktail Ingredients-->
+                <div class="cocktail__ingredients col-5">
+                    <h2 class="cocktail__item-title">Ingredients</h2>
+
+                    <!--2 Hard coded inputs which can't be removed as all must cocktail have at least 2 ingrdients-->
+                    <ul id="cocktail-ingredients" class="cocktail__info">
+                        <li class="ingredient">
+                            <input type="text" id="ingredient-amount-1" name="ingredient-amount-1" class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="25" required>
+                            <select id="ingredient-unit-1" name="ingredient-unit-1" class="form-cocktail__input" required>
+                                <option value="ml">ml</option>
+                                <option value="tsp">tsp</option>
+                                <option value="dashes">dash/es</option>
+                                <option value="na">n/a</option>
+                            </select>
+                            <input type="text" id="ingredient-name-1" name="ingredient-name-1" class="form-cocktail__input" placeholder="Main Alcohol" required>
+                            <select name="alcohol" id="alcohol" class="form-cocktail__input" required>
+                                <option value="vodka">Vodka</option>
+                                <option value="whiskey">Whiskey</option>
+                                <option value="gin">Gin</option>
+                                <option value="rum">Rum</option>
+                                <option value="tequila">Tequila</option>
+                            </select>
+                        </li>
+                        <li class="ingredient">
+                            <input type="text" id="ingredient-amount-2" name="ingredient-amount-2" class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="12.5" required>
+                            <select name="measurement-2" id="measurement-2" class="form-cocktail__input" required>
+                                <option value="ml">ml</option>
+                                <option value="tsp">tsp</option>
+                                <option value="dashes">dash/es</option>
+                                <option value="na">n/a</option>
+                            </select>
+                            <input type="text" id="ingredient-name-2" name="ingredient-name-2" class="form-cocktail__input" placeholder="Ingredient Name" required>
+                        </li>
+                    </ul>
+                    <button id="add-ingredient" class="cocktail-btn cocktail-btn--add" type="button"><i class="fas fa-plus-circle"></i> Add Ingredient</button>
+
+                    <!--Cocktail Garnish-->
+                    <h3 class="cocktail__item-title">Garnish</h3>
+                    <ul id="cocktail-garnish" class="cocktail__info">
+                        <li class="garnish">
+                            <input type="text" id="garish-amount-1" name="garish-amount-1" class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="1" required>
+                            <input type="text" id="garish-name-1" name="garish-name-1" class="form-cocktail__input" placeholder="Garnish Name" required>
+                            <button class="remove-garnish cocktail-btn cocktail-btn--remove" type="button"><i class="fas fa-minus-circle"></i> Remove</button>
+                        </li>
+                    </ul>
+                    <button id="add-garnish" class="cocktail-btn cocktail-btn--add" type="button"><i class="fas fa-plus-circle"></i> Add Garnish</button>
+                </div>
+
+                <!--Cocktail Tools-->
+                <div class="cocktail__tools col-3">
+                    <h2 class="cocktail__item-title">Tools</h2>
+                    <ul id="cocktail-tools" class="cocktail__info">
+                        <li class="tool">
+                            <select name="tool-1" id="tool-1" class="form-cocktail__input" required>
+                                <option value="spirit measure">Spirit Measure</option>
+                                <option value="bar spoon">Bar Spoon</option>
+                                <option value="cocktail shaker & strainer">Cocktail Shaker & Strainer</option>
+                                <option value="strainer">Strainer</option>
+                                <option value="lighter">Lighter</option>
+                                <option value="bar knife">Bar Knife</option>
+                                <option value="muddler">Muddler</option>
+                                <option value="mixing glass">Mixing Glass</option>
+                            </select>
+                            <button class="remove-tool cocktail-btn cocktail-btn--remove" type="button"><i class="fas fa-minus-circle"></i> Remove</button>
+                        </li>
+                    </ul>
+                    <button id="add-tool" class="cocktail-btn cocktail-btn--add" type="button"><i class="fas fa-plus-circle"></i> Add Tool</button>
+                    
+                    <!--Cocktail Glass-->
+                    <h2 class="cocktail__item-title">Glass</h2>
+                    <ul class="cocktail__info">
+                        <li>
+                            <select name="glass" id="glass" class="form-cocktail__input" required>
+                                <option value="collins">Collins</option>
+                                <option value="martini">Martini</option>
+                                <option value="tumbler">Tumbler</option>
+                                <option value="baby cham">Baby Cham</option>
+                                <option value="baby cham & shot">Baby Cham & Shot</option>
+                                <option value="champagne">Champagne</option>
+                                <option value="shot">Shot</option>
+                                <option value="margarita">Margarita</option>
+                                <option value="hurricane">Hurricane</option>
+                            </select>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="cocktail__img-contianer col-4">
+                    <img class="cocktail__img" src="/static/images/bramble.jpg">
+                </div>
+            </div>
+
+            <!--Cocktail Instructions-->
+            <div class="cocktail__row row">
+                <div class="cocktail__instructions col-8">
+                    <h2 class="cocktail__item-title">Instructions</h2>
+                    <ol id="cocktail-instructions" class="cocktail__info">
+                        <li class="instruction">
+                           <textarea id="cocktail-instruction-text-1" name="cocktail-instruction-text-1" class="form-cocktail__input form-cocktail__text-area" rows="3" placeholder="Type Instructions Here" maxlength="400" required></textarea>
+                        </li>
+                    </ol>
+                    <button id="add-instruction" class="cocktail-btn cocktail-btn--add clear-both" type="button"><i class="fas fa-plus-circle"></i> Add Instruction</button>
+                </div>
+
+                <!--Cocktail Tips-->
+                <div class="cocktail__tips col-4">
+                    <h2 class="cocktail__item-title">Tips</h2>
+                    <ul id="cocktail-tips" class="cocktail__info">
+                        <li class="form-tip">
+                            <textarea id="cocktail-tip-text-1" name="cocktail-tip-text-1" class="form-cocktail__input form-cocktail__text-area form-cocktail__text-area--tip" rows="3" placeholder="Type your tip here" maxlength="200" required></textarea>
+                            <button class="remove-tip cocktail-btn cocktail-btn--remove float-right" type="button"><i class="fas fa-minus-circle" required></i> Remove</button>
+                        </li>
+                    </ul>
+                    <button id="add-tip" class="cocktail-btn cocktail-btn--add clear-both" type="button"><i class="fas fa-plus-circle"></i> Add Tip</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-cocktail__submit col-12">
+                    <a href="{{ url_for('profile') }}" class="cta cta--delete cta---lesser cta--submit">Cancel</a>
+                    <input type="submit" class="cta cta---greater cta--submit" value="Save For Later">
+                    <input type="submit" class="cta cta--create cta---greater cta--submit" value="Publish">
+                </div>
+            </div>
+        </form>
+    </section>
+{% endblock %}
+{% block scripts %}
+    <script defer src="{{ url_for('static', filename='js/create-cocktail.js') }}"></script>
+{% endblock %}
