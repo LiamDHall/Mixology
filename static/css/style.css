@@ -52,6 +52,10 @@ ul {
     float: left;
 }
 
+.clear-both {
+    clear: both;
+}
+
 .inline-block {
     display: inline-block;
 }
@@ -109,7 +113,6 @@ ul {
 
 .cta--create {
     background-color: limegreen;
-    padding: 12.5px 17.5px;
     color: white;
 }
 
@@ -129,6 +132,21 @@ ul {
 .cta--delete {
     background: red;
     color: white;
+}
+
+.cta---greater {
+    width: 20%;
+    margin-right: 20px;
+}
+
+.cta--submit {
+    font-size: 2rem;
+}
+
+.cta---lesser {
+    width: 20%;
+    padding: 12.5px 17.5px;
+    margin-right: 20px;
 }
 
 .cta--filter {
@@ -522,6 +540,10 @@ ul {
     font-size: 1.5rem;
 }
 
+.rec-card__star-rating p {
+    margin: 0;
+}
+
 .rec-card__col {
     text-align: right;
 }
@@ -567,9 +589,9 @@ ul {
 }
 
 /*------------------------------------------------------Cocktail--*/
-.cocktail,
-.cocktail-header {
-    width: 60%;
+.cocktail-header,
+.cocktail-body {
+    width: 80%;
     margin: 0 auto;
 }
 
@@ -657,6 +679,78 @@ ul {
 .tip-form-label {
     font-size: 1.5rem;
     font-weight: 500;
+}
+
+/*------------------------------------------------------Cocktail Add/Edit--*/
+.cocktail__feedback {
+    color: limegreen;
+}
+
+.cocktail-btn { 
+   background: none;
+   border: none;
+}
+
+.cocktail-btn:focus {
+    outline: none;
+}
+
+.cocktail-btn--remove {
+    font-size: 1.25rem;
+    color: red;
+}
+
+.cocktail__feedback,
+.cocktail-btn--add {
+   color: limegreen;
+   font-size: 1.5rem;
+   display: block;
+   padding: 16px 40px;
+}
+
+.form-cocktail__input {
+    border: 2px solid var(--brand-color);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 16px;
+}
+
+.form-cocktail__input--title {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.form-cocktail__input--amount {
+    width: 15%;
+    text-align: center;
+}
+
+.form-cocktail__text-area {
+    width: 85%;
+    border: 2px solid var(--brand-color);
+    border-radius: 5px;
+    padding: 15px;
+    display: block;
+    float: left;
+}
+
+.form-cocktail__submit {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.no-bullet {
+    list-style: none;
+}
+
+.no-item {
+    border: none;
+    color: var(--brand-cta);
+}
+
+.form-tip,
+.instruction {
+    height: 160px;
 }
 
 /*------------------------------------------------------Footer--*/
