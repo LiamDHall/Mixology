@@ -21,14 +21,15 @@ mongo = PyMongo(app)
 @app.context_processor
 def get_db_items():
     alcohol_categories = list(mongo.db.alcohol.find())
-    cocktails = list(mongo.db.cocktails.find())
-    return dict(alcohol_categories=alcohol_categories, cocktails=cocktails)
+    return dict(alcohol_categories=alcohol_categories)
 
 
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    all_cocktails = mongo.db.cocktails.find()
+    cocktails = all_cocktails.sort([("rating", -1), ("no_rating", -1)])
+    return render_template("home.html", cocktails=cocktails)
 
 
 @app.route("/<alcohol_name>", methods=["GET", "POST"])
@@ -101,6 +102,11 @@ def profile():
 @app.route("/cocktail")
 def cocktail():
     return render_template("cocktail.html")
+
+
+@app.route("/cocktail-create")
+def cocktail_create():
+    return render_template("cocktail-create.html")
 
 
 if __name__ == "__main__":
