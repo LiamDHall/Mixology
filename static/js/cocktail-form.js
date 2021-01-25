@@ -12,21 +12,23 @@ $(document).on('click', '#add-ingredient', function() {
     var ingredientInput = `
         <li class="ingredient">              
             <!--Amount-->
-            <input type="text" id="ingredient-amount-${ingredCount + 1}" name="ingredient-amount-${ingredCount + 1}" class="form-cocktail__input form-cocktail__input--amount"
-                pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="12.5" aria-label="enter amount of ingredient" required>
+            <input type="text" id="ingredient-amount-${ingredCount + 1}" name="ingredient-amount-${ingredCount + 1}" 
+                class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" 
+                placeholder="12.5" aria-label="enter amount of ingredient" required>
             
             <!--Unit-->
-            <select name="measurement-${ingredCount + 1}" id="measurement-${ingredCount + 1}" class="form-cocktail__input" aria-label="dropdown menu to select a unit type" required>
-                <option value="" disabled selected hidden>Unit</option>
-                <option value="ml">ml</option>
-                <option value="tsp">tsp</option>
-                <option value="dashes">dash/es</option>
-                <option value="na">n/a</option>
+            <select name="measurement-${ingredCount + 1}" id="measurement-${ingredCount + 1}" class="form-cocktail__input" 
+                aria-label="dropdown menu to select a unit type" required>
+                    <option value="" disabled selected hidden>Unit</option>
+                    <option value="ml">ml</option>
+                    <option value="tsp">tsp</option>
+                    <option value="dashes">dash/es</option>
+                    <option value="na">n/a</option>
             </select>
 
             <!--Name-->
-            <input type="text" id="ingredient-name-${ingredCount + 1}" name="ingredient-name-${ingredCount + 1}" class="form-cocktail__input" placeholder="Ingredient Name" 
-                aria-label="enter ingredient name" required>
+            <input type="text" id="ingredient-name-${ingredCount + 1}" name="ingredient-name-${ingredCount + 1}" 
+                class="form-cocktail__input" placeholder="Ingredient Name" aria-label="enter ingredient name" required>
 
             <button class="remove-ingredient cocktail-btn cocktail-btn--remove" type="button">
                 <i class="fas fa-minus-circle"></i> Remove
@@ -84,12 +86,13 @@ $(document).on('click', '#add-garnish', function() {
     var garnishInput = `
         <li class="garnish">
             <!--Amount-->
-            <input type="text" id="garish-amount-${garnishCount + 1}" name="garish-amount-${garnishCount + 1}" class="form-cocktail__input form-cocktail__input--amount" 
-                pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="1" aria-label="enter garish amount" required>
+            <input type="text" id="garish-amount-${garnishCount + 1}" name="garish-amount-${garnishCount + 1}" 
+                class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" 
+                placeholder="1" aria-label="enter garish amount" required>
             
             <!--Name-->
-            <input type="text" id="garish-name-${garnishCount + 1}" name="garish-name-${garnishCount + 1}" class="form-cocktail__input" placeholder="Garnish Name" 
-                aria-label="enter garish name" required>
+            <input type="text" id="garish-name-${garnishCount + 1}" name="garish-name-${garnishCount + 1}" 
+                class="form-cocktail__input" placeholder="Garnish Name" aria-label="enter garish name" required>
             
             <!--Remove Item Button-->
             <button class="remove-garnish cocktail-btn cocktail-btn--remove" type="button">
@@ -162,16 +165,17 @@ $(document).on('click', '#add-tool', function() {
     var toolSelect = `
         <li class="tool">
             <!--Tool Selector-->
-            <select name="tool-${toolCount + 1}" id="tool-${toolCount + 1}" class="form-cocktail__input" aria-label="dropdown to select tool" required>
-                <option value="" disabled selected hidden>Select Tool</option>
-                <option value="spirit measure">Spirit Measure</option>
-                <option value="bar spoon">Bar Spoon</option>
-                <option value="cocktail shaker & strainer">Cocktail Shaker & Strainer</option>
-                <option value="strainer">Strainer</option>
-                <option value="lighter">Lighter</option>
-                <option value="bar knife">Bar Knife</option>
-                <option value="muddler">Muddler</option>
-                <option value="mixing glass">Mixing Glass</option>
+            <select name="tool-${toolCount + 1}" id="tool-${toolCount + 1}" class="form-cocktail__input" 
+                aria-label="dropdown to select tool" required>
+                    <option value="" disabled selected hidden>Select Tool</option>
+                    <option value="spirit measure">Spirit Measure</option>
+                    <option value="bar spoon">Bar Spoon</option>
+                    <option value="cocktail shaker & strainer">Cocktail Shaker & Strainer</option>
+                    <option value="strainer">Strainer</option>
+                    <option value="lighter">Lighter</option>
+                    <option value="bar knife">Bar Knife</option>
+                    <option value="muddler">Muddler</option>
+                    <option value="mixing glass">Mixing Glass</option>
             </select>
 
             <!--Remove Tip-->
@@ -299,8 +303,8 @@ $(document).on('click', '#add-tip', function() {
     var tipInput = `
         <li class="form-tip">
             <textarea id="cocktail-tip-text-${tipCount + 1}" name="cocktail-tip-text-${tipCount + 1}" 
-                class="form-cocktail__input form-cocktail__text-area form-cocktail__text-area--tip" rows="3" placeholder="Type your tip here" 
-                maxlength="200" aria-label="enter tip" required></textarea>
+                class="form-cocktail__input form-cocktail__text-area form-cocktail__text-area--tip" rows="3" placeholder="Type your tip here" maxlength="200" 
+                aria-label="enter tip" required></textarea>
             
             <!--Remove Tip Button-->
             <button class="remove-tip cocktail-btn cocktail-btn--remove float-right" type="button">
