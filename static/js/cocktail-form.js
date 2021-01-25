@@ -10,18 +10,27 @@ var ingredCount = $('#cocktail-ingredients .ingredient').length
 $(document).on('click', '#add-ingredient', function() {
     var ingredFeedback = `<p id="ingred-feedback" class="cocktail__feedback">Max amount of Ingredients</p>`;
     var ingredientInput = `
-        <li class="ingredient">
-            <input type="text" id="ingredient-amount-${ingredCount + 1}" name="ingredient-amount-${ingredCount + 1}" 
-                class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="12.5" required>
-            <select id="ingredient-unit-${ingredCount + 1}" name="ingredient-unit-${ingredCount + 1}" class="form-cocktail__input" required>
+        <li class="ingredient">              
+            <!--Amount-->
+            <input type="text" id="ingredient-amount-${ingredCount + 1}" name="ingredient-amount-${ingredCount + 1}" class="form-cocktail__input form-cocktail__input--amount"
+                pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="12.5" aria-label="enter amount of ingredient" required>
+            
+            <!--Unit-->
+            <select name="measurement-${ingredCount + 1}" id="measurement-${ingredCount + 1}" class="form-cocktail__input" aria-label="dropdown menu to select a unit type" required>
+                <option value="" disabled selected hidden>Unit</option>
                 <option value="ml">ml</option>
                 <option value="tsp">tsp</option>
                 <option value="dashes">dash/es</option>
                 <option value="na">n/a</option>
             </select>
-            <input type="text" id="ingredient-name-${ingredCount + 1}" name="ingredient-name-${ingredCount + 1}" class="form-cocktail__input" 
-                placeholder="Ingredient Name" required>
-            <button class="remove-ingredient cocktail-btn cocktail-btn--remove" type="button"><i class="fas fa-minus-circle"></i> Remove</button>
+
+            <!--Name-->
+            <input type="text" id="ingredient-name-${ingredCount + 1}" name="ingredient-name-${ingredCount + 1}" class="form-cocktail__input" placeholder="Ingredient Name" 
+                aria-label="enter ingredient name" required>
+
+            <button class="remove-ingredient cocktail-btn cocktail-btn--remove" type="button">
+                <i class="fas fa-minus-circle"></i> Remove
+            </button>
         </li>`;
 
     $('#cocktail-ingredients').append(ingredientInput);
@@ -37,8 +46,10 @@ $(document).on('click', '.remove-ingredient', function() {
     $(this).closest(".ingredient").remove();
     
     if (ingredCount == 12) {
-        var ingredAdd = `<button id="add-ingredient" class="cocktail-btn cocktail-btn--add" type="button"><i class="fas fa-plus-circle"></i>  
-                            Add Ingredient</button>`;
+        var ingredAdd = `
+            <button id="add-ingredient" class="cocktail-btn cocktail-btn--add" type="button">
+                <i class="fas fa-plus-circle"></i> Add Ingredient
+            </button>`;
         $('#ingred-feedback').replaceWith(ingredAdd);
     }
 
@@ -72,11 +83,18 @@ $(document).on('click', '#add-garnish', function() {
     var garnishFeedback = `<p id="garnish-feedback" class="cocktail__feedback">Max amount of Garnishes</p>`;
     var garnishInput = `
         <li class="garnish">
+            <!--Amount-->
             <input type="text" id="garish-amount-${garnishCount + 1}" name="garish-amount-${garnishCount + 1}" class="form-cocktail__input form-cocktail__input--amount" 
-                pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="1" required>
+                pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="1" aria-label="enter garish amount" required>
+            
+            <!--Name-->
             <input type="text" id="garish-name-${garnishCount + 1}" name="garish-name-${garnishCount + 1}" class="form-cocktail__input" placeholder="Garnish Name" 
-                required>
-            <button class="remove-garnish cocktail-btn cocktail-btn--remove" type="button"><i class="fas fa-minus-circle"></i> Remove</button>
+                aria-label="enter garish name" required>
+            
+            <!--Remove Item Button-->
+            <button class="remove-garnish cocktail-btn cocktail-btn--remove" type="button">
+                <i class="fas fa-minus-circle"></i> Remove
+            </button>
         </li>`;
 
     if (garnishCount == 0) {
@@ -96,14 +114,20 @@ $(document).on('click', '.remove-garnish', function() {
     $(this).closest(".garnish").remove();   
     
     if (garnishCount == 3) {
-        var garnishAdd = `<button id="add-garnish" class="cocktail-btn cocktail-btn--add" type="button"><i class="fas fa-plus-circle"></i> Add Garnish</button>`;
+        var garnishAdd = `
+            <button id="add-garnish" class="cocktail-btn cocktail-btn--add" type="button">
+                <i class="fas fa-plus-circle"></i> Add Garnish
+            </button>`;
         $('#garnish-feedback').replaceWith(garnishAdd)
     }
     
     garnishCount -= 1
 
     if (garnishCount == 0) {
-        noGarnish = `<li id="no-garnish" class="no-bullet"><input type="text" id="garish-name-1" name="garish-name-1" class="no-item" value="No Garnish" readonly></li>`
+        noGarnish = `
+            <li id="no-garnish" class="no-bullet">
+                <input type="text" id="garish-name-1" name="garish-name-1" class="no-item" value="No Garnish" readonly>
+            </li>`;
         $('#cocktail-garnish').append(noGarnish);
     }
 
@@ -137,7 +161,9 @@ $(document).on('click', '#add-tool', function() {
     var toolFeedback = `<p id="tool-feedback" class="cocktail__feedback">Max amount of Tools</p>`;
     var toolSelect = `
         <li class="tool">
-            <select id="tool-${toolCount + 1}" name="tool-${toolCount + 1}" class="form-cocktail__input" required>
+            <!--Tool Selector-->
+            <select name="tool-${toolCount + 1}" id="tool-${toolCount + 1}" class="form-cocktail__input" aria-label="dropdown to select tool" required>
+                <option value="" disabled selected hidden>Select Tool</option>
                 <option value="spirit measure">Spirit Measure</option>
                 <option value="bar spoon">Bar Spoon</option>
                 <option value="cocktail shaker & strainer">Cocktail Shaker & Strainer</option>
@@ -147,7 +173,11 @@ $(document).on('click', '#add-tool', function() {
                 <option value="muddler">Muddler</option>
                 <option value="mixing glass">Mixing Glass</option>
             </select>
-            <button class="remove-tool cocktail-btn cocktail-btn--remove" type="button"><i class="fas fa-minus-circle"></i> Remove</button>
+
+            <!--Remove Tip-->
+            <button class="remove-tool cocktail-btn cocktail-btn--remove" type="button">
+                <i class="fas fa-minus-circle"></i> Remove
+            </button>
         </li>`;
 
     if (toolCount == 0) {
@@ -167,14 +197,20 @@ $(document).on('click', '.remove-tool', function() {
     $(this).closest(".tool").remove()
 
     if (toolCount == 5) {
-        var toolAdd = `<button id="add-tool" class="cocktail-btn cocktail-btn--add" type="button"><i class="fas fa-plus-circle"></i> Add Tool</button>`;
+        var toolAdd = `
+            <button id="add-tool" class="cocktail-btn cocktail-btn--add" type="button">
+                <i class="fas fa-plus-circle"></i> Add Tool
+            </button>`;
         $('#tool-feedback').replaceWith(toolAdd)
     }
 
     toolCount -= 1  
     
     if (toolCount == 0) {
-        noTool = `<li id="no-tool" class="no-bullet"><input type="text" id="tool-1" name="tool-1" class="no-item" value="No Tools Needed" readonly></li>`
+        noTool = `
+            <li id="no-tool" class="no-bullet">
+                <input type="text" id="tool-1" name="tool-1" class="no-item" value="No Tools Needed" readonly>
+            </li>`;
         $('#cocktail-tools').append(noTool);
     }
 
@@ -207,9 +243,13 @@ $(document).on('click', '#add-instruction', function() {
     var instrFeedback = `<p id="instruction-feedback" class="cocktail__feedback">Max amount of Instruction</p>`;
     var instructionInput = `
         <li class="instruction">
-            <textarea id="cocktail-instruction-text-${instrCount + 1}" name="cocktail-instruction-text-${instrCount + 1}" class="form-cocktail__input form-cocktail__text-area" 
-                rows="3" placeholder="Type Instructions Here" maxlength="400" required></textarea>
-            <button class="remove-instruction cocktail-btn cocktail-btn--remove float-right" type="button"><i class="fas fa-minus-circle"></i> Remove</button>
+            <textarea id="cocktail-instruction-text-${instrCount + 1}" name="cocktail-instruction-text-${instrCount + 1}" 
+                class="form-cocktail__input form-cocktail__text-area" 
+                rows="3" placeholder="Type Instructions Here" maxlength="400" aria-label="enter instruction" required></textarea>
+
+            <button class="remove-instruction cocktail-btn cocktail-btn--remove" type="button">
+                <i class="fas fa-minus-circle"></i> Remove
+            </button>
         </li>`;
 
     $('#cocktail-instructions').append(instructionInput);
@@ -226,7 +266,10 @@ $(document).on('click', '.remove-instruction', function() {
     $(this).closest(".instruction").remove();
     
     if (instrCount == 15) {
-        var instrAdd = `<button id="add-instruction" class="cocktail-btn cocktail-btn--add" type="button"><i class="fas fa-plus-circle"></i> Add Instructions</button>`;
+        var instrAdd = `
+            <button id="add-instruction" class="cocktail-btn cocktail-btn--add" type="button">
+                <i class="fas fa-plus-circle"></i> Add Instructions
+            </button>`;
         $('#instruction-feedback').replaceWith(instrAdd);
     }
 
@@ -254,10 +297,15 @@ $(document).on('click', '#add-tip', function() {
     console.log(tipCount)
     var tipFeedback = `<p id="tip-feedback" class="cocktail__feedback clear-both">Max amount of Tips</p>`;
     var tipInput = `
-        <li class="form-tip"  class="cocktail__info clear-both">
-            <textarea id="cocktail-tip-text-${tipCount + 1}" name="cocktail-tip-text-${tipCount + 1}" class="form-cocktail__input form-cocktail__text-area form-cocktail__text-area--tip" 
-                rows="3" placeholder="Type your tip here" maxlength="200" required></textarea>
-            <button class="remove-tip cocktail-btn cocktail-btn--remove float-right" type="button"><i class="fas fa-minus-circle"></i> Remove</button>
+        <li class="form-tip">
+            <textarea id="cocktail-tip-text-${tipCount + 1}" name="cocktail-tip-text-${tipCount + 1}" 
+                class="form-cocktail__input form-cocktail__text-area form-cocktail__text-area--tip" rows="3" placeholder="Type your tip here" 
+                maxlength="200" aria-label="enter tip" required></textarea>
+            
+            <!--Remove Tip Button-->
+            <button class="remove-tip cocktail-btn cocktail-btn--remove float-right" type="button">
+                <i class="fas fa-minus-circle"></i> Remove
+            </button>
         </li>`;
 
     if (tipCount == 0) {
@@ -277,7 +325,10 @@ $(document).on('click', '.remove-tip', function() {
     $(this).closest(".form-tip").remove();   
     
     if (tipCount == 3) {
-        var tipAdd = `<button id="add-tip" class="cocktail-btn cocktail-btn--add clear-both" type="button"><i class="fas fa-plus-circle"></i> Add Tip</button>`;
+        var tipAdd = `
+            <button id="add-tip" class="cocktail-btn cocktail-btn--add clear-both" type="button">
+                <i class="fas fa-plus-circle"></i> Add Tip
+            </button>`;
         $('#tip-feedback').replaceWith(tipAdd)
     }
     
@@ -304,7 +355,10 @@ $(document).on('click', '.remove-tip', function() {
     }
 
     if (tipCount == 0) {
-        noTip = `<li id="no-tip" class="no-bullet clear-both"><input type="text" id="cocktail-tip-text-1" name="cocktail-tip-text-1" class="no-item" value="No Tips" readonly></li>`
+        noTip = `
+            <li id="no-tip" class="no-bullet clear-both">
+                <input type="text" id="cocktail-tip-text-1" name="cocktail-tip-text-1" class="no-item" value="No Tips" readonly>
+            </li>`;
         $('#cocktail-tips').append(noTip);
     }
 });
