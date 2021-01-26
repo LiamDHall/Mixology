@@ -4,6 +4,18 @@ Gives the user the ability to add and remove form items.
 This script also sorts out the form items attridutes so the backend python function can properly
 stage the users input before it is commited to the datebase.
 */
+// Submit Event listner Functions - Sets values of hidden input just before submit to be used by the back end
+$( '#cocktail-create' ).submit(function( ) {
+    console.log('ran')
+    $('#no-of-ingred').attr('value', ingredCount);
+    $('#no-of-garnish').attr('value', garnishCount);
+    $('#no-of-tools').attr('value', toolCount);
+    $('#no-of-instr').attr('value', instrCount);
+    $('#no-of-tips').attr('value', tipCount);
+    return true
+
+});
+
 //  Add Ingredient
 var ingredCount = $('#cocktail-ingredients .ingredient').length
 
