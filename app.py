@@ -1,4 +1,5 @@
 import os
+import datetime
 from flask import (
     Flask, flash, render_template, redirect, request, session, url_for)
 from flask_pymongo import PyMongo
@@ -71,6 +72,7 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
+
         # Check username isnt already taken by another user
         user_in_db = mongo.db.users.find_one(
             {"username": request.form.get("reg-username").lower()})
@@ -91,6 +93,7 @@ def register():
 
         # Tells user they are successfil register
         flash("Success! Thank You for signing up to Mixology")
+
     return render_template("register.html")
 
 
@@ -104,9 +107,93 @@ def cocktail():
     return render_template("cocktail.html")
 
 
-@app.route("/cocktail-create")
+@app.route("/cocktail-create", methods=["GET", "POST"])
 def cocktail_create():
+    if request.method == "POST":
+
+        # Get the number of each input field
+        ingred_count = int(request.form.get("no-of-ingred"))
+        garnish_count = int(request.form.get("no-of-garnish"))
+        tool_count = int(request.form.get("no-of-tools"))
+        instr_count = int(request.form.get("no-of-instr"))
+        tip_count = int(request.form.get("no-of-tips"))
+
+        # Sets the formated inputs to variables
+        # Calling the formate function with the correct input and counter
+        ingredients = formate_inputs("ingredient", ingred_count)
+        garnishs = formate_inputs("garnish", garnish_count)
+        tools = formate_inputs("tool", tool_count)
+        instructions = formate_inputs("instruction", instr_count)
+        tips = formate_inputs("tip", tip_count)
+
+        # Stages form input ready to be pushed to the datebase
+        register = {
+            "cocktail_name": request.form.get("cocktail-name").lower(),
+            "alcohol": request.form.get("alcohol").lower(),
+            "rating": 0,
+            "no_rating": 0,
+            "garnishs": garnishs,
+            "date_added": datetime.datetime.utcnow(),
+            "ingredients": ingredients,
+            "tools": tools,
+            "glass": request.form.get("glass").lower(),
+            "instructions": instructions,
+            "tips": tips,
+            "author": session["user"]
+        }
+
+        # Pushes the staged info to the datebase
+        mongo.db.cocktails.insert_one(register)
+
+        # Gives the user feedback on a sucessful submission
+        flash("Coctail Added")
+
     return render_template("cocktail-create.html")
+
+
+# Formates cocktail form information into correct formate for datebase
+# count is set by cocktail_create() form inputs form cocktail create form
+def formate_inputs(item, count):
+    # Empty array to put the formated items into
+    item_formatted = []
+
+    # Iterates through the number of a specific input
+    # count must be +1 as not starting at 0
+    for x in range(1, count + 1):
+        if item == "tool" or item == "instruction" or item == "tip":
+
+            # Gets the item from form input
+            item_info = request.form.get(f"{item}-{x}")
+
+            # Adds its to the formatted array
+            item_formatted.append(item_info)
+
+        elif item == "garnish":
+
+            # Gets the item from form input
+            item_amount = request.form.get(f"{item}-amount-{x}")
+            item_name = request.form.get(f"{item}-name-{x}")
+
+            # Formates the inputs into a array
+            item_info = [f"{item_amount}", f"{item_name}"]
+
+            # Adds its to the formatted array
+            item_formatted.append(item_info)
+
+        elif item == "ingredient":
+
+            # Gets the item from form input
+            item_amount = request.form.get(f"{item}-amount-{x}")
+            item_unit = request.form.get(f"{item}-unit-{x}")
+            item_name = request.form.get(f"{item}-name-{x}")
+
+            # Formates the inputs into a array
+            item_info = [f"{item_amount}", f"{item_unit}", f"{item_name}"]
+
+            # Adds its to the formatted array
+            item_formatted.append(item_info)
+
+    return item_formatted
 
 
 if __name__ == "__main__":
