@@ -259,7 +259,7 @@ $(document).on('click', '#add-instruction', function() {
     var instrFeedback = `<p id="instruction-feedback" class="cocktail__feedback">Max amount of Instruction</p>`;
     var instructionInput = `
         <li class="instruction">
-            <textarea id="cocktail-instruction-text-${instrCount + 1}" name="cocktail-instruction-text-${instrCount + 1}" 
+            <textarea id="instruction-${instrCount + 1}" name="instruction-${instrCount + 1}" 
                 class="form-cocktail__input form-cocktail__text-area" 
                 rows="3" placeholder="Type Instructions Here" maxlength="400" aria-label="enter instruction" required></textarea>
 
@@ -301,8 +301,8 @@ $(document).on('click', '.remove-instruction', function() {
         input = currentLi.getElementsByTagName('textarea');
         console.log(input)
         console.log(input[0])
-        input[0].setAttribute('id', `cocktail-instruction-text-${i + 1}`);
-        input[0].setAttribute('name', `cocktail-instruction-text-${i + 1}`);
+        input[0].setAttribute('id', `instruction-${i + 1}`);
+        input[0].setAttribute('name', `instruction-${i + 1}`);
     }
 });
 
@@ -314,7 +314,7 @@ $(document).on('click', '#add-tip', function() {
     var tipFeedback = `<p id="tip-feedback" class="cocktail__feedback clear-both">Max amount of Tips</p>`;
     var tipInput = `
         <li class="form-tip">
-            <textarea id="cocktail-tip-text-${tipCount + 1}" name="cocktail-tip-text-${tipCount + 1}" 
+            <textarea id="tip-${tipCount + 1}" name="tip-${tipCount + 1}" 
                 class="form-cocktail__input form-cocktail__text-area form-cocktail__text-area--tip" rows="3" placeholder="Type your tip here" maxlength="200" 
                 aria-label="enter tip" required></textarea>
             
@@ -361,8 +361,8 @@ $(document).on('click', '.remove-tip', function() {
             input = currentLi.getElementsByTagName('textarea');
             console.log(input)
             console.log(input[0])
-            input[0].setAttribute('id', `cocktail-tip-text-${i + 1}`);
-            input[0].setAttribute('name', `cocktail-tip-text-${i + 1}`);
+            input[0].setAttribute('id', `tip-${i + 1}`);
+            input[0].setAttribute('name', `tip-${i + 1}`);
         }
     }
 
@@ -373,7 +373,7 @@ $(document).on('click', '.remove-tip', function() {
     if (tipCount == 0) {
         noTip = `
             <li id="no-tip" class="no-bullet clear-both">
-                <input type="text" id="cocktail-tip-text-1" name="cocktail-tip-text-1" class="no-item" value="No Tips" readonly>
+                <input type="text" id="-tip-1" name="tip-1" class="no-item" value="No Tips" readonly>
             </li>`;
         $('#cocktail-tips').append(noTip);
     }
