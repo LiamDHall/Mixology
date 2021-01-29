@@ -142,8 +142,8 @@ def profile():
     return render_template("profile.html")
 
 
-@app.route("/cocktail")
-def cocktail():
+@app.route("/cocktail/<cocktail_name>")
+def cocktail(cocktail_name):
     return render_template("cocktail.html")
 
 
