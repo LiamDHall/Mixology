@@ -158,6 +158,10 @@ def cocktail_create():
         # Gives the user feedback on a sucessful submission
         flash("Coctail Added")
 
+    elif not session.get('user'):
+        flash("You must be logged in to create a cocktail")
+        return redirect(url_for("login"))
+
     return render_template("cocktail-create.html")
 
 
@@ -175,7 +179,7 @@ def formate_inputs(item, count):
             # Gets the item from form input
             item_info = request.form.get(f"{item}-{x}")
 
-            # Adds its to the formatted array
+            # Adds item to the formatted array
             item_formatted.append(item_info)
 
         elif item == "garnish":
@@ -187,7 +191,7 @@ def formate_inputs(item, count):
             # Formates the inputs into a array
             item_info = [f"{item_amount}", f"{item_name}"]
 
-            # Adds its to the formatted array
+            # Adds item to the formatted array
             item_formatted.append(item_info)
 
         elif item == "ingredient":
@@ -200,7 +204,7 @@ def formate_inputs(item, count):
             # Formates the inputs into a array
             item_info = [f"{item_amount}", f"{item_unit}", f"{item_name}"]
 
-            # Adds its to the formatted array
+            # Adds item to the formatted array
             item_formatted.append(item_info)
 
     return item_formatted
