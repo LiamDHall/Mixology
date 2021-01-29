@@ -32,11 +32,17 @@ def home():
     top_rated = mongo.db.cocktails.find().sort(
         [("rating", -1), ("no_rating", -1)]).limit(12)
     popular = mongo.db.cocktails.find().sort("no_of_bookmarks", -1).limit(12)
-    return render_template(
-        "home.html", top_rated=top_rated, newest=newest, popular=popular)
+
+    sort_cats = [
+        {"name": "Newly Added", "cocktails": newest},
+        {"name": "Top Rated", "cocktails": top_rated},
+        {"name": "Popular", "cocktails": popular}
+        ]
+
+    return render_template("home.html", sort_cats=sort_cats)
 
 
-@app.route("/<alcohol_name>", methods=["GET", "POST"])
+@app.route("/<alcohol_name>")
 def category(alcohol_name):
     alcohol = mongo.db.alcohol.find_one({"alcohol_name": alcohol_name})
 
@@ -52,9 +58,13 @@ def category(alcohol_name):
         {"alcohol": alcohol_name.lower()}).sort(
         [("no_of_bookmarks", -1), ("no_rating", -1)]).limit(12)
 
-    return render_template(
-        "home.html",
-        alcohol=alcohol, top_rated=top_rated, newest=newest, popular=popular)
+    sort_cats = [
+        {"name": "Newly Added", "cocktails": newest},
+        {"name": "Top Rated", "cocktails": top_rated},
+        {"name": "Popular", "cocktails": popular}
+        ]
+
+    return render_template("home.html", alcohol=alcohol, sort_cats=sort_cats)
 
 
 @app.route("/login", methods=["GET", "POST"])
