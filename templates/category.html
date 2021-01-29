@@ -14,37 +14,121 @@
         </div>
     </section>
     {{ alcohol }} <!--Delete Before Depolyment-->
+    <!--New Cocktails-->
     <section class="rec-carsousel">
         <div class="rec-carsousel__header">
             <h2 class="rec-carsousel__title inline-block">Newly Added</h2>
             <!--Pagination-->
-        <div class="swiper-pagination inline-block"></div>
+            <div class="swiper-pagination inline-block"></div>
         </div>
         <hr class="rec-carsousel__page-line page-line page-line--brand">
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <!-- Slides -->
-                {% for tail in cocktails %}
-                <div class="rec-card card swiper-slide">
-                    <i class="rec-card__bookmark far fa-bookmark"></i>
-                    <img class="rec-card__img card-img-top" src="static/images/pornstar-martini.jpg" alt="#">
-                    <div class="rec-card__info card-body">
-                        <h5 class="rec-card__title">{{ tail.cocktail_name }}</h5>
-                        <div class="row">
-                            <div class="rec-card__star-rating col-6">
-                                {%  for i in range (0, tail.rating) %}
-                                    <i class="fas fa-star"></i>
-                                {% endfor %}
-                            </div>
-                            <div class="rec-card__col col-6">
-                                <a href="#" class="rec-card__cta cta">Make It</a>
+                {% for tail in newest %}
+                    <div class="rec-card card swiper-slide">
+                        <i class="rec-card__bookmark far fa-bookmark"></i>
+                        <img class="rec-card__img card-img-top" src="static/images/pornstar-martini.jpg" alt="#">
+                        <div class="rec-card__info card-body">
+                            <h5 class="rec-card__title">{{ tail.cocktail_name }}</h5>
+                            <div class="row">
+                                <div class="rec-card__star-rating col-6">
+                                    <p>
+                                        {%  for i in range (0, tail.rating) %}
+                                            <i class="fas fa-star"></i>
+                                        {% endfor %}
+                                        ({{ tail.no_rating }})
+                                    </p>
+                                </div>
+                                <div class="rec-card__col col-6">
+                                    <a href="#" class="rec-card__cta cta">Make It</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
-            <!-- If we need navigation buttons -->
+            <!--Navigation buttons-->
+            <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+            <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+        </div>
+    </section>
+
+    <!--Top Rated -->
+    <section class="rec-carsousel">
+        <div class="rec-carsousel__header">
+            <h2 class="rec-carsousel__title inline-block">Top Rated</h2>
+            <!--Pagination-->
+            <div class="swiper-pagination inline-block"></div>
+        </div>
+        <hr class="rec-carsousel__page-line page-line page-line--brand">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                {% for tail in top_rated %}
+                    <div class="rec-card card swiper-slide">
+                        <i class="rec-card__bookmark far fa-bookmark"></i>
+                        <img class="rec-card__img card-img-top" src="static/images/pornstar-martini.jpg" alt="#">
+                        <div class="rec-card__info card-body">
+                            <h5 class="rec-card__title">{{ tail.cocktail_name }}</h5>
+                            <div class="row">
+                                <div class="rec-card__star-rating col-6">
+                                    <p>
+                                        {%  for i in range (0, tail.rating) %}
+                                            <i class="fas fa-star"></i>
+                                        {% endfor %}
+                                        ({{ tail.no_rating }})
+                                    </p>
+                                </div>
+                                <div class="rec-card__col col-6">
+                                    <a href="#" class="rec-card__cta cta">Make It</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!--Navigation buttons-->
+            <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+            <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+        </div>
+    </section>
+
+    <!--Most Popular -->
+    <section class="rec-carsousel">
+        <div class="rec-carsousel__header">
+            <h2 class="rec-carsousel__title inline-block">Most Popular</h2>
+            <!--Pagination-->
+            <div class="swiper-pagination inline-block"></div>
+        </div>
+        <hr class="rec-carsousel__page-line page-line page-line--brand">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                {% for tail in popular %}
+                    <div class="rec-card card swiper-slide">
+                        <i class="rec-card__bookmark far fa-bookmark"></i>
+                        <img class="rec-card__img card-img-top" src="static/images/pornstar-martini.jpg" alt="#">
+                        <div class="rec-card__info card-body">
+                            <h5 class="rec-card__title">{{ tail.cocktail_name }}</h5>
+                            <div class="row">
+                                <div class="rec-card__star-rating col-6">
+                                    <p>
+                                        {%  for i in range (0, tail.rating) %}
+                                            <i class="fas fa-star"></i>
+                                        {% endfor %}
+                                        ({{ tail.no_rating }})
+                                    </p>
+                                </div>
+                                <div class="rec-card__col col-6">
+                                    <a href="#" class="rec-card__cta cta">Make It</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!--Navigation buttons-->
             <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
             <div class="rec-carsousel__swiper-button swiper-button-next"></div>
         </div>

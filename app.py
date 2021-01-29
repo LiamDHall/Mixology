@@ -28,16 +28,33 @@ def get_db_items():
 @app.route("/")
 @app.route("/home")
 def home():
-    all_cocktails = mongo.db.cocktails.find()
-    cocktails = all_cocktails.sort([("rating", -1), ("no_rating", -1)])
-    return render_template("home.html", cocktails=cocktails)
+    newest = mongo.db.cocktails.find().sort("date_added", -1).limit(12)
+    top_rated = mongo.db.cocktails.find().sort(
+        [("rating", -1), ("no_rating", -1)]).limit(12)
+    popular = mongo.db.cocktails.find().sort("no_of_bookmarks", -1).limit(12)
+    return render_template(
+        "home.html", top_rated=top_rated, newest=newest, popular=popular)
 
 
 @app.route("/<alcohol_name>", methods=["GET", "POST"])
 def category(alcohol_name):
     alcohol = mongo.db.alcohol.find_one({"alcohol_name": alcohol_name})
+
+    newest = mongo.db.cocktails.find({
+        "alcohol": alcohol_name.lower()}).sort(
+        "date_added", -1).limit(12)
+
+    top_rated = mongo.db.cocktails.find(
+        {"alcohol": alcohol_name.lower()}).sort(
+        [("rating", -1), ("no_rating", -1)]).limit(12)
+
+    popular = mongo.db.cocktails.find(
+        {"alcohol": alcohol_name.lower()}).sort(
+        [("no_of_bookmarks", -1), ("no_rating", -1)]).limit(12)
+
     return render_template(
-        "category.html", alcohol=alcohol)
+        "category.html",
+        alcohol=alcohol, top_rated=top_rated, newest=newest, popular=popular)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -49,7 +66,9 @@ def login():
 
         if user_in_db:
             # Check password of username matches password in datebase
-            if check_password_hash(user_in_db["password"], request.form.get("login-password")):
+            if check_password_hash(
+                    user_in_db["password"],
+                    request.form.get("login-password")):
                 # If the password matches
                 session["user"] = request.form.get("login-username").lower()
                 flash("Welcome, {}".format(request.form.get("login-username")))
@@ -85,7 +104,8 @@ def register():
         # Stages the form information into the correct formate for db
         register = {
             "username": request.form.get("reg-username").lower(),
-            "password": generate_password_hash(request.form.get("reg-password"))
+            "password": generate_password_hash(
+                request.form.get("reg-password"))
         }
 
         # Add staged form information to the db
