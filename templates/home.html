@@ -3,8 +3,13 @@
     <!--Hero Image-->
     <section class="hero">
         <div class="hero__image">
+            {% if alcohol %}
+                <h1 class="hero__categ-name">{{ alcohol.alcohol_name}}</h1>
+            {% else %}
+                <h1 class="hero__categ-name">Cocktails Made Esay</h1>
+            {% endif %}
             <div class="hero__inner">
-                <h1 class="hero__title">Featured Cocktail</h1>
+                <h2 class="hero__title">Featured Cocktail</h2>
                 <h2 class="hero__cocktail">Bramble</h2>
                 <hr class="hero__page-line page-line page-line--brand page-line--left">
                 <h3 class="hero__tagline">A Summer Classic<br>with sweet blackberries and a dash of sour.</h3>

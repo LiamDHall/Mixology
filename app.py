@@ -53,7 +53,7 @@ def category(alcohol_name):
         [("no_of_bookmarks", -1), ("no_rating", -1)]).limit(12)
 
     return render_template(
-        "category.html",
+        "home.html",
         alcohol=alcohol, top_rated=top_rated, newest=newest, popular=popular)
 
 
