@@ -97,6 +97,16 @@ def register():
     return render_template("register.html")
 
 
+@app.route("/logout")
+def logout():
+    # Removes all session cookies
+    session.clear()
+
+    # Tells user they have logged out
+    flash("You have successfully logged out")
+    return redirect(url_for("home"))
+
+
 @app.route("/profile")
 def profile():
     return render_template("profile.html")
