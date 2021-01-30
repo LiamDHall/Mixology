@@ -62,7 +62,7 @@ def category(alcohol_name):
         {"name": "Newly Added", "cocktails": newest},
         {"name": "Top Rated", "cocktails": top_rated},
         {"name": "Popular", "cocktails": popular}
-        ]
+    ]
 
     return render_template("home.html", alcohol=alcohol, sort_cats=sort_cats)
 
@@ -142,9 +142,10 @@ def profile():
     return render_template("profile.html")
 
 
-@app.route("/cocktail/<cocktail_name>")
-def cocktail(cocktail_name):
-    return render_template("cocktail.html")
+@app.route("/cocktail/<cocktail_name>/<cocktail_id>")
+def cocktail(cocktail_name, cocktail_id):
+    cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
+    return render_template("cocktail.html", cocktail=cocktail)
 
 
 @app.route("/cocktail-create", methods=["GET", "POST"])
@@ -161,7 +162,7 @@ def cocktail_create():
         # Sets the formated inputs to variables
         # Calling the formate function with the correct input and counter
         ingredients = formate_inputs("ingredient", ingred_count)
-        garnishs = formate_inputs("garnish", garnish_count)
+        garnishes = formate_inputs("garnish", garnish_count)
         tools = formate_inputs("tool", tool_count)
         instructions = formate_inputs("instruction", instr_count)
         tips = formate_inputs("tip", tip_count)
@@ -172,7 +173,7 @@ def cocktail_create():
             "alcohol": request.form.get("alcohol").lower(),
             "rating": 0,
             "no_rating": 0,
-            "garnishs": garnishs,
+            "garnish": garnishes,
             "date_added": datetime.datetime.utcnow(),
             "ingredients": ingredients,
             "tools": tools,

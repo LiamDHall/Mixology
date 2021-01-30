@@ -2,12 +2,19 @@
 {% block content %}
     <!--Cocktail Header-->
     <section class="cocktail-header">
-        <h1 class="page-title inline-block">Cocktail Name</h1>
+        <h1 class="page-title inline-block">{{ cocktail.cocktail_name.title() }}</h1>
         <i class="cocktail-header__bookmark far fa-bookmark inline-block"></i>
         <div class="cocktail-header__star-rating">
-            <i class="fas fa-star"></i>
+            {% if cocktail.rating == 0 %}
+                No Rating
+            {% else %}
+                {%  for i in range (0, cocktail.rating) %}
+                    <i class="fas fa-star"></i>
+                {% endfor %}
+            {% endif %}
+            ({{ cocktail.no_rating }})
         </div>
-        <p class="cocktail-header__author"><a href="#">by USERNAME</a></p>
+        <p class="cocktail-header__author"><a href="#">by <span class="cocktail-header__author">{{ cocktail.author }}</span></a></p>
         <button class="cta cta--cocktail">Rate This Cocktail</button>
     </section>
 
@@ -19,27 +26,51 @@
             <div class="cocktail__ingredients col-4">
                 <h2 class="cocktail__item-title">Ingredients</h2>
                 <ul class="cocktail__info">
-                    <li><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                    {% for i in range(0, cocktail.ingredients | length ) %}
+                        <li class="clear-both"><p class="float-left">{{ cocktail.ingredients[i][0] }} {{ cocktail.ingredients[i][1] }} {{ cocktail.ingredients[i][2].title() }}</p><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                    {% endfor %}
                 </ul>
+
+                <!--Cocktail Garnish-->
+                <h2 class="cocktail__item-title clear-both">Garnish</h2>
+                <ul id="cocktail__info" class="cocktail__info">
+                    {% for i in range(0, cocktail.garnish | length) %}
+                        <li class="garnish clear-both"><p class="float-left">{{ cocktail.garnish[i][0] }} {{ cocktail.garnish[i][1] }}</p><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                    {% endfor %}
+                </ul>
+
                 <div class="cocktail__affiliate">
-                    <h4>Get What You Need</h4>
+                    <h3>Get What You Need</h3>
                     <p>Find a wide range of alcohol and mixers here:</p>
-                    <a class="bottom-mar" href="#">www.website.com</a>
+                    <a class="bottom-mar" href="https://www.masterofmalt.com/">Master of Malt</a>
                 </div>
+
             </div>
 
             <!--Cocktail Tools-->
             <div class="cocktail__tools col-4">
                 <h2 class="cocktail__item-title">Tools</h2>
                 <ul class="cocktail__info">
-                    <li><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                    {% for i in range(0, cocktail.tools | length) %}
+                        <li class="clear-both"><p class="float-left">{{ cocktail.tools[i].title() }}</p><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                    {% endfor %}
                 </ul>
+
+                <!--Glass-->
+                <h2 class="cocktail__item-title clear-both">Glass</h2>
+                <ul class="cocktail__info">
+                    <li class="glass"><p>{{ cocktail.glass.title() }}</p></li>
+                </ul>
+                
+
                 <div class="cocktail__affiliate">
-                    <h4>Missing a Tool</h4>
+                    <h3>Missing a Tool</h3>
                     <p>Grab all the tools you need:</p>
-                    <a href="#">www.website.com</a>
+                    <a href="https://www.drinkstuff.com/products/cocktail-accessories.asp?nav=left">Drink Stuff</a>
                 </div>
             </div>
+
+            <!--Cocktail Image-->
             <div class="cocktail__img-contianer col-4">
                 <img class="cocktail__img" src="/static/images/bramble.jpg">
             </div>
@@ -50,7 +81,9 @@
             <div class="cocktail__intructions col-8">
                 <h2 class="cocktail__item-title">Intructions</h2>
                 <ol class="cocktail__info">
-                    <li><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                    {% for i in range(0, cocktail.instructions | length) %}
+                        <li class="clear-both"><p class="float-left">{{ cocktail.instructions[i].capitalize() }}</p><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                    {% endfor %}
                 </ol>
             </div>
 
