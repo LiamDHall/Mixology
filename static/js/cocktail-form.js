@@ -29,13 +29,13 @@ $(document).on('click', '#add-ingredient', function() {
                 placeholder="12.5" aria-label="enter amount of ingredient" required>
             
             <!--Unit-->
-            <select name="measurement-${ingredCount + 1}" id="measurement-${ingredCount + 1}" class="form-cocktail__input" 
+            <select id="ingredient-unit-${ingredCount + 1}" name="ingredient-unit-${ingredCount + 1}" class="form-cocktail__input" 
                 aria-label="dropdown menu to select a unit type" required>
                     <option value="" disabled selected hidden>Unit</option>
                     <option value="ml">ml</option>
                     <option value="tsp">tsp</option>
                     <option value="dashes">dash/es</option>
-                    <option value="na">n/a</option>
+                    <option value="no unit">n/a</option>
             </select>
 
             <!--Name-->
