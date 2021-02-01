@@ -79,9 +79,21 @@ def login():
             if check_password_hash(
                     user_in_db["password"],
                     request.form.get("login-password")):
+
                 # If the password matches
+                # Set Username into session cookie
                 session["user"] = request.form.get("login-username").lower()
-                flash("Welcome, {}".format(request.form.get("login-username")))
+
+                # Set user Id into session ID-
+                session["id"] = str(mongo.db.users.find_one(
+                    {"username": request.form.get
+                        ("login-username").lower()}).get("_id"))
+
+                # Set form submit for bookmarking functionality
+                # Set to value a random number genarator can't produce
+                session["formsubmitno"] = "nothing"
+
+                flash("Welcome {}".format(request.form.get("login-username")))
                 # Return the user to the home page logged in
                 return redirect(url_for("home"))
 
@@ -115,7 +127,9 @@ def register():
         register = {
             "username": request.form.get("reg-username").lower(),
             "password": generate_password_hash(
-                request.form.get("reg-password"))
+                request.form.get("reg-password")),
+            "image": None,
+            "bookmarks": []
         }
 
         # Add staged form information to the db
@@ -142,10 +156,60 @@ def profile():
     return render_template("profile.html")
 
 
-@app.route("/cocktail/<cocktail_name>/<cocktail_id>")
+@app.route("/cocktail/<cocktail_name>/<cocktail_id>", methods=["GET", "POST"])
 def cocktail(cocktail_name, cocktail_id):
     cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
-    return render_template("cocktail.html", cocktail=cocktail)
+
+    if session.get('user'):
+        user_bookmarks = mongo.db.users.find_one(
+                    {"username": session["user"]}).get("bookmarks")
+
+    if request.method == "POST":
+        if not session.get("user"):
+            flash("You must be logged in to bookmark cocktails")
+
+        else:
+            # Grab random number from form
+            form_random_value = request.form.get("random"),
+
+            print(form_random_value)
+
+            # Block against reload re submits
+            if form_random_value != session["formsubmitno"]:
+                session["formsubmitno"] = form_random_value
+                print(user_bookmarks)
+
+                # Check if cocktail is already bookmarked
+                if cocktail_id in user_bookmarks:
+                    # If it is remove it
+                    user_bookmarks.remove(cocktail_id)
+
+                else:
+                    # If it is NOT add it
+                    user_bookmarks.append(cocktail_id)
+
+            # Stage query to find the session user
+            # Stage the data to be updated
+            query = {"_id": ObjectId(session["id"])}
+            # $set allows only one key to be updated without stating the rest
+            update = {"$set": {"bookmarks": user_bookmarks}}
+
+            print(user_bookmarks)
+
+            mongo.db.users.update_one(query, update)
+
+    if session.get('user'):
+        if cocktail_id in user_bookmarks:
+            bookmark = "true"
+
+        else:
+            bookmark = "false"
+
+    else:
+        bookmark = "false"
+
+    return render_template(
+        "cocktail.html", cocktail=cocktail, bookmark=bookmark)
 
 
 @app.route("/cocktail-create", methods=["GET", "POST"])
@@ -180,7 +244,8 @@ def cocktail_create():
             "glass": request.form.get("glass").lower(),
             "instructions": instructions,
             "tips": tips,
-            "author": session["user"]
+            "author": session["user"],
+            "no_of_bookmarks": 0
         }
 
         # Pushes the staged info to the datebase
@@ -189,7 +254,7 @@ def cocktail_create():
         # Gives the user feedback on a sucessful submission
         flash("Coctail Added")
 
-    elif not session.get('user'):
+    elif not session.get("user"):
         flash("You must be logged in to create a cocktail")
         return redirect(url_for("login"))
 

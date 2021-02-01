@@ -595,9 +595,23 @@ ul {
     margin: 0 auto;
 }
 
+.cocktail-header__bookmark-form {
+    display: inline;
+    margin-left: 30px;
+}
+
+.cocktail-header__bookmark-btn {
+    background: none;
+    border: none;
+}
+
+.cocktail-header__bookmark-btn:focus {
+    outline: none;
+}
+
 .cocktail-header__bookmark {
     font-size: 2.5rem;
-    margin-left: 30px;
+    color: limegreen;
 }
 
 .cocktail-header__star-rating {
@@ -634,6 +648,8 @@ ul {
 
 .cocktail__checkbox {
     font-size: 2rem;
+    position: relative;
+    bottom: 5px;
 }
 
 .cocktail__affiliate {
@@ -713,6 +729,10 @@ ul {
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 16px;
+}
+
+.form-cocktail__input--fixed {
+    width:150px;
 }
 
 .form-cocktail__input--title {
