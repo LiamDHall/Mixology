@@ -39,7 +39,20 @@
                 <h2 class="cocktail__item-title">Ingredients</h2>
                 <ul class="cocktail__info">
                     {% for i in range(0, cocktail.ingredients | length ) %}
-                        <li class="clear-both"><p class="float-left">{{ cocktail.ingredients[i][0] }} {{ cocktail.ingredients[i][1] }} {{ cocktail.ingredients[i][2].title() }}</p><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                        <li class="clear-both">
+                            <p class="float-left">
+                                {{ cocktail.ingredients[i][0] }} 
+                                
+                                {% if cocktail.ingredients[i][1] != "no unit" %}
+                                    {{ cocktail.ingredients[i][1] }}
+                                {% endif %}
+                                
+                                {{ cocktail.ingredients[i][2].title() }}
+                            </p>
+                            <span class="cocktail__checkbox float-right">
+                                <i class="far fa-square"></i>
+                            </span>
+                        </li>
                     {% endfor %}
                 </ul>
 
