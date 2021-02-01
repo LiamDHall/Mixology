@@ -60,7 +60,7 @@
                 <h2 class="cocktail__item-title clear-both">Garnish</h2>
                 <ul id="cocktail__info" class="cocktail__info">
                     {% for i in range(0, cocktail.garnish | length) %}
-                        <li class="garnish clear-both"><p class="float-left">{{ cocktail.garnish[i][0] }} {{ cocktail.garnish[i][1] }}</p><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
+                        <li class="garnish clear-both"><p class="float-left">{{ cocktail.garnish[i][0] }} {{ cocktail.garnish[i][1].title() }}</p><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
                     {% endfor %}
                 </ul>
 
