@@ -38,7 +38,7 @@
                 </ul>
                 <a class="btn-icon nav-item" href="#"><i class="fas fa-search"></i></a>
                 <div class="nav-dropdown">
-                    <a class="nav-dropdown__btn btn-icon nav-item" href="#"><i class="nav-dropdown__profile fas fa-user-circle"></i>
+                    <a class="nav-dropdown__btn btn-icon nav-item" href="{{ url_for('login') }}"><i class="nav-dropdown__profile fas fa-user-circle"></i>
                         <span class="nav-dropdown__profile nav-dropdown__profile--username"> 
                             {% if session.user %} 
                                 {{ session.user }}
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 {% if session.user %}
-                    <a href="#" class="cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
+                    <a href="{{ url_for('cocktail_create') }}" class="cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
                 {% else %}
                     <a class="cta" href="{{ url_for('register') }}">Register</a>
                 {% endif %}
@@ -86,12 +86,10 @@
                 <h4>Site Map</h4>
                 <ul class="footer__list">
                     <li><a href="#"><i class="fas fa-search"></i> Search</a></li>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Vodka</a></li>
-                    <li><a href="#">Whiskey</a></li>
-                    <li><a href="#">Gin</a></li>
-                    <li><a href="#">Rum</a></li>
-                    <li><a href="#">Tequila</a></li>
+                    <li><a href="{{ url_for('home') }}" class="nav-item">Home</a></li>
+                    {% for alcohol in alcohol_categories %}
+                        <li><a href="{{ url_for('home', alcohol_name=alcohol.alcohol_name) }}" class="nav-item">{{ alcohol.alcohol_name }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
              <!--Account-->
@@ -99,11 +97,11 @@
                 <h4>Account</h4>
                 <ul class="footer__list">
                     {% if session.user %}
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
-                        <li><a href="#">Login</a></li>
-                        <li><a href="#">Register</a></li>
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                        <li><a href="{{ url_for('register') }}">Register</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -112,11 +110,11 @@
                 <div class="bottom-mar">
                     <h4>Get What You Need</h4>
                     <p>Find a wide range of alcohol and mixers here:</p>
-                    <a class="bottom-mar" href="#">www.website.com</a>
+                    <a class="bottom-mar" href="https://www.masterofmalt.com/" target="_blank">Master of Malt</a>
                 </div>
                 <div>
                     <p>Grab all the tools you need:</p>
-                    <a href="#">www.website.com</a>
+                    <a href="https://www.drinkstuff.com/products/cocktail-accessories.asp?nav=left" target="_blank">Drink Stuff</a>
                 </div>
             </div>
             <!--Social-->
