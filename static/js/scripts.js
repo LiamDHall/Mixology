@@ -20,23 +20,32 @@ var mySwiper = new Swiper('.swiper-container', {
 })
 
 //  Navbar Active Link Toggler
-$('.nav-item').click(function() {
-    $('.nav-item').removeClass('active');               //  Remove active class off the one that has it
-    currentPage = `#${this.id}`;                        //  Set page/link ID
-    localStorage.setItem('currentPageId', currentPage); //  Add it to local storage to be called by function below
-});
-
 $( document ).ready(function() {
-    var storeId = localStorage.getItem('currentPageId'); //  Retrieve page/link ID from local storage 
-    if(storeId == '#logo') {                             //  Puts acitve class on home if logo is clicked
-        $('#home').addClass('active')
+    var currentPage = window.location.href;                                 //  Get current page url
+    var pageTitle = currentPage.substr(currentPage.lastIndexOf('/') + 1);   //  Get page title
+    $('.nav-item').removeClass('active');                                   //  Remove active class off old nav link
+    var pageTitleLower = pageTitle.toLowerCase()                            //  Convert page title to lowercase to match nav ids
+    
+    //  If statements for each page title
+    if (pageTitleLower == "home") {                                         
+        $('#home').addClass('active');
     }
-    else if(storeId == '#') {                            //  If an item not in the navbar is clicked
-        return
+    else if (pageTitleLower == "vodka") {
+        $('#vodka').addClass('active');
     }
-    else {                                               //  Adds the active class onto the click link after page re-load
-        $(storeId).addClass('active')
-    };
+    else if (pageTitleLower == "whiskey") {
+        $('#whiskey').addClass('active');
+    }
+    else if (pageTitleLower == "gin") {
+        $('#gin').addClass('active');
+    }
+    else if (pageTitleLower == "rum") {
+        $('#rum').addClass('active');
+    }
+
+    else if (pageTitleLower == "tequila") {
+        $('#tequila').addClass('active');
+    }
 });
 
 //  Cocktail Checkbox Toggler
