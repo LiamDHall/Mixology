@@ -39,15 +39,16 @@ $( document ).ready(function() {
     };
 });
 
-
 //  Cocktail Checkbox Toggler
 $('.cocktail__checkbox').click(function() {
     checkboxStatus = $(this).html();
     if(checkboxStatus == '<i class=\"far fa-square\"></i>') {
         $(this).html('<i class=\"fas fa-check\"></i>').css('color', 'limegreen');
+        $(this).closest("li").css("color", "limegreen");
     }
     else {
         $(this).html('<i class=\"far fa-square\"></i>').css('color', 'inherit');
+        $(this).closest("li").css("color", "black");
     }                                 
 });
 
