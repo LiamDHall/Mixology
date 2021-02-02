@@ -53,16 +53,21 @@ $('.cocktail__checkbox').click(function() {
 
 /* 
 Keeps scroll position in place on page reload 
-Source: https://stackoverflow.com/questions/17642872/refresh-page-and-keep-scroll-position#:~:text=Usually%20reload()%20restores%20the,scrollY%20%3D%3D%3D%200.&text=This%20might%20be%20useful%20for,click%20on%20a%20same%20position..
+Source: https://stackoverflow.com/questions/17642872/refresh-page-and-keep-scroll-position#:~:text=Usually%20reload()%20restores%20the,scrollY%20%3D%3D%3D%200.&text=This%20might%20be%20useful%20for,click%20on%20a%20same%20position
+(Adapted To My Needs): By adding condition that the function only works if the url is same after load
 */
-document.addEventListener("DOMContentLoaded", function (event) {
-        var scrollpos = sessionStorage.getItem('scrollpos');
-        if (scrollpos) {
-            window.scrollTo(0, scrollpos);
-            sessionStorage.removeItem('scrollpos');
+document.addEventListener("DOMContentLoaded", function () {
+        var currentPage = sessionStorage.getItem('currentpage');
+        var scrollPos = sessionStorage.getItem('scrollpos');
+        if (currentPage == window.location.href) {
+            if (scrollPos) {
+                window.scrollTo(0, scrollPos);
+                sessionStorage.removeItem('scrollpos');
+            }
         }
     });
 
-    window.addEventListener("beforeunload", function (e) {
-        sessionStorage.setItem('scrollpos', window.scrollY);
-    });
+window.addEventListener("beforeunload", function () {
+    sessionStorage.setItem('scrollpos', window.scrollY);
+    sessionStorage.setItem('currentpage', window.location.href);
+});
