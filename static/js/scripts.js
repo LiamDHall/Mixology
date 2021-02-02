@@ -43,10 +43,26 @@ $( document ).ready(function() {
 //  Cocktail Checkbox Toggler
 $('.cocktail__checkbox').click(function() {
     checkboxStatus = $(this).html();
-    if(checkboxStatus == '<i class="far fa-square"></i>') {
-        $(this).html('<i class="fas fa-check"></i>').css('color', 'limegreen');
+    if(checkboxStatus == '<i class=\"far fa-square\"></i>') {
+        $(this).html('<i class=\"fas fa-check\"></i>').css('color', 'limegreen');
     }
     else {
-        $(this).html('<i class="far fa-square"></i>').css('color', 'inherit');
+        $(this).html('<i class=\"far fa-square\"></i>').css('color', 'inherit');
     }                                 
 });
+
+/* 
+Keeps scroll position in place on page reload 
+Source: https://stackoverflow.com/questions/17642872/refresh-page-and-keep-scroll-position#:~:text=Usually%20reload()%20restores%20the,scrollY%20%3D%3D%3D%200.&text=This%20might%20be%20useful%20for,click%20on%20a%20same%20position..
+*/
+document.addEventListener("DOMContentLoaded", function (event) {
+        var scrollpos = sessionStorage.getItem('scrollpos');
+        if (scrollpos) {
+            window.scrollTo(0, scrollpos);
+            sessionStorage.removeItem('scrollpos');
+        }
+    });
+
+    window.addEventListener("beforeunload", function (e) {
+        sessionStorage.setItem('scrollpos', window.scrollY);
+    });
