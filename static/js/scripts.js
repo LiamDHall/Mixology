@@ -22,30 +22,10 @@ var mySwiper = new Swiper('.swiper-container', {
 //  Navbar Active Link Toggler
 $( document ).ready(function() {
     var currentPage = window.location.href;                                 //  Get current page url
-    var pageTitle = currentPage.substr(currentPage.lastIndexOf('/') + 1);   //  Get page title
+    var pageTitle = currentPage.substr(currentPage.lastIndexOf('/') + 1);   //  Get page title after domain "/"
     $('.nav-item').removeClass('active');                                   //  Remove active class off old nav link
     var pageTitleLower = pageTitle.toLowerCase()                            //  Convert page title to lowercase to match nav ids
-    
-    //  If statements for each page title
-    if (pageTitleLower == "home") {                                         
-        $('#home').addClass('active');
-    }
-    else if (pageTitleLower == "vodka") {
-        $('#vodka').addClass('active');
-    }
-    else if (pageTitleLower == "whiskey") {
-        $('#whiskey').addClass('active');
-    }
-    else if (pageTitleLower == "gin") {
-        $('#gin').addClass('active');
-    }
-    else if (pageTitleLower == "rum") {
-        $('#rum').addClass('active');
-    }
-
-    else if (pageTitleLower == "tequila") {
-        $('#tequila').addClass('active');
-    }
+    $(`#${pageTitleLower}`).addClass('active');                             //  Add active class to nav link
 });
 
 //  Cocktail Checkbox Toggler
