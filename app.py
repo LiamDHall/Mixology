@@ -25,21 +25,46 @@ def get_db_items():
     return dict(alcohol_categories=alcohol_categories)
 
 
-@app.route("/", methods=["GET", "POST"])
-@app.route("/home", methods=["GET", "POST"])
-def home():
-    # Sort Cocktails into different arrangements
-    newest = mongo.db.cocktails.find().sort("date_added", -1).limit(12)
-    top_rated = mongo.db.cocktails.find().sort(
-        [("rating", -1), ("no_rating", -1)]).limit(12)
-    popular = mongo.db.cocktails.find().sort("no_of_bookmarks", -1).limit(12)
+@app.route("/", defaults={'alcohol_name': None}, methods=["GET", "POST"])
+@app.route("/home", defaults={'alcohol_name': None}, methods=["GET", "POST"])
+@app.route("/<alcohol_name>", methods=["GET", "POST"])
+def home(alcohol_name):
+    if alcohol_name:
+        alcohol = mongo.db.alcohol.find_one({"alcohol_name": alcohol_name})
 
-    # Add the arrangements into a list for template to iterate
-    sort_cats = [
-        {"name": "Newly Added", "cocktails": newest},
-        {"name": "Top Rated", "cocktails": top_rated},
-        {"name": "Popular", "cocktails": popular}
-    ]
+        newest = mongo.db.cocktails.find({
+            "alcohol": alcohol_name.lower()}).sort(
+            "date_added", -1).limit(12)
+
+        top_rated = mongo.db.cocktails.find(
+            {"alcohol": alcohol_name.lower()}).sort(
+            [("rating", -1), ("no_rating", -1)]).limit(12)
+
+        popular = mongo.db.cocktails.find(
+            {"alcohol": alcohol_name.lower()}).sort(
+            [("no_of_bookmarks", -1), ("no_rating", -1)]).limit(12)
+
+        sort_cats = [
+            {"name": "Newly Added", "cocktails": newest},
+            {"name": "Top Rated", "cocktails": top_rated},
+            {"name": "Popular", "cocktails": popular}
+        ]
+
+    else:
+        alcohol = None
+        # Sort Cocktails into different arrangements
+        newest = mongo.db.cocktails.find().sort("date_added", -1).limit(12)
+        top_rated = mongo.db.cocktails.find().sort(
+            [("rating", -1), ("no_rating", -1)]).limit(12)
+        popular = mongo.db.cocktails.find().sort(
+            "no_of_bookmarks", -1).limit(12)
+
+        # Add the arrangements into a list for template to iterate
+        sort_cats = [
+            {"name": "Newly Added", "cocktails": newest},
+            {"name": "Top Rated", "cocktails": top_rated},
+            {"name": "Popular", "cocktails": popular}
+        ]
 
     # Get bookmarks of user if logged in
     if session.get('user'):
@@ -101,42 +126,14 @@ def home():
 
     print(user_bookmarks)
 
-    return render_template(
-        "home.html", sort_cats=sort_cats, user_bookmarks=user_bookmarks)
-
-
-@app.route("/<alcohol_name>")
-def category(alcohol_name):
-    alcohol = mongo.db.alcohol.find_one({"alcohol_name": alcohol_name})
-
-    newest = mongo.db.cocktails.find({
-        "alcohol": alcohol_name.lower()}).sort(
-        "date_added", -1).limit(12)
-
-    top_rated = mongo.db.cocktails.find(
-        {"alcohol": alcohol_name.lower()}).sort(
-        [("rating", -1), ("no_rating", -1)]).limit(12)
-
-    popular = mongo.db.cocktails.find(
-        {"alcohol": alcohol_name.lower()}).sort(
-        [("no_of_bookmarks", -1), ("no_rating", -1)]).limit(12)
-
-    sort_cats = [
-        {"name": "Newly Added", "cocktails": newest},
-        {"name": "Top Rated", "cocktails": top_rated},
-        {"name": "Popular", "cocktails": popular}
-    ]
-
-    if session.get('user'):
-        user_bookmarks = mongo.db.users.find_one(
-                    {"username": session["user"]}).get("bookmarks")
+    if not alcohol_name:
+        return render_template(
+            "home.html", sort_cats=sort_cats, user_bookmarks=user_bookmarks)
 
     else:
-        user_bookmarks = []
-
-    return render_template(
-        "home.html", alcohol=alcohol, sort_cats=sort_cats,
-        user_bookmarks=user_bookmarks)
+        return render_template(
+            "home.html", alcohol=alcohol, sort_cats=sort_cats,
+            user_bookmarks=user_bookmarks)
 
 
 @app.route("/login", methods=["GET", "POST"])
