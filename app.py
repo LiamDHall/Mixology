@@ -25,21 +25,84 @@ def get_db_items():
     return dict(alcohol_categories=alcohol_categories)
 
 
-@app.route("/")
-@app.route("/home")
+@app.route("/", methods=["GET", "POST"])
+@app.route("/home", methods=["GET", "POST"])
 def home():
+    # Sort Cocktails into different arrangements
     newest = mongo.db.cocktails.find().sort("date_added", -1).limit(12)
     top_rated = mongo.db.cocktails.find().sort(
         [("rating", -1), ("no_rating", -1)]).limit(12)
     popular = mongo.db.cocktails.find().sort("no_of_bookmarks", -1).limit(12)
 
+    # Add the arrangements into a list for template to iterate
     sort_cats = [
         {"name": "Newly Added", "cocktails": newest},
         {"name": "Top Rated", "cocktails": top_rated},
         {"name": "Popular", "cocktails": popular}
-        ]
+    ]
 
-    return render_template("home.html", sort_cats=sort_cats)
+    # Get bookmarks of user if logged in
+    if session.get('user'):
+        user_bookmarks = mongo.db.users.find_one(
+            {"username": session["user"]}).get("bookmarks")
+
+    # No bookmarks if no user is logged in
+    else:
+        user_bookmarks = []
+
+    if request.method == "POST":
+        if not session.get("user"):
+            flash("You must be logged in to bookmark cocktails")
+
+        else:
+            cocktail_id = request.form.get("cocktail-id")
+
+            cocktail = mongo.db.cocktails.find_one(
+                {"_id": ObjectId(cocktail_id)})
+
+            bookmark_count = cocktail.get("no_of_bookmarks")
+
+            print(f"Bookmark count = {bookmark_count}")
+
+            # Grab random number from form
+            form_random_value = request.form.get("random"),
+
+            print(form_random_value)
+
+            # Block against reload re submits
+            if form_random_value != session["formsubmitno"]:
+                session["formsubmitno"] = form_random_value
+                print(f"Bookmarks = {user_bookmarks}")
+
+                # Check if cocktail is already bookmarked
+                if cocktail_id in user_bookmarks:
+                    # If it is remove it
+                    user_bookmarks.remove(cocktail_id)
+                    bookmark_count -= 1
+
+                else:
+                    # If it is NOT add it
+                    user_bookmarks.append(cocktail_id)
+                    bookmark_count += 1
+
+            # Stage query to find the session user
+            # Stage the data to be updated
+            query = {"_id": ObjectId(session["id"])}
+            # $set allows only one key to be updated without stating the rest
+            update = {"$set": {"bookmarks": user_bookmarks}}
+
+            cocktail_query = {"_id": ObjectId(cocktail_id)}
+            cocktail_update = {"$set": {"no_of_bookmarks": bookmark_count}}
+
+            print(user_bookmarks)
+
+            mongo.db.users.update_one(query, update)
+            mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
+
+    print(user_bookmarks)
+
+    return render_template(
+        "home.html", sort_cats=sort_cats, user_bookmarks=user_bookmarks)
 
 
 @app.route("/<alcohol_name>")
@@ -64,7 +127,16 @@ def category(alcohol_name):
         {"name": "Popular", "cocktails": popular}
     ]
 
-    return render_template("home.html", alcohol=alcohol, sort_cats=sort_cats)
+    if session.get('user'):
+        user_bookmarks = mongo.db.users.find_one(
+                    {"username": session["user"]}).get("bookmarks")
+
+    else:
+        user_bookmarks = []
+
+    return render_template(
+        "home.html", alcohol=alcohol, sort_cats=sort_cats,
+        user_bookmarks=user_bookmarks)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -169,7 +241,7 @@ def cocktail(cocktail_name, cocktail_id):
             flash("You must be logged in to bookmark cocktails")
 
         else:
-            # Grab random number from form
+            # Get random number from form
             form_random_value = request.form.get("random"),
 
             print(form_random_value)
@@ -179,14 +251,18 @@ def cocktail(cocktail_name, cocktail_id):
                 session["formsubmitno"] = form_random_value
                 print(user_bookmarks)
 
+                bookmark_count = cocktail.get("no_of_bookmarks")
+
                 # Check if cocktail is already bookmarked
                 if cocktail_id in user_bookmarks:
                     # If it is remove it
                     user_bookmarks.remove(cocktail_id)
+                    bookmark_count -= 1
 
                 else:
                     # If it is NOT add it
                     user_bookmarks.append(cocktail_id)
+                    bookmark_count += 1
 
             # Stage query to find the session user
             # Stage the data to be updated
@@ -194,9 +270,13 @@ def cocktail(cocktail_name, cocktail_id):
             # $set allows only one key to be updated without stating the rest
             update = {"$set": {"bookmarks": user_bookmarks}}
 
+            cocktail_query = {"_id": ObjectId(cocktail_id)}
+            cocktail_update = {"$set": {"no_of_bookmarks": bookmark_count}}
+
             print(user_bookmarks)
 
             mongo.db.users.update_one(query, update)
+            mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
 
     if session.get('user'):
         if cocktail_id in user_bookmarks:
