@@ -33,7 +33,11 @@
                     {% for cocktail in cat.cocktails %}
                         <div class="rec-card card swiper-slide">
                             <!--Bookmark Form-->
-                            <form id="bookmark" class="rec-card__bookmark" action="{{ url_for('home') }}" method="POST">
+                            {% if alcohol %}
+                                <form id="bookmark" class="rec-card__bookmark" action="{{ url_for('home', alcohol_name=alcohol.alcohol_name) }}" method="POST">
+                            {% else %}
+                                <form id="bookmark" class="rec-card__bookmark" action="{{ url_for('home') }}" method="POST">
+                            {% endif %}
                                 <input type="hidden" id="random" name="random" value="{{ range(1, 10000000) | random }}">
                                 <input type="hidden" id="cocktail-id" name="cocktail-id" value="{{ cocktail._id }}">
                                 <button id="bookmark-submit" class="cocktail-header__bookmark-btn">
