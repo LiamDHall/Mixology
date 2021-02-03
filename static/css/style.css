@@ -609,9 +609,17 @@ ul {
     outline: none;
 }
 
-.cocktail-header__bookmark {
+.cocktail-header__function {
     font-size: 2.5rem;
+}
+
+.cocktail-header__function--bookmark {
     color: limegreen;
+}
+
+.cocktail-header__function--edit {
+    color: var(--brand-cta);
+    margin-left: 20px;;
 }
 
 .cocktail-header__star-rating {

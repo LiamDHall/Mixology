@@ -9,13 +9,15 @@
             <input type="hidden" id="random" name="random" value="{{ range(1, 10000000) | random }}">
             <button id="bookmark-submit" class="cocktail-header__bookmark-btn">
                 {% if bookmark == "false" %}
-                    <i class="cocktail-header__bookmark far fa-bookmark inline-block"></i>
+                    <i class="cocktail-header__function cocktail-header__function--bookmark far fa-bookmark inline-block"></i>
                 {% else %}
-                    <i class="cocktail-header__bookmark fas fa-bookmark inline-block"></i>
+                    <i class="cocktail-header__function cocktail-header__function--bookmark fas fa-bookmark inline-block"></i>
                 {% endif %}
             </button>
         </form>
-        
+        {% if session.id == cocktail.author_id %}
+            <a href="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" class="cocktail-header__function cocktail-header__function--edit"><i class="fas fa-pencil-alt"></i> Edit</a>
+        {% endif %}
         <div class="cocktail-header__star-rating">
             {% if cocktail.rating == 0 %}
                 No Rating
