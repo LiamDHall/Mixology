@@ -18,15 +18,23 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-# Set alcohol categories as a global variable so all templates can call it
+# Set dictories as a global variable so all templates can call it
+# Used for dictionaries that are used in more then one template and
+# dictonaries that aren't changed / updated offend if at all.
+# User can't edit these dictionaries.
 @app.context_processor
 def get_db_items():
     alcohol_categories = list(mongo.db.alcohol.find())
-    return dict(alcohol_categories=alcohol_categories)
+    units = list(mongo.db.units.find())
+    tools = list(mongo.db.tools.find())
+    glasses = list(mongo.db.glasses.find())
+    return dict(
+        alcohol_categories=alcohol_categories, units=units, tools=tools,
+        glasses=glasses)
 
 
-@app.route("/", defaults={'alcohol_name': None}, methods=["GET", "POST"])
-@app.route("/home", defaults={'alcohol_name': None}, methods=["GET", "POST"])
+@app.route("/", defaults={"alcohol_name": None}, methods=["GET", "POST"])
+@app.route("/home", defaults={"alcohol_name": None}, methods=["GET", "POST"])
 @app.route("/<alcohol_name>", methods=["GET", "POST"])
 def home(alcohol_name):
     if alcohol_name:
@@ -289,10 +297,12 @@ def cocktail(cocktail_name, cocktail_id):
         "cocktail.html", cocktail=cocktail, bookmark=bookmark)
 
 
-@app.route("/cocktail-create", methods=["GET", "POST"])
-def cocktail_create():
+@app.route("/cocktail-edit/<cocktail_name>/<cocktail_id>", methods=[
+    "GET", "POST"])
+@app.route("/cocktail-create", defaults={
+    "cocktail_name": None, "cocktail_id": None}, methods=["GET", "POST"])
+def cocktail_create(cocktail_name, cocktail_id):
     if request.method == "POST":
-
         # Get the number of each input field
         ingred_count = int(request.form.get("no-of-ingred"))
         garnish_count = int(request.form.get("no-of-garnish"))
@@ -322,6 +332,7 @@ def cocktail_create():
             "instructions": instructions,
             "tips": tips,
             "author": session["user"],
+            "author_id": session["id"],
             "no_of_bookmarks": 0
         }
 
@@ -334,6 +345,10 @@ def cocktail_create():
     elif not session.get("user"):
         flash("You must be logged in to create a cocktail")
         return redirect(url_for("login"))
+
+    elif cocktail_id:
+        cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
+        return render_template("cocktail-edit.html", cocktail=cocktail)
 
     return render_template("cocktail-create.html")
 
