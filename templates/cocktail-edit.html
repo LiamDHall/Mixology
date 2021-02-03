@@ -5,7 +5,7 @@
         <h1>Cocktail Creation</h1>
 
         <!--Add Cocktail Form (in the style of view coctail page)-->
-        <form id="cocktail-create" class="form-cocktail" action="{{ url_for('cocktail_create') }}" method="POST">
+        <form id="cocktail-create" class="form-cocktail" action="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name, cocktail_id=cocktail._id) }}" method="POST">
             <input type="text" name="cocktail-name" class="form-cocktail__input form-cocktail__input--title" id="cocktail-name" 
                 placeholder="Enter Cocktail Name" aria-label="enter cocktail name" maxlength="20" value="{{ cocktail.cocktail_name }}" required>
             <div class="cocktail-header__star-rating">
