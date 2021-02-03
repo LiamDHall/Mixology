@@ -8,14 +8,11 @@
         <form id="cocktail-create" class="form-cocktail" action="{{ url_for('cocktail_create') }}" method="POST">
             <input type="text" name="cocktail-name" class="form-cocktail__input form-cocktail__input--title" id="cocktail-name" 
                 placeholder="Enter Cocktail Name" aria-label="enter cocktail name" maxlength="20" required>
-            <i class="cocktail-header__bookmark far fa-bookmark inline-block"></i>
             <div class="cocktail-header__star-rating">
                 <p>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
+                    {% for i in range(0, 5) %}
+                        <i class="far fa-star"></i>
+                    {% endfor %}
                     <span>(No rating yets)</span>
                 </p>
             </div>
@@ -28,7 +25,7 @@
                 <div class="cocktail__ingredients col-5">
                     <h2 class="cocktail__item-title">Ingredients</h2>
 
-                    <!--2 Hard coded inputs which can't be removed as all must cocktail have at least 2 ingrdients-->
+                    <!--2 Hard coded inputs which can't be removed as all cocktail must have at least 2 ingrdients-->
                     <!--1st Ingredient-->
                     <ul id="cocktail-ingredients" class="cocktail__info">
                         <li class="ingredient">
@@ -47,11 +44,9 @@
                             <!--Alcohol Type-->
                             <select name="alcohol" id="alcohol" class="form-cocktail__input" aria-label="dropdown menu to select alcohol type" required>
                                 <option value="" disabled selected hidden>Alcohol Type</option>
-                                <option value="vodka">Vodka</option>
-                                <option value="whiskey">Whiskey</option>
-                                <option value="gin">Gin</option>
-                                <option value="rum">Rum</option>
-                                <option value="tequila">Tequila</option>
+                                {% for alcohol in alcohol_categories %}
+                                    <option value="{{ alcohol.alcohol_name }}">{{ alcohol.alcohol_name.title() }}</option>
+                                {% endfor %}
                             </select>
                         </li>
 
@@ -60,15 +55,14 @@
                             
                              <!--Amount-->
                             <input type="text" id="ingredient-amount-2" name="ingredient-amount-2" class="form-cocktail__input form-cocktail__input--amount"
-                                pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="12.5" aria-label="enter amount of ingredient" required>
+                                pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="Amount" aria-label="enter amount of ingredient" required>
                             
                             <!--Unit-->
                             <select id="ingredient-unit-2" name="ingredient-unit-2" class="form-cocktail__input" aria-label="dropdown menu to select a unit type" required>
                                 <option value="" disabled selected hidden>Unit</option>
-                                <option value="ml">ml</option>
-                                <option value="tsp">tsp</option>
-                                <option value="dashes">dash/es</option>
-                                <option value="no unit">n/a</option>
+                                {% for unit in units %}
+                                    <option value="{{ unit.name }}">{{ unit.name }}</option>
+                                {% endfor %}
                             </select>
 
                             <!--Name-->
@@ -115,17 +109,12 @@
                             <!--Tool Selector-->
                             <select name="tool-1" id="tool-1" class="form-cocktail__input" aria-label="dropdown to select tool" required>
                                 <option value="" disabled selected hidden>Select Tool</option>
-                                <option value="spirit measure">Spirit Measure</option>
-                                <option value="bar spoon">Bar Spoon</option>
-                                <option value="cocktail shaker & strainer">Cocktail Shaker & Strainer</option>
-                                <option value="strainer">Strainer</option>
-                                <option value="lighter">Lighter</option>
-                                <option value="bar knife">Bar Knife</option>
-                                <option value="muddler">Muddler</option>
-                                <option value="mixing glass">Mixing Glass</option>
+                                {% for tool in tools %}
+                                    <option value="{{ tool.name }}">{{ tool.name.title() }}</option>
+                                {% endfor %}
                             </select>
 
-                            <!--Remove Tip-->
+                            <!--Remove Tool-->
                             <button class="remove-tool cocktail-btn cocktail-btn--remove" type="button">
                                 <i class="fas fa-minus-circle"></i> Remove
                             </button>
@@ -143,15 +132,9 @@
                         <li>
                             <select name="glass" id="glass" class="form-cocktail__input" aria-label="dropdown to select glass" required>
                                 <option value="" disabled selected hidden>Select Glass</option>
-                                <option value="collins">Collins</option>
-                                <option value="martini">Martini</option>
-                                <option value="tumbler">Tumbler</option>
-                                <option value="baby cham">Baby Cham</option>
-                                <option value="baby cham & shot">Baby Cham & Shot</option>
-                                <option value="champagne">Champagne</option>
-                                <option value="shot">Shot</option>
-                                <option value="margarita">Margarita</option>
-                                <option value="hurricane">Hurricane</option>
+                                {% for glass in glasses %}
+                                    <option value="{{ glass.name }}">{{ glass.name.title() }}</option>
+                                {% endfor %}
                             </select>
                         </li>
                     </ul>
