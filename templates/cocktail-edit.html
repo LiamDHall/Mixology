@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+{% block content %}
+    <!--Cocktail Header-->
+    <section class="cocktail-header">
+        <h1>Cocktail Creation</h1>
+
+        <!--Add Cocktail Form (in the style of view coctail page)-->
+        <form id="cocktail-create" class="form-cocktail" action="{{ url_for('cocktail_create') }}" method="POST">
+            <input type="text" name="cocktail-name" class="form-cocktail__input form-cocktail__input--title" id="cocktail-name" 
+                placeholder="Enter Cocktail Name" aria-label="enter cocktail name" maxlength="20" value="{{ cocktail.cocktail_name }}" required>
+            <div class="cocktail-header__star-rating">
+                <p>
+                    {% for i in range(0, cocktail.rating) %}
+                        <i class="fas fa-star"></i>
+                    {% endfor %}
+                    <span>
+                        {% if cocktail.rating == 0 %}
+                            No Rating
+                        {% else %}
+                            {{ cocktail.no_rating }}
+                        {% endif %}
+                    </span>
+                </p>
+            </div>
+            <p class="cocktail-header__author">by <a href="#">{{ session.user }}</a></p>
+            
+            <!--Cocktail Info-->
+            <div class="cocktail row">
+
+                <!--Cocktail Ingredients-->
+                <div class="cocktail__ingredients col-5">
+                    <h2 class="cocktail__item-title">Ingredients</h2>
+
+                    <!--2 Hard coded inputs which can't be removed as all cocktail must have at least 2 ingrdients-->
+                    <!--1st Ingredient-->
+                    <ul id="cocktail-ingredients" class="cocktail__info">
+                        {% for i in range(0, cocktail.ingredients | length ) %}
+                            <li class="ingredient">
+                                
+                                <!--Amount-->
+                                <input type="text" id="ingredient-amount-{{ i + 1 }}" name="ingredient-amount-{{ i + 1 }}" class="form-cocktail__input form-cocktail__input--amount" 
+                                    pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="25" aria-label="enter amount of main alcohol" value="{{ cocktail.ingredients[i][0] }}" required>
+                                
+                                    <!--Unit-->
+                                {% if i == 0 %}
+                                    <input type="text" id="ingredient-unit-{{ i + 1 }}" name="ingredient-unit-{{ i + 1 }}" class="form-cocktail__input form-cocktail__input--fixed" value="ml" readonly>
+                                {% else %}
+                                    <select id="ingredient-unit-{{ i + 1 }}" name="ingredient-unit-{{ i + 1 }}" class="form-cocktail__input" aria-label="dropdown menu to select a unit type" required>
+                                        {% for unit in units %}
+                                        {{ cocktail.ingredients[i][1] }}
+                                            {% if cocktail.ingredients[i][1] == unit.name %}
+                                                <option value="{{ unit.name }}" selected>{{ unit.name }}</option>
+                                            {% else %}
+                                                <option value="{{ unit.name }}">{{ unit.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                                
+                                <!--Name-->
+                                {% if i == 0 %}  
+                                    <input type="text" id="ingredient-name-{{ i + 1 }}" name="ingredient-name-{{ i + 1 }}" class="form-cocktail__input" placeholder="Main Alcohol Name" 
+                                        aria-label="enter name of main alcohol" value="{{ cocktail.ingredients[i][2] }}" required>
+                                {% else %}
+                                    <input type="text" id="ingredient-name-{{ i + 1 }}" name="ingredient-name-{{ i + 1 }}" class="form-cocktail__input" placeholder="Ingredient Name" 
+                                        aria-label="enter name of main alcohol" value="{{ cocktail.ingredients[i][2] }}" required>
+                                {% endif %}
+
+                                <!--Alcohol Type-->
+                                {% if i == 0 %}
+                                    <select name="alcohol" id="alcohol" class="form-cocktail__input" aria-label="dropdown menu to select alcohol type" required>
+                                        {% for alcohol in alcohol_categories %}
+                                            {% if cocktail.alcohol == alcohol.alcohol_name.lower() %}
+                                                <option value="{{ alcohol.alcohol_name }}" selected>{{ alcohol.alcohol_name.title() }}</option>
+                                            {% else %}
+                                                <option value="{{ alcohol.alcohol_name }}">{{ alcohol.alcohol_name.title() }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+
+                                <!--Remove Button-->
+                                {% if i > 1 %}
+                                    <button class="remove-ingredient cocktail-btn cocktail-btn--remove" type="button">
+                                        <i class="fas fa-minus-circle"></i> Remove
+                                    </button>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <!--Add Button-->
+                    <button id="add-ingredient" class="cocktail-btn cocktail-btn--add" type="button">
+                        <i class="fas fa-plus-circle"></i> Add Ingredient
+                    </button>
+
+                    <!--Cocktail Garnish-->
+                        <h3 class="cocktail__item-title">Garnish</h3>
+                        <ul id="cocktail-garnish" class="cocktail__info">
+                            {% for i in range(0, cocktail.garnish | length) %}
+                                <li class="garnish">
+                                    <!--Amount-->
+                                    <input type="text" id="garnish-amount-{{ i + 1 }}" name="garnish-amount-{{ i + 1 }}" class="form-cocktail__input form-cocktail__input--amount" 
+                                        pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="1" aria-label="enter garnish amount" value="{{ cocktail.garnish[i][0] }}" required>
+                                    
+                                    <!--Name-->
+                                    <input type="text" id="garnish-name-{{ i + 1 }}" name="garnish-name-{{ i + 1 }}" class="form-cocktail__input" placeholder="Garnish Name" 
+                                        aria-label="enter garnish name" value="{{ cocktail.garnish[i][1] }}" required>
+                                    
+                                    <!--Remove Item Button-->
+                                    <button class="remove-garnish cocktail-btn cocktail-btn--remove" type="button">
+                                        <i class="fas fa-minus-circle"></i> Remove
+                                    </button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <button id="add-garnish" class="cocktail-btn cocktail-btn--add" type="button">
+                            <i class="fas fa-plus-circle"></i> Add Garnish
+                        </button>
+                </div>
+
+                <!--Cocktail Tools-->
+                <div class="cocktail__tools col-3">
+                    <h2 class="cocktail__item-title">Tools</h2>
+                    <ul id="cocktail-tools" class="cocktail__info">
+                        <!--Tool Selector-->
+                        {% for i in range(0, cocktail.tools | length) %}
+                            <li class="tool">
+                                <select name="tool-{{ i + 1 }}" id="tool-{{ i + 1 }}" class="form-cocktail__input" aria-label="dropdown to select tool" required>
+                                    {% for tool in tools %}
+                                        {% if tool.name == cocktail.tools[i] %}
+                                            <option value="{{ tool.name }}" selected>{{ tool.name.title() }}</option>
+                                        {% else %}
+                                            <option value="{{ tool.name }}">{{ tool.name.title() }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+
+                                <!--Remove Tool-->
+                                <button class="remove-tool cocktail-btn cocktail-btn--remove" type="button">
+                                    <i class="fas fa-minus-circle"></i> Remove
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <!--Add Tool button-->
+                    <button id="add-tool" class="cocktail-btn cocktail-btn--add" type="button">
+                        <i class="fas fa-plus-circle"></i> Add Tool
+                    </button>
+                    
+                    <!--Cocktail Glass-->
+                    <h2 class="cocktail__item-title">Glass</h2>
+                    <ul class="cocktail__info">
+                        <li>
+                            <select name="glass" id="glass" class="form-cocktail__input" aria-label="dropdown to select glass" required>
+                                <option value="" disabled selected hidden>Select Glass</option>
+                                {% for glass in glasses %}
+                                    {% if glass.name == cocktail.glass %}
+                                        <option value="{{ glass.name }}" selected>{{ glass.name.title() }}</option>
+                                    {% else %}
+                                        <option value="{{ glass.name }}">{{ glass.name.title() }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!--Upload Image-->
+                <div class="cocktail__img-contianer col-4">
+                    <img class="cocktail__img" src="/static/images/bramble.jpg">
+                </div>
+            </div>
+
+            <!--Cocktail Instructions-->
+            <div class="cocktail__row row">
+                <div class="cocktail__instructions col-8">
+                    <h2 class="cocktail__item-title">Instructions</h2>
+                    <ol id="cocktail-instructions" class="cocktail__info">
+                        {% for i in range(0, cocktail.instructions | length) %}
+                            <li class="instruction">
+                                <textarea id="instruction-{{ i + 1 }}" name="instruction-{{ i + 1 }}" class="form-cocktail__input form-cocktail__text-area" 
+                                    rows="3" placeholder="Type Instructions Here" maxlength="400" aria-label="enter instruction" required>
+                                    {{- cocktail.instructions[i].capitalize() -}}
+                                </textarea>
+                                {% if i > 0 %}
+                                    <button class="remove-instruction cocktail-btn cocktail-btn--remove" type="button">
+                                        <i class="fas fa-minus-circle"></i> Remove
+                                    </button>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ol>
+
+                    <!--Add Instruction Button-->
+                    <button id="add-instruction" class="cocktail-btn cocktail-btn--add clear-both" type="button">
+                        <i class="fas fa-plus-circle"></i> Add Instruction
+                    </button>
+                </div>
+
+                <!--Cocktail Tips-->
+                <div class="cocktail__tips col-4">
+                    <h2 class="cocktail__item-title">Tips</h2>
+                    <ul id="cocktail-tips" class="cocktail__info">
+                        <li class="form-tip">
+                            <textarea id="tip-1" name="tip-1" 
+                                class="form-cocktail__input form-cocktail__text-area form-cocktail__text-area--tip" rows="3" placeholder="Type your tip here" 
+                                maxlength="200" aria-label="enter tip" required></textarea>
+                            
+                            <!--Remove Tip Button-->
+                            <button class="remove-tip cocktail-btn cocktail-btn--remove float-right" type="button">
+                                <i class="fas fa-minus-circle"></i> Remove
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!--Add Tip Button-->
+                    <button id="add-tip" class="cocktail-btn cocktail-btn--add clear-both" type="button">
+                        <i class="fas fa-plus-circle"></i> Add Tip
+                    </button>
+                </div>
+            </div>
+
+            <!--Hidden Inputs Used for backend functions-->
+            <input type="hidden" id="no-of-ingred" name="no-of-ingred" value="0">
+            <input type="hidden" id="no-of-garnish" name="no-of-garnish" value="0">
+            <input type="hidden" id="no-of-tools" name="no-of-tools" value="0">
+            <input type="hidden" id="no-of-instr" name="no-of-instr" value="0">
+            <input type="hidden" id="no-of-tips" name="no-of-tips" value="0">
+            <div class="row">
+                <div class="form-cocktail__submit col-12">
+                    <!--Cancel Add Cocktail-->
+                    <a href="{{ url_for('profile') }}" class="cta cta--delete cta---lesser cta--submit">Cancel</a>
+                    
+                    <!--Save as Draft-->
+                    <input type="submit" class="cta cta---greater cta--submit" value="Save For Later">
+
+                    <!--Publish for all users to see-->
+                    <input type="submit" class="cta cta--create cta---greater cta--submit" value="Publish">
+                </div>
+            </div>
+        </form>
+    </section>
+{% endblock %}
+{% block scripts %}
+    <script defer src="{{ url_for('static', filename='js/cocktail-form.js') }}"></script>
+{% endblock %}
