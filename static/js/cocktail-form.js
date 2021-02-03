@@ -378,3 +378,32 @@ $(document).on('click', '.remove-tip', function() {
         $('#cocktail-tips').append(noTip);
     }
 });
+
+// Remove "Add Item" button on page load
+$( document ).ready( function() {
+    var ingredFeedback = `<p id="ingred-feedback" class="cocktail__feedback">Max amount of Ingredients</p>`;
+    var garnishFeedback = `<p id="garnish-feedback" class="cocktail__feedback">Max amount of Garnishes</p>`;
+    var toolFeedback = `<p id="tool-feedback" class="cocktail__feedback">Max amount of Tools</p>`;
+    var instrFeedback = `<p id="instruction-feedback" class="cocktail__feedback">Max amount of Instruction</p>`;
+    var tipFeedback = `<p id="tip-feedback" class="cocktail__feedback clear-both">Max amount of Tips</p>`;
+
+    if (ingredCount == 12) {
+        $('#add-ingredient').replaceWith(ingredFeedback)
+    };
+
+    if (garnishCount == 3) {
+        $('#add-garnish').replaceWith(garnishFeedback)
+    }
+
+    if (toolCount == 5) {
+        $('#add-tool').replaceWith(toolFeedback)
+    };
+
+    if (instrCount == 15) {
+        $('#add-instruction').replaceWith(instrFeedback)
+    };
+
+    if (tipCount == 3) {
+        $('#add-tip').replaceWith(tipFeedback)
+    }
+});
