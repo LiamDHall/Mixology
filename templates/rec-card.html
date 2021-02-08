@@ -1,0 +1,49 @@
+<!--Rec Card-->
+<div class="rec-card card swiper-slide">
+    <!--Bookmark Form-->
+    {% if alcohol %}
+        <form class="rec-card__bookmark-form" action="{{ url_for('home', alcohol_name=alcohol.alcohol_name) }}" method="POST">
+    {% else %}
+        <form class="rec-card__bookmark-form" action="{{ url_for('home') }}" method="POST">
+    {% endif %}
+        <input type="hidden" name="random" value="{{ range(1, 10000000) | random }}">
+        <input type="hidden" name="cocktail-id" value="{{ cocktail._id }}">
+        <button class="rec-card__bookmark">
+            {% if cocktail._id | string in user_bookmarks %}
+                <i class="cocktail-header__bookmark fas fa-bookmark inline-block"></i>
+            {% else %}
+                <i class="cocktail-header__bookmark far fa-bookmark inline-block"></i>
+            {% endif %}
+        </button>
+    </form>
+    <img class="rec-card__img card-img-top" src="{{ url_for('static', filename='images/pornstar-martini.jpg') }}" alt="cocktail image">
+    <div class="rec-card__info card-body">
+        <h5 class="rec-card__title">{{ cocktail.cocktail_name }}</h5>
+        <div class="row">
+            <div class="rec-card__star-rating col-6">
+                <p>
+                    {% if cocktail.rating == 0 %}
+                        No Rating
+                    {% else %}
+                        {%  for i in range (0, cocktail.rating) %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+                    {% endif %}
+                    ({{ cocktail.no_rating }})
+                    {{ cocktail._id }}
+                </p>
+            </div>
+            <div class="rec-card__col col-6">
+                <a href="{{ url_for('cocktail', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" class="rec-card__cta cta">Make It</a>
+            </div>
+        </div>
+        {% if (profile) and (session.id | string == profile._id | string) %}
+            <div class="rec-card__container">
+                <a href="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" class="cta cta--edit cta--profile cta--link inline"><i class="fas fa-pencil-alt"></i> Edit</a>
+                <button class="cta cta--delete cta--fw cta--profile" type="button">
+                    <i class="fas fa-minus-circle inline"></i> Delete
+                </button>
+            </div>
+        {% endif %}
+    </div>
+</div>

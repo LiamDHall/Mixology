@@ -4,7 +4,7 @@
 <section class="section-spacing">
     <div class="profile">
         <div class="profile__container profile__container--img inline-block">
-            <img class="profile__img" src="../static/images/pornstar-martini.jpg">
+            <img class="profile__img" src="{{ url_for('static', filename='images/pornstar-martini.jpg') }}">
         </div>
         <div class="profile__container profile__container--text inline-block">
             <h1 class="profile__name">Username</h1>
@@ -23,27 +23,43 @@
 </section>
 
 <!--User Cocktails-->
-<section class="section-spacing">
+<section class="rec-carsousel section-spacing">
     <div class="rec-carsousel__header">
         <h2 class="rec-carsousel__title inline-block">Your Cocktails</h2>
         <a href="#" class="rec-carsousel__cta cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
     </div>
     <hr class="page-line page-line--brand">
 
-    <!--User Cocktails Filter-->
-    <div class="rec-carsousel__filter float-left">
-        <h3 class="rec-carsousel__tag inline-block">Filter:</h3>
-        {% for alcohol in alcohol_categories %}
-            <button class="cta cta--filter">{{ alcohol.alcohol_name }}</button>
-        {% endfor %}
+    <!--User Cocktails Filters-->
+    <div class="rec-carsousel__filter-contianer"> 
+        <div class="rec-carsousel__filter float-left">
+            <h3 class="rec-carsousel__tag inline-block">Filter:</h3>
+            {% for alcohol in alcohol_categories %}
+                <button class="cta cta--filter">{{ alcohol.alcohol_name }}</button>
+            {% endfor %}
+        </div>
+
+        <div class="rec-carsousel__sort float-right">
+            <h3 class="rec-carsousel__tag inline-block">Sort:</h3>
+            <button class="cta cta--filter">A-Z</button>
+            <button class="cta cta--filter">Rating</button>
+            <button class="cta cta--filter">Popularity</button>
+        </div>
     </div>
 
-    <!--User Cocktails Sort-->
-    <div class="rec-carsousel__sort float-right">
-        <h3 class="rec-carsousel__tag inline-block">Sort:</h3>
-        <button class="cta cta--filter">A-Z</button>
-        <button class="cta cta--filter">Rating</button>
-        <button class="cta cta--filter">Popularity</button>
+    <!--User Cocktails Carsousel-->
+    <div class="swiper-container clear-both">
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            {% for cocktail in user_bookmarks %}
+                {% include "rec-card.html" %}
+            {% endfor %}
+        </div>
+        <!--Navigation buttons-->
+        <div class="rec-carsousel__btn-container">
+            <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+            <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+        </div>
     </div>
 </section>
 
@@ -54,20 +70,21 @@
     </div>
     <hr class="page-line page-line--brand">
 
-    <!--User Bookmark Filter-->
-    <div class="rec-carsousel__filter float-left">
-        <h3 class="rec-carsousel__tag inline-block">Filter:</h3>
-        {% for alcohol in alcohol_categories %}
-            <button class="cta cta--filter">{{ alcohol.alcohol_name }}</button>
-        {% endfor %}
-    </div>
+    <!--User Bookmark Filters-->
+    <div class="rec-carsousel__filter-contianer"> 
+        <div class="rec-carsousel__filter float-left">
+            <h3 class="rec-carsousel__tag inline-block">Filter:</h3>
+            {% for alcohol in alcohol_categories %}
+                <button class="cta cta--filter">{{ alcohol.alcohol_name }}</button>
+            {% endfor %}
+        </div>
 
-    <!--User Bookmark Sort-->
-    <div class="rec-carsousel__sort float-right">
-        <h3 class="rec-carsousel__tag inline-block">Sort:</h3>
-        <button class="cta cta--filter">A-Z</button>
-        <button class="cta cta--filter">Rating</button>
-        <button class="cta cta--filter">Popularity</button>
+        <div class="rec-carsousel__sort float-right">
+            <h3 class="rec-carsousel__tag inline-block">Sort:</h3>
+            <button class="cta cta--filter">A-Z</button>
+            <button class="cta cta--filter">Rating</button>
+            <button class="cta cta--filter">Popularity</button>
+        </div>
     </div>
 </section> 
 {% endblock %}
