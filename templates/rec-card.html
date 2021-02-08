@@ -3,6 +3,8 @@
     <!--Bookmark Form-->
     {% if alcohol %}
         <form class="rec-card__bookmark-form" action="{{ url_for('home', alcohol_name=alcohol.alcohol_name) }}" method="POST">
+    {% elif profile %}
+        <form class="rec-card__bookmark-form" action="{{ url_for('profile', profile_name=profile.username, profile_id=profile._id) }}" method="POST">
     {% else %}
         <form class="rec-card__bookmark-form" action="{{ url_for('home') }}" method="POST">
     {% endif %}
@@ -37,7 +39,7 @@
                 <a href="{{ url_for('cocktail', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" class="rec-card__cta cta">Make It</a>
             </div>
         </div>
-        {% if (profile) and (session.id | string == profile._id | string) %}
+        {% if (profile) and (session.id | string == cocktail.author_id | string) %}
             <div class="rec-card__container">
                 <a href="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" class="cta cta--edit cta--profile cta--link inline"><i class="fas fa-pencil-alt"></i> Edit</a>
                 <button class="cta cta--delete cta--fw cta--profile" type="button">
