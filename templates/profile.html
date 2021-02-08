@@ -7,7 +7,7 @@
             <img class="profile__img" src="{{ url_for('static', filename='images/pornstar-martini.jpg') }}">
         </div>
         <div class="profile__container profile__container--text inline-block">
-            <h1 class="profile__name">Username</h1>
+            <h1 class="profile__name">{{ profile.username }}</h1>
             <p class="profile__info">Number of Recipes: <span>000 add link from template</span></p>
             <p class="profile__info">Date Joined: <span>DD/MM/YYYY add link from template</span></p>
             <div class="profile__actions">
@@ -21,7 +21,7 @@
         </div>
     </div>
 </section>
-
+{{user_bookmarks}}
 <!--User Cocktails-->
 <section class="rec-carsousel section-spacing">
     <div class="rec-carsousel__header">
@@ -46,21 +46,27 @@
             <button class="cta cta--filter">Popularity</button>
         </div>
     </div>
-
-    <!--User Cocktails Carsousel-->
-    <div class="swiper-container clear-both">
-        <div class="swiper-wrapper">
-            <!-- Slides -->
-            {% for cocktail in user_bookmarks %}
-                {% include "rec-card.html" %}
-            {% endfor %}
+    
+    {% if user_cocktails | length > 0 %}
+        <!--User Cocktails Carsousel-->
+        <div class="swiper-container clear-both">
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                {% for cocktail in user_cocktails %}
+                    {% include "rec-card.html" %}
+                {% endfor %}
+            </div>
+            <!--Navigation buttons-->
+            <div class="rec-carsousel__btn-container">
+                <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+                <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+            </div>
         </div>
-        <!--Navigation buttons-->
-        <div class="rec-carsousel__btn-container">
-            <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
-            <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+    {% else %}
+        <div class="no-cocktail">
+            <p class="no-cocktails__text">No Cocktails</p>
         </div>
-    </div>
+    {% endif %}
 </section>
 
 <!--User Bookmarks-->
@@ -86,5 +92,26 @@
             <button class="cta cta--filter">Popularity</button>
         </div>
     </div>
-</section> 
+
+    {% if bookmarked_cocktails | length > 0 %}
+        <!--User Bookmark Carsousel-->
+        <div class="swiper-container clear-both">
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                {% for cocktail in bookmarked_cocktails %}
+                    {% include "rec-card.html" %}
+                {% endfor %}
+            </div>
+            <!--Navigation buttons-->
+            <div class="rec-carsousel__btn-container">
+                <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+                <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+            </div>
+        </div>
+    {% else %}
+        <div class="no-cocktail">
+            <h4 class="no-cocktails__text">No Cocktails</h4>
+        </div>
+    {% endif %}
+</section>
 {% endblock %}

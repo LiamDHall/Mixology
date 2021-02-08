@@ -626,6 +626,18 @@ ul {
     margin-top: 17.5px;
 }
 
+/*--No Rec Cards--*/
+.no-cocktail {
+    width: 100%;
+    text-align: center; 
+}
+
+.no-cocktails__text {
+    font-size: 3.5rem;
+    padding-top: 100px;
+    color: var(--brand-color);
+}
+
 /*------------------------------------------------------Profile--*/
 .profile {
     margin: 0 auto;
