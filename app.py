@@ -42,15 +42,15 @@ def home(alcohol_name):
 
         newest = mongo.db.cocktails.find({
             "alcohol": alcohol_name.lower()}).sort(
-            "date_added", -1).limit(12)
+            "date_added", -1).limit(18)
 
         top_rated = mongo.db.cocktails.find(
             {"alcohol": alcohol_name.lower()}).sort(
-            [("rating", -1), ("no_rating", -1)]).limit(12)
+            [("rating", -1), ("no_rating", -1)]).limit(18)
 
         popular = mongo.db.cocktails.find(
             {"alcohol": alcohol_name.lower()}).sort(
-            [("no_of_bookmarks", -1), ("no_rating", -1)]).limit(12)
+            [("no_of_bookmarks", -1), ("no_rating", -1)]).limit(18)
 
         sort_cats = [
             {"name": "Newly Added", "cocktails": newest},
@@ -61,11 +61,11 @@ def home(alcohol_name):
     else:
         alcohol = None
         # Sort Cocktails into different arrangements
-        newest = mongo.db.cocktails.find().sort("date_added", -1).limit(12)
+        newest = mongo.db.cocktails.find().sort("date_added", -1).limit(18)
         top_rated = mongo.db.cocktails.find().sort(
-            [("rating", -1), ("no_rating", -1)]).limit(12)
+            [("rating", -1), ("no_rating", -1)]).limit(18)
         popular = mongo.db.cocktails.find().sort(
-            "no_of_bookmarks", -1).limit(12)
+            "no_of_bookmarks", -1).limit(18)
 
         # Add the arrangements into a list for template to iterate
         sort_cats = [
@@ -83,6 +83,7 @@ def home(alcohol_name):
     else:
         user_bookmarks = []
 
+    # Bookmarking
     if request.method == "POST":
         if not session.get("user"):
             flash("You must be logged in to bookmark cocktails")
@@ -228,9 +229,79 @@ def logout():
     return redirect(url_for("home"))
 
 
-@app.route("/profile")
-def profile():
-    return render_template("profile.html")
+@app.route("/profile/<profile_name>/<profile_id>", methods=["GET", "POST"])
+def profile(profile_name, profile_id):
+    # Get bookmarks of user if logged in
+    if session.get('user'):
+        user_bookmarks = mongo.db.users.find_one(
+            {"username": session["user"]}).get("bookmarks")
+
+    # No bookmarks if no user is logged in
+    else:
+        user_bookmarks = []
+
+    # Bookmarking
+    if request.method == "POST":
+        if not session.get("user"):
+            flash("You must be logged in to bookmark cocktails")
+
+        else:
+            cocktail_id = request.form.get("cocktail-id")
+
+            cocktail = mongo.db.cocktails.find_one(
+                {"_id": ObjectId(cocktail_id)})
+
+            bookmark_count = cocktail.get("no_of_bookmarks")
+
+            print(f"Bookmark count = {bookmark_count}")
+
+            # Grab random number from form
+            form_random_value = request.form.get("random"),
+
+            print(form_random_value)
+
+            # Block against reload re submits
+            if form_random_value != session["formsubmitno"]:
+                session["formsubmitno"] = form_random_value
+                print(f"Bookmarks = {user_bookmarks}")
+
+                # Check if cocktail is already bookmarked
+                if cocktail_id in user_bookmarks:
+                    # If it is remove it
+                    user_bookmarks.remove(cocktail_id)
+                    bookmark_count -= 1
+
+                else:
+                    # If it is NOT add it
+                    user_bookmarks.append(cocktail_id)
+                    bookmark_count += 1
+
+            # Stage query to find the session user
+            # Stage the data to be updated
+            query = {"_id": ObjectId(session["id"])}
+            # $set allows only one key to be updated without stating the rest
+            update = {"$set": {"bookmarks": user_bookmarks}}
+
+            cocktail_query = {"_id": ObjectId(cocktail_id)}
+            cocktail_update = {"$set": {"no_of_bookmarks": bookmark_count}}
+
+            mongo.db.users.update_one(query, update)
+            mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
+
+    profile = mongo.db.users.find_one(
+        {"_id": ObjectId(profile_id)})
+
+    user_cocktails = list(mongo.db.cocktails.find(
+        {"author_id": profile_id}).sort("date_added", -1))
+
+    bookmarked_cocktails = get_bookmarked_cocktails()
+
+    print(f"Bookmarks After= {user_bookmarks}")
+
+    return render_template(
+        "profile.html", bookmarked_cocktails=bookmarked_cocktails,
+        user_cocktails=user_cocktails, profile=profile,
+        user_bookmarks=user_bookmarks)
 
 
 @app.route("/cocktail/<cocktail_name>/<cocktail_id>", methods=["GET", "POST"])
@@ -241,6 +312,7 @@ def cocktail(cocktail_name, cocktail_id):
         user_bookmarks = mongo.db.users.find_one(
                     {"username": session["user"]}).get("bookmarks")
 
+    # Bookmarking
     if request.method == "POST":
         if not session.get("user"):
             flash("You must be logged in to bookmark cocktails")
@@ -343,7 +415,9 @@ def cocktail_create(cocktail_name, cocktail_id):
             # Gives the user feedback on a sucessful submission
             flash("Coctail Added")
 
-            return redirect(url_for("profile"))
+            return redirect(url_for(
+                "profile", profile_name=session["user"],
+                profile_id=session["id"]))
 
         else:
             # Stages form input ready to be pushed to the datebase
@@ -426,6 +500,20 @@ def formate_inputs(item, count):
             item_formatted.append(item_info)
 
     return item_formatted
+
+
+def get_bookmarked_cocktails():
+    bookmark_list = mongo.db.users.find_one(
+            {"username": session["user"]}).get("bookmarks")
+
+    bookmarked_cocktial = []
+
+    for cocktail_id in bookmark_list:
+
+        cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
+        bookmarked_cocktial.insert(0, cocktail)
+
+    return bookmarked_cocktial
 
 
 if __name__ == "__main__":
