@@ -28,7 +28,8 @@
             {% endif %}
             ({{ cocktail.no_rating }})
         </div>
-        <p class="cocktail-header__author"><a href="{{ url_for('profile', profile_name=cocktail.author, profile_id=cocktail.author_id) }}">by <span class="cocktail-header__author">{{ cocktail.author }}</span></a></p>
+        <p class="cocktail-header__info"><strong>Date Added:</strong> {{ cocktail.date_added.strftime('%d/%m/%y') }}</p>
+        <p class="cocktail-header__info"><a href="{{ url_for('profile', profile_name=cocktail.author, profile_id=cocktail.author_id) }}">by <span class="cocktail-header__author">{{ cocktail.author }}</span></a></p>
         <button class="cta cta--cocktail">Rate This Cocktail</button>
     </section>
 

@@ -8,8 +8,8 @@
         </div>
         <div class="profile__container profile__container--text inline-block">
             <h1 class="profile__name">{{ profile.username }}</h1>
-            <p class="profile__info">Number of Recipes: <span>000 add link from template</span></p>
-            <p class="profile__info">Date Joined: <span>DD/MM/YYYY add link from template</span></p>
+            <p class="profile__info"><strong>Number of Cocktails:</strong> 000 add link from template</p>
+            <p class="profile__info"><strong>Date Joined:</strong> {{ profile.date_added.strftime('%d/%m/%y') }}</p>
             <div class="profile__actions">
                 <button class="cta"><i class="fas fa-user-edit"></i> Edit</button>
                 <button class="cta cta--delete"><i class="fas fa-times"></i> Delete Profile</button>
@@ -64,7 +64,7 @@
         </div>
     {% else %}
         <div class="no-cocktail">
-            <p class="no-cocktails__text">No Cocktails</p>
+            <h4 class="no-cocktails__text">No Cocktails</h4>
         </div>
     {% endif %}
 </section>

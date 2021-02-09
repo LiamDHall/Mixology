@@ -33,6 +33,7 @@ def get_db_items():
         glasses=glasses)
 
 
+# Home
 @app.route("/", defaults={"alcohol_name": None}, methods=["GET", "POST"])
 @app.route("/home", defaults={"alcohol_name": None}, methods=["GET", "POST"])
 @app.route("/<alcohol_name>", methods=["GET", "POST"])
@@ -99,6 +100,7 @@ def home(alcohol_name):
             user_bookmarks=user_bookmarks)
 
 
+# Login
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -142,6 +144,7 @@ def login():
     return render_template("login.html")
 
 
+# Resigster
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -160,8 +163,9 @@ def register():
             "username": request.form.get("reg-username").lower(),
             "password": generate_password_hash(
                 request.form.get("reg-password")),
+            "bookmarks": [],
             "image": None,
-            "bookmarks": []
+            "date_added": datetime.datetime.utcnow()
         }
 
         # Add staged form information to the db
@@ -173,6 +177,7 @@ def register():
     return render_template("register.html")
 
 
+# Logout
 @app.route("/logout")
 def logout():
     # Removes all session cookies
@@ -183,6 +188,7 @@ def logout():
     return redirect(url_for("home"))
 
 
+# Profile
 @app.route("/profile/<profile_name>/<profile_id>", methods=["GET", "POST"])
 def profile(profile_name, profile_id):
     # Get bookmarks of user if logged in
@@ -214,6 +220,7 @@ def profile(profile_name, profile_id):
         user_bookmarks=user_bookmarks)
 
 
+# Cocktail Recipe Page
 @app.route("/cocktail/<cocktail_name>/<cocktail_id>", methods=["GET", "POST"])
 def cocktail(cocktail_name, cocktail_id):
     cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
@@ -240,6 +247,7 @@ def cocktail(cocktail_name, cocktail_id):
         "cocktail.html", cocktail=cocktail, bookmark=bookmark)
 
 
+# Create Cocktail Form
 @app.route("/cocktail-edit/<cocktail_name>/<cocktail_id>", methods=[
     "GET", "POST"])
 @app.route("/cocktail-create", defaults={
