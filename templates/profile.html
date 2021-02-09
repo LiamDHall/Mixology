@@ -16,7 +16,7 @@
                     <div class="profile__actions profile__actions--center">
                         <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" class="cta cta--delete cta--confirm">Cancel</a>
                         <button class="cta cta--create cta--confirm" name="form-submit" value="update-profile">Save Changes</button>
-                        <button class="cta cta--delete cta--confirm" name="form-submit" value="delete"><i class="fas fa-times"></i> Delete Profile</button>
+                        <a href="{{ url_for('delete_profile', user_id=session.id) }}" class="cta cta--delete cta--confirm"><i class="fas fa-times"></i> Delete Profile</a>
                     </div>
                 </div>
             </div>

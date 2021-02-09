@@ -220,6 +220,8 @@ def profile(profile_name, profile_id, edit):
             update_return = update_profile(profile_name, profile_id)
             if update_return == "true":
                 edit = "true"
+        elif form_type == "delete-profile":
+            delete_profile(profile_id)
 
     profile = mongo.db.users.find_one(
         {"_id": ObjectId(profile_id)})
@@ -237,8 +239,21 @@ def profile(profile_name, profile_id, edit):
         user_bookmarks=user_bookmarks, edit=edit)
 
 
+# Delete Profile
+@app.route("/delete-profile/<user_id>")
+def delete_profile(user_id):
+    mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+    print(user_id)
+    print(type(user_id))
+    mongo.db.cocktails.delete_many({"author_id": user_id})
+    session.clear()
+    flash("Profile Deleted")
+    return redirect(url_for("home"))
+
+
 # Cocktail Recipe Page
-@app.route("/cocktail/<cocktail_name>/<cocktail_id>", methods=["GET", "POST"])
+@app.route(
+    "/cocktail/<cocktail_name>/<cocktail_id>", methods=["GET", "POST"])
 def cocktail(cocktail_name, cocktail_id):
     cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
 
