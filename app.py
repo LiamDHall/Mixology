@@ -85,53 +85,7 @@ def home(alcohol_name):
 
     # Bookmarking
     if request.method == "POST":
-        if not session.get("user"):
-            flash("You must be logged in to bookmark cocktails")
-
-        else:
-            cocktail_id = request.form.get("cocktail-id")
-
-            cocktail = mongo.db.cocktails.find_one(
-                {"_id": ObjectId(cocktail_id)})
-
-            bookmark_count = cocktail.get("no_of_bookmarks")
-
-            print(f"Bookmark count = {bookmark_count}")
-
-            # Grab random number from form
-            form_random_value = request.form.get("random"),
-
-            print(form_random_value)
-
-            # Block against reload re submits
-            if form_random_value != session["formsubmitno"]:
-                session["formsubmitno"] = form_random_value
-                print(f"Bookmarks = {user_bookmarks}")
-
-                # Check if cocktail is already bookmarked
-                if cocktail_id in user_bookmarks:
-                    # If it is remove it
-                    user_bookmarks.remove(cocktail_id)
-                    bookmark_count -= 1
-
-                else:
-                    # If it is NOT add it
-                    user_bookmarks.append(cocktail_id)
-                    bookmark_count += 1
-
-            # Stage query to find the session user
-            # Stage the data to be updated
-            query = {"_id": ObjectId(session["id"])}
-            # $set allows only one key to be updated without stating the rest
-            update = {"$set": {"bookmarks": user_bookmarks}}
-
-            cocktail_query = {"_id": ObjectId(cocktail_id)}
-            cocktail_update = {"$set": {"no_of_bookmarks": bookmark_count}}
-
-            print(user_bookmarks)
-
-            mongo.db.users.update_one(query, update)
-            mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
+        submit_bookmark(user_bookmarks)
 
     print(user_bookmarks)
 
@@ -242,51 +196,7 @@ def profile(profile_name, profile_id):
 
     # Bookmarking
     if request.method == "POST":
-        if not session.get("user"):
-            flash("You must be logged in to bookmark cocktails")
-
-        else:
-            cocktail_id = request.form.get("cocktail-id")
-
-            cocktail = mongo.db.cocktails.find_one(
-                {"_id": ObjectId(cocktail_id)})
-
-            bookmark_count = cocktail.get("no_of_bookmarks")
-
-            print(f"Bookmark count = {bookmark_count}")
-
-            # Grab random number from form
-            form_random_value = request.form.get("random"),
-
-            print(form_random_value)
-
-            # Block against reload re submits
-            if form_random_value != session["formsubmitno"]:
-                session["formsubmitno"] = form_random_value
-                print(f"Bookmarks = {user_bookmarks}")
-
-                # Check if cocktail is already bookmarked
-                if cocktail_id in user_bookmarks:
-                    # If it is remove it
-                    user_bookmarks.remove(cocktail_id)
-                    bookmark_count -= 1
-
-                else:
-                    # If it is NOT add it
-                    user_bookmarks.append(cocktail_id)
-                    bookmark_count += 1
-
-            # Stage query to find the session user
-            # Stage the data to be updated
-            query = {"_id": ObjectId(session["id"])}
-            # $set allows only one key to be updated without stating the rest
-            update = {"$set": {"bookmarks": user_bookmarks}}
-
-            cocktail_query = {"_id": ObjectId(cocktail_id)}
-            cocktail_update = {"$set": {"no_of_bookmarks": bookmark_count}}
-
-            mongo.db.users.update_one(query, update)
-            mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
+        submit_bookmark(user_bookmarks)
 
     profile = mongo.db.users.find_one(
         {"_id": ObjectId(profile_id)})
@@ -310,50 +220,11 @@ def cocktail(cocktail_name, cocktail_id):
 
     if session.get('user'):
         user_bookmarks = mongo.db.users.find_one(
-                    {"username": session["user"]}).get("bookmarks")
+            {"username": session["user"]}).get("bookmarks")
 
     # Bookmarking
     if request.method == "POST":
-        if not session.get("user"):
-            flash("You must be logged in to bookmark cocktails")
-
-        else:
-            # Get random number from form
-            form_random_value = request.form.get("random"),
-
-            print(form_random_value)
-
-            # Block against reload re submits
-            if form_random_value != session["formsubmitno"]:
-                session["formsubmitno"] = form_random_value
-                print(user_bookmarks)
-
-                bookmark_count = cocktail.get("no_of_bookmarks")
-
-                # Check if cocktail is already bookmarked
-                if cocktail_id in user_bookmarks:
-                    # If it is remove it
-                    user_bookmarks.remove(cocktail_id)
-                    bookmark_count -= 1
-
-                else:
-                    # If it is NOT add it
-                    user_bookmarks.append(cocktail_id)
-                    bookmark_count += 1
-
-            # Stage query to find the session user
-            # Stage the data to be updated
-            query = {"_id": ObjectId(session["id"])}
-            # $set allows only one key to be updated without stating the rest
-            update = {"$set": {"bookmarks": user_bookmarks}}
-
-            cocktail_query = {"_id": ObjectId(cocktail_id)}
-            cocktail_update = {"$set": {"no_of_bookmarks": bookmark_count}}
-
-            print(user_bookmarks)
-
-            mongo.db.users.update_one(query, update)
-            mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
+        submit_bookmark(user_bookmarks)
 
     if session.get('user'):
         if cocktail_id in user_bookmarks:
@@ -502,6 +373,7 @@ def formate_inputs(item, count):
     return item_formatted
 
 
+# Get users Bookmakers
 def get_bookmarked_cocktails():
     bookmark_list = mongo.db.users.find_one(
             {"username": session["user"]}).get("bookmarks")
@@ -514,6 +386,57 @@ def get_bookmarked_cocktails():
         bookmarked_cocktial.insert(0, cocktail)
 
     return bookmarked_cocktial
+
+
+# Bookmarking
+def submit_bookmark(user_bookmarks):
+    if not session.get("user"):
+        flash("You must be logged in to bookmark cocktails")
+
+    else:
+        cocktail_id = request.form.get("cocktail-id")
+
+        cocktail = mongo.db.cocktails.find_one(
+            {"_id": ObjectId(cocktail_id)})
+
+        bookmark_count = cocktail.get("no_of_bookmarks")
+
+        print(f"Bookmark count = {bookmark_count}")
+
+        # Grab random number from form
+        form_random_value = request.form.get("random"),
+
+        print(form_random_value)
+
+        # Block against reload re submits
+        if form_random_value != session["formsubmitno"]:
+            session["formsubmitno"] = form_random_value
+            print(f"Bookmarks = {user_bookmarks}")
+
+            # Check if cocktail is already bookmarked
+            if cocktail_id in user_bookmarks:
+                # If it is remove it
+                user_bookmarks.remove(cocktail_id)
+                bookmark_count -= 1
+
+            else:
+                # If it is NOT add it
+                user_bookmarks.append(cocktail_id)
+                bookmark_count += 1
+
+        # Stage query to find the session user
+        # Stage the data to be updated
+        query = {"_id": ObjectId(session["id"])}
+        # $set allows only one key to be updated without stating the rest
+        update = {"$set": {"bookmarks": user_bookmarks}}
+
+        cocktail_query = {"_id": ObjectId(cocktail_id)}
+        cocktail_update = {"$set": {"no_of_bookmarks": bookmark_count}}
+
+        print(user_bookmarks)
+
+        mongo.db.users.update_one(query, update)
+        mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
 
 
 if __name__ == "__main__":
