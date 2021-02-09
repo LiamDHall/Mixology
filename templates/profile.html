@@ -1,27 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
 <!--Profile Info-->
-<section class="section-spacing">
-    <div class="profile">
-        <div class="profile__container profile__container--img inline-block">
-            <img class="profile__img" src="{{ url_for('static', filename='images/pornstar-martini.jpg') }}">
-        </div>
-        <div class="profile__container profile__container--text inline-block">
-            <h1 class="profile__name">{{ profile.username }}</h1>
-            <p class="profile__info"><strong>Number of Cocktails:</strong> 000 add link from template</p>
-            <p class="profile__info"><strong>Date Joined:</strong> {{ profile.date_added.strftime('%d/%m/%y') }}</p>
-            <div class="profile__actions">
-                <button class="cta"><i class="fas fa-user-edit"></i> Edit</button>
-                <button class="cta cta--delete"><i class="fas fa-times"></i> Delete Profile</button>
+{% if edit == "true" %}
+    <section class="section-spacing">
+        <form class="form" action="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" method="POST">
+            <div class="profile">
+                <div class="profile__container profile__container--img inline-block">
+                    <img class="profile__img" src="{{ profile.image }}" alt="profile image">
+                </div>
+                <label for="image-url" class="form__label">Image URL</label> 
+                <input id="image-url" name="image-url" class="form__input form__input--narrow" value="{{ profile.image }}" placeholder="Enter URL of Image eg. https://www.example.com/image" required>
+                <div class="profile__container profile__container--text inline-block">
+                    <label for="image-url" class="form__label">Username</label>
+                    <input id="username" name="username" class="form__input form__input--font-large profile__name" pattern="^[a-zA-Z0-9]{4,25}$" maxlength="12" placeholder="Enter New Username" value="{{ profile.username }}" required>
+                    <div class="profile__actions profile__actions--center">
+                        <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" class="cta cta--delete cta--confirm">Cancel</a>
+                        <button class="cta cta--create cta--confirm" name="form-submit" value="update-profile">Save Changes</button>
+                        <button class="cta cta--delete cta--confirm" name="form-submit" value="delete"><i class="fas fa-times"></i> Delete Profile</button>
+                    </div>
+                </div>
             </div>
-            <div class="profile__confirmation">
-                <button class="cta cta--delete">Cancel</button>
-                <button class="cta cta--create">Save Changes</button>
+            <input type="hidden" id="random" name="random" value="{{ range(1, 10000000) | random }}">
+        </form>
+    </section>
+{% else %}
+    <section class="section-spacing">
+        <div class="profile">
+            <div class="profile__container profile__container--img inline-block">
+                <img class="profile__img" src="{{ profile.image }}" alt="profile image">
+            </div>
+            <div class="profile__container profile__container--text inline-block">
+                <h1 class="profile__name">{{ profile.username }}</h1>
+                <p class="profile__info"><strong>Number of Cocktails:</strong> 000 add link from template</p>
+                <p class="profile__info"><strong>Date Joined:</strong> {{ profile.date_added.strftime('%d/%m/%y') }}</p>
+                <div class="profile__actions">
+                    <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id, edit='true') }}" class="cta cta--confirm"><i class="fas fa-user-edit"></i> Edit</a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-{{user_bookmarks}}
+    </section>
+{% endif %} 
+{{ edit }}
 <!--User Cocktails-->
 <section class="rec-carsousel section-spacing">
     <div class="rec-carsousel__header">

@@ -160,13 +160,17 @@ def register():
             flash("Username unavailable. Please choose another.")
             return redirect(url_for("register"))
 
+        # Default image UR
+        domain = "https://drive.google.com/"
+        image_id = "uc?export=view&id=1xxYCbYNJ5bQmalWEqNgZyl8zjxnV5Id9"
+
         # Stages the form information into the correct formate for db
         register = {
             "username": request.form.get("reg-username").lower(),
             "password": generate_password_hash(
                 request.form.get("reg-password")),
             "bookmarks": [],
-            "image": None,
+            "image": f"{domain}{image_id}",
             "date_added": datetime.datetime.utcnow()
         }
 
@@ -191,10 +195,15 @@ def logout():
 
 
 # Profile
-@app.route("/profile/<profile_name>/<profile_id>", methods=["GET", "POST"])
-def profile(profile_name, profile_id):
+@app.route(
+    "/profile/<profile_name>/<profile_id>", defaults={"edit": "false"},
+    methods=["GET", "POST"])
+@app.route(
+    "/profile/<profile_name>/<profile_id>/<edit>",
+    methods=["GET", "POST"])
+def profile(profile_name, profile_id, edit):
     # Get bookmarks of user if logged in
-    if session.get('user'):
+    if session.get("user"):
         user_bookmarks = mongo.db.users.find_one(
             {"username": session["user"]}).get("bookmarks")
 
@@ -202,11 +211,15 @@ def profile(profile_name, profile_id):
     else:
         user_bookmarks = []
 
-    # Bookmarking
+    # Determinds which form is being posted
     if request.method == "POST":
         form_type = request.form.get("form-submit")
         if form_type == "bookmark":
             submit_bookmark(user_bookmarks)
+        elif form_type == "update-profile":
+            update_return = update_profile(profile_name, profile_id)
+            if update_return == "true":
+                edit = "true"
 
     profile = mongo.db.users.find_one(
         {"_id": ObjectId(profile_id)})
@@ -216,13 +229,13 @@ def profile(profile_name, profile_id):
 
     bookmarked_cocktails = get_bookmarked_cocktails()
 
-    print(f"Bookmarks After= {user_bookmarks}")
+    print(f"Test of Page: {edit}")
 
     return render_template(
         "profile.html", bookmarked_cocktails=bookmarked_cocktails,
         user_cocktails=user_cocktails, profile=profile,
-        user_bookmarks=user_bookmarks)
-
+        user_bookmarks=user_bookmarks, edit=edit)
+    
 
 # Cocktail Recipe Page
 @app.route("/cocktail/<cocktail_name>/<cocktail_id>", methods=["GET", "POST"])
@@ -447,6 +460,46 @@ def submit_bookmark(user_bookmarks):
 
         mongo.db.users.update_one(query, update)
         mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
+
+
+# Update User Info
+def update_profile(profile_name, profile_id):
+    # Grab random number from form
+    form_random_value = request.form.get("random"),
+
+    print(form_random_value)
+
+    # Block against reload re submits
+    if form_random_value != session["formsubmitno"]:
+
+        user_in_db = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        prev_username = request.form.get("username")
+
+        # Check username isnt already taken by another user
+        if user_in_db and profile_name != prev_username:
+            # Tells user if the username is taken
+            flash("Username unavailable. Please choose another.")
+            return "true"
+
+        else:
+            username = request.form.get("username")
+            image_url = request.form.get("image-url")
+
+            # Stage query to find the session user
+            # Stage the data to be updated
+            query = {"_id": ObjectId(profile_id)}
+            # $set allows only one key to be updated without stating the rest
+            update = {
+                "$set": {
+                    "username": username,
+                    "image": image_url
+                }
+            }
+            flash("Profile Updated")
+            session["user"] = request.form.get("username").lower()
+            mongo.db.users.update_one(query, update)
 
 
 if __name__ == "__main__":
