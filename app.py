@@ -235,7 +235,7 @@ def profile(profile_name, profile_id, edit):
         "profile.html", bookmarked_cocktails=bookmarked_cocktails,
         user_cocktails=user_cocktails, profile=profile,
         user_bookmarks=user_bookmarks, edit=edit)
-    
+
 
 # Cocktail Recipe Page
 @app.route("/cocktail/<cocktail_name>/<cocktail_id>", methods=["GET", "POST"])
@@ -497,9 +497,16 @@ def update_profile(profile_name, profile_id):
                     "image": image_url
                 }
             }
-            flash("Profile Updated")
+            flash("Changes Saved")
             session["user"] = request.form.get("username").lower()
             mongo.db.users.update_one(query, update)
+
+            # Update cocktail author key
+            if profile_name != prev_username:
+                cocktail_query = {"author_id": profile_id}
+                cocktail_update = {"$set": {"author": username}}
+
+                mongo.db.cocktails.update_many(cocktail_query, cocktail_update)
 
 
 if __name__ == "__main__":
