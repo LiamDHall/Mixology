@@ -259,7 +259,6 @@ def cocktail_create(cocktail_name, cocktail_id):
         garnish_count = int(request.form.get("no-of-garnish"))
         tool_count = int(request.form.get("no-of-tools"))
         instr_count = int(request.form.get("no-of-instr"))
-        tip_count = int(request.form.get("no-of-tips"))
 
         # Sets the formated inputs to variables
         # Calling the formate function with the correct input and counter
@@ -267,25 +266,23 @@ def cocktail_create(cocktail_name, cocktail_id):
         garnishes = formate_inputs("garnish", garnish_count)
         tools = formate_inputs("tool", tool_count)
         instructions = formate_inputs("instruction", instr_count)
-        tips = formate_inputs("tip", tip_count)
 
         if not cocktail_id:
             # Stages form input ready to be pushed to the datebase
             register = {
                 "cocktail_name": request.form.get("cocktail-name").lower(),
                 "alcohol": request.form.get("alcohol").lower(),
+                "date_added": datetime.datetime.utcnow(),
                 "rating": 0,
                 "no_rating": 0,
-                "garnish": garnishes,
-                "date_added": datetime.datetime.utcnow(),
-                "ingredients": ingredients,
-                "tools": tools,
-                "glass": request.form.get("glass").lower(),
-                "instructions": instructions,
-                "tips": tips,
+                "no_of_bookmarks": 0,
                 "author": session["user"],
                 "author_id": session["id"],
-                "no_of_bookmarks": 0
+                "ingredients": ingredients,
+                "garnish": garnishes,
+                "tools": tools,
+                "glass": request.form.get("glass").lower(),
+                "instructions": instructions
             }
 
             # Pushes the staged info to the datebase
@@ -305,12 +302,11 @@ def cocktail_create(cocktail_name, cocktail_id):
                 "$set": {
                     "cocktail_name": request.form.get("cocktail-name").lower(),
                     "alcohol": request.form.get("alcohol").lower(),
-                    "garnish": garnishes,
                     "ingredients": ingredients,
+                    "garnish": garnishes,
                     "tools": tools,
                     "glass": request.form.get("glass").lower(),
-                    "instructions": instructions,
-                    "tips": tips
+                    "instructions": instructions
                 }
             }
 
