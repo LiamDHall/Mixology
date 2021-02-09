@@ -391,7 +391,7 @@ ul {
 }
 
 /*------------------------------------------------------Form--*/
-.form {
+.form--narrow {
     width: 60%;
     margin: 0 auto;
 }
@@ -406,8 +406,14 @@ ul {
     border: 2px solid var(--brand-color);
     border-radius: 5px;
     padding-left: 15px;
-    height: 50px;
+    min-height: 50px;
 }
+
+.form__input--narrow {
+    margin: 0 auto;
+    width: 20%;
+}
+
 
 .form__label {
     margin: 35px 0 15px 15px;
@@ -664,6 +670,22 @@ ul {
 
 .profile__name {
     font-size: 5rem;
+}
+
+.profile__actions {
+    margin-top: 20px;
+}
+
+.profile__actions--center {
+    text-align: center;
+}
+
+.profile__actions .cta--confirm {
+    margin-right: 20px;
+}
+
+.profile__actions .cta--confirm:nth-child(3) {
+    margin-left: 60px;
 }
 
 .profile__info {
