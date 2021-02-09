@@ -10,13 +10,16 @@
     {% endif %}
         <input type="hidden" name="random" value="{{ range(1, 10000000) | random }}">
         <input type="hidden" name="cocktail-id" value="{{ cocktail._id }}">
-        <button class="rec-card__bookmark">
-            {% if cocktail._id | string in user_bookmarks %}
+        {% if cocktail._id | string in user_bookmarks %}
+            <button class="rec-card__bookmark" name="form-submit" value="bookmark">
                 <i class="cocktail-header__bookmark fas fa-bookmark inline-block"></i>
-            {% else %}
+            </button>
+        {% else %}
+            <button class="rec-card__bookmark" name="form-submit" value="bookmark">
                 <i class="cocktail-header__bookmark far fa-bookmark inline-block"></i>
-            {% endif %}
-        </button>
+            </button>
+        {% endif %}
+
     </form>
     <img class="rec-card__img card-img-top" src="{{ url_for('static', filename='images/pornstar-martini.jpg') }}" alt="cocktail image">
     <div class="rec-card__info card-body">

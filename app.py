@@ -86,7 +86,9 @@ def home(alcohol_name):
 
     # Bookmarking
     if request.method == "POST":
-        submit_bookmark(user_bookmarks)
+        form_type = request.form.get("form-submit")
+        if form_type == "bookmark":
+            submit_bookmark(user_bookmarks)
 
     print(user_bookmarks)
 
@@ -202,7 +204,9 @@ def profile(profile_name, profile_id):
 
     # Bookmarking
     if request.method == "POST":
-        submit_bookmark(user_bookmarks)
+        form_type = request.form.get("form-submit")
+        if form_type == "bookmark":
+            submit_bookmark(user_bookmarks)
 
     profile = mongo.db.users.find_one(
         {"_id": ObjectId(profile_id)})
@@ -231,7 +235,9 @@ def cocktail(cocktail_name, cocktail_id):
 
     # Bookmarking
     if request.method == "POST":
-        submit_bookmark(user_bookmarks)
+        form_type = request.form.get("form-submit")
+        if form_type == "bookmark":
+            submit_bookmark(user_bookmarks)
 
     if session.get('user'):
         if cocktail_id in user_bookmarks:
