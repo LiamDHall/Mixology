@@ -177,8 +177,15 @@ def register():
         # Add staged form information to the db
         mongo.db.users.insert_one(register)
 
+        # Add user to session cookies
+        session["user"] = request.form.get("reg-username").lower()
+        session["id"] = str(mongo.db.users.find_one(
+                {"username": request.form.get(
+                    "reg-username").lower()}).get("_id"))
+
         # Tells user they are successfil register
         flash("Success! Thank You for signing up to Mixology")
+        return redirect(url_for("home"))
 
     return render_template("register.html")
 
@@ -224,19 +231,25 @@ def profile(profile_name, profile_id, edit):
             delete_profile(profile_id)
 
     profile = mongo.db.users.find_one(
-        {"_id": ObjectId(profile_id)})
+        {"_id": ObjectId(profile_id)}
+    )
 
     user_cocktails = list(mongo.db.cocktails.find(
-        {"author_id": profile_id}).sort("date_added", -1))
+        {"author_id": profile_id}).sort("date_added", -1)
+    )
 
     bookmarked_cocktails = get_bookmarked_cocktails()
 
     print(f"Test of Page: {edit}")
 
     return render_template(
-        "profile.html", bookmarked_cocktails=bookmarked_cocktails,
-        user_cocktails=user_cocktails, profile=profile,
-        user_bookmarks=user_bookmarks, edit=edit)
+        "profile.html",
+        bookmarked_cocktails=bookmarked_cocktails,
+        user_cocktails=user_cocktails,
+        profile=profile,
+        user_bookmarks=user_bookmarks,
+        edit=edit
+    )
 
 
 # Delete Profile
