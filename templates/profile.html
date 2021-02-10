@@ -33,9 +33,11 @@
                 <h1 class="profile__name">{{ profile.username }}</h1>
                 <p class="profile__info"><strong>Number of Cocktails:</strong> 000 add link from template</p>
                 <p class="profile__info"><strong>Date Joined:</strong> {{ profile.date_added.strftime('%d/%m/%y') }}</p>
-                <div class="profile__actions">
-                    <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id, edit='true') }}" class="cta cta--confirm"><i class="fas fa-user-edit"></i> Edit</a>
-                </div>
+                {% if profile._id | string == session.id %}
+                    <div class="profile__actions">
+                        <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id, edit='true') }}" class="cta cta--confirm"><i class="fas fa-user-edit"></i> Edit</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </section>
