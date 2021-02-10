@@ -156,7 +156,7 @@ def login():
                     "_id"
                 ))
 
-                # Set form submit for bookmarking functionality
+                # Set form submit no to block against re submit on reload
                 # Set to value a random number genarator can't produce
                 session["formsubmitno"] = "nothing"
 
@@ -202,7 +202,8 @@ def register():
                 request.form.get("reg-password")),
             "bookmarks": [],
             "image": f"{domain}{image_id}",
-            "date_added": datetime.datetime.utcnow()
+            "date_added": datetime.datetime.utcnow(),
+            "rated_cocktails": []
         }
 
         # Add staged form information to the db
@@ -213,6 +214,10 @@ def register():
         session["id"] = str(mongo.db.users.find_one(
             {"username": request.form.get("reg-username").lower()}
         ).get("_id"))
+
+        # Set form submit no to block against re submit on reload
+        # Set to value a random number genarator can't produce
+        session["formsubmitno"] = "nothing"
 
         # Tells user they are successfil register
         flash("Success! Thank You for signing up to Mixology")
@@ -311,18 +316,21 @@ def delete_profile(user_id):
     "GET", "POST"
 ])
 def cocktail(cocktail_name, cocktail_id):
-    cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
-
     # Get user bookmarks
     if session.get('user'):
         user_bookmarks = mongo.db.users.find_one(
             {"username": session["user"]}).get("bookmarks")
 
-    # Bookmarking
+        user_rated_cocktails = mongo.db.users.find_one(
+            {"username": session["user"]}).get("rated_cocktails")
+
+    # Determine which form has been submitted
     if request.method == "POST":
         form_type = request.form.get("form-submit")
         if form_type == "bookmark":
             submit_bookmark(user_bookmarks)
+        elif form_type == "rating":
+            submit_rating(user_rated_cocktails)
 
     if session.get('user'):
         if cocktail_id in user_bookmarks:
@@ -334,10 +342,12 @@ def cocktail(cocktail_name, cocktail_id):
     else:
         bookmark = "false"
 
+    cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
     return render_template(
         "cocktail.html",
         cocktail=cocktail,
-        bookmark=bookmark
+        bookmark=bookmark,
+        user_rated_cocktails=user_rated_cocktails
     )
 
 
@@ -379,7 +389,8 @@ def cocktail_create(cocktail_name, cocktail_id):
                 "garnish": garnishes,
                 "tools": tools,
                 "glass": request.form.get("glass").lower(),
-                "instructions": instructions
+                "instructions": instructions,
+                "rating_sum": 0,
             }
 
             # Pushes the staged info to the datebase
@@ -538,7 +549,7 @@ def submit_bookmark(user_bookmarks):
         cocktail_update = {"$set": {"no_of_bookmarks": bookmark_count}}
 
         print(user_bookmarks)
-
+        # Update datebase
         mongo.db.users.update_one(query, update)
         mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
 
@@ -546,12 +557,13 @@ def submit_bookmark(user_bookmarks):
 # Update User Info
 def update_profile(profile_name, profile_id):
     # Grab random number from form
-    form_random_value = request.form.get("random"),
+    form_random_value = request.form.get("random")
 
     print(form_random_value)
 
     # Block against reload re submits
     if form_random_value != session["formsubmitno"]:
+        session["formsubmitno"] = form_random_value
 
         user_in_db = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
@@ -588,6 +600,58 @@ def update_profile(profile_name, profile_id):
                 cocktail_update = {"$set": {"author": username}}
 
                 mongo.db.cocktails.update_many(cocktail_query, cocktail_update)
+
+
+# Cocktail Rating
+def submit_rating(user_rated_cocktails):
+    # Grab random number from form
+    form_random_value = request.form.get("random")
+
+    # Block against reload re submits
+    if form_random_value != session["formsubmitno"]:
+        session["formsubmitno"] = form_random_value
+
+        if not session.get("user"):
+            flash("You must be logged in to bookmark cocktails")
+
+        else:
+            # Find cocktial
+            cocktail_id = request.form.get("cocktail-id")
+
+            cocktail = mongo.db.cocktails.find_one(
+                {"_id": ObjectId(cocktail_id)})
+
+            # Get key values
+            user_rating = int(request.form.get("star-rating"))
+            no_rating = cocktail.get("no_rating")
+            rating_sum = cocktail.get("rating_sum")
+
+            # Work out new rating
+            no_rating += 1
+            new_rating_sum = rating_sum + user_rating
+            new_rating = new_rating_sum / no_rating
+
+            # Stage cocktial new key values
+            cocktail_query = {"_id": ObjectId(cocktail_id)}
+            cocktail_update = {
+                "$set": {
+                    "no_rating": no_rating,
+                    "rating": new_rating,
+                    "rating_sum": new_rating_sum
+                }
+            }
+
+            # Add cocktail to users rated cocktails
+            # Used to stop them rating it twice
+            user_rated_cocktails.append(cocktail_id)
+
+            # Stage user new key values
+            user_query = {"_id": ObjectId(session["id"])}
+            user_update = {"$set": {"rated_cocktails": user_rated_cocktails}}
+
+            # Update datebase
+            mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
+            mongo.db.users.update_one(user_query, user_update)
 
 
 if __name__ == "__main__":

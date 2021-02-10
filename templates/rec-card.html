@@ -30,7 +30,7 @@
                     {% if cocktail.rating == 0 %}
                         No Rating
                     {% else %}
-                        {%  for i in range (0, cocktail.rating) %}
+                        {%  for i in range (0, cocktail.rating | round | int) %}
                             <i class="fas fa-star"></i>
                         {% endfor %}
                     {% endif %}

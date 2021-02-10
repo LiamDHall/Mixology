@@ -1,7 +1,7 @@
 //  Swiper JS
 var mySwiper = new Swiper('.swiper-container', {
     // Optional Parameters
-    slidesPerView: 6.5,
+    slidesPerView: 6,
     spaceBetween: 10,
     slidesPerGroup: 6,
     direction: 'horizontal',
@@ -18,6 +18,7 @@ var mySwiper = new Swiper('.swiper-container', {
         el: '.swiper-pagination',
     },
 })
+
 
 //  Navbar Active Link Toggler
 $( document ).ready(function() {
@@ -41,12 +42,28 @@ $('.cocktail__checkbox').click(function() {
     }                                 
 });
 
+// Rate Cocktail Button Style Toggle
+$(document).on('click', '.cocktail-header__form-btn', function() {
+    collapseState = $(this).attr('aria-expanded')
+    console.log("click check")
+    console.log(collapseState)
+    if (collapseState == "true") {
+        $(this).addClass("cta--delete form-btn-align").html("Cancel");
+        console.log("if ran")
+    }
+
+    else {
+        $(this).removeClass("cta--delete form-btn-align").html("Rate This Cocktail");
+        console.log("else ran")
+    }
+});
+
 /* 
 Keeps scroll position in place on page reload 
 Source: https://stackoverflow.com/questions/17642872/refresh-page-and-keep-scroll-position#:~:text=Usually%20reload()%20restores%20the,scrollY%20%3D%3D%3D%200.&text=This%20might%20be%20useful%20for,click%20on%20a%20same%20position
 (Adapted To My Needs): By adding condition that the function only works if the url is same after load
 */
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
         var currentPage = sessionStorage.getItem('currentpage');
         var scrollPos = sessionStorage.getItem('scrollpos');
         if (currentPage == window.location.href) {
@@ -57,7 +74,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-window.addEventListener("beforeunload", function () {
+window.addEventListener('beforeunload', function () {
     sessionStorage.setItem('scrollpos', window.scrollY);
     sessionStorage.setItem('currentpage', window.location.href);
 });
+// (END OF NOT ALL MY OWN CODE)

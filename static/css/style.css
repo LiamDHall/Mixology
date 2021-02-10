@@ -32,6 +32,10 @@ ul {
     margin-bottom: 0;
 }
 
+button:focus {
+    outline: none;
+}
+
 .bottom-mar {
     margin-bottom: 16px;
 }
@@ -89,6 +93,7 @@ ul {
 :root {
     --brand-color: purple;
     --brand-cta: orange;
+    --brand-create: limegreen;
 }
 
 .brand-color {
@@ -138,11 +143,6 @@ ul {
     margin: 35px auto;
     width: 50%;
     padding: 20px 15px;
-    font-size: 1.25rem;
-}
-
-.cta--cocktail {
-    padding: 20px;
     font-size: 1.25rem;
 }
 
@@ -447,6 +447,71 @@ ul {
     padding: 15px;
 }
 
+.form-rating {
+    max-width:600px;
+    display: inline-block;
+}
+
+.form-rating__btn {
+    padding: 20px;
+    font-size: 1.25rem;
+    margin: 0 16px;
+}
+
+.form-btn-align {
+    position: relative;
+    top: -27px;
+}
+
+/* Star Rating 
+Source: https://bbbootstrap.com/snippets/star-rating-pure-css-19646372 
+Apdated For My Needs (NOT All MY OWN CODE)--*/
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    text-align: left;
+    z-index: 2;
+    position: relative;
+    top: 16px;
+}
+
+.star-rating>input {
+    display: none;
+}
+
+.star-rating>label {
+    position: relative;
+    width: 1em;
+    font-size: 27px;
+    color: var(--brand-cta);
+    cursor: pointer;
+    margin: 0 8px; 
+}
+
+
+.star-rating>label::before {
+    content: "\f005";
+    position: absolute;
+    top: -1px;
+    opacity: 0;
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900;
+    font-size: 27px;
+    color: var(--brand-cta);
+}
+
+
+.star-rating>label:hover:before,
+.star-rating>label:hover~label:before {
+    opacity: 1 !important;
+}
+
+.star-rating>input:checked~label:before {
+    opacity: 1;
+}
+/*--(END OF NOT MY OWN CODE)--*/
+
 /*------------------------------------------------------Recipe Carsousel--*/
 .rec-carsousel {
     margin-top: 25px;
@@ -741,8 +806,18 @@ ul {
     color: var(--brand-cta);
 }
 
+.cocktail-header__form-btn {
+    padding: 20px;
+    font-size: 1.25rem;
+}
+
+
 .cocktail-header__info {
     font-size: 1.5rem;
+}
+
+.cocktail-header__info--feedback {
+    color: var(--brand-create);
 }
 
 .cocktail__item-title {

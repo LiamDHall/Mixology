@@ -8,7 +8,7 @@
         <form id="bookmark" class="cocktail-header__bookmark-form" action="{{ url_for('cocktail', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" method="POST">
             <input type="hidden" id="random" name="random" value="{{ range(1, 10000000) | random }}">
             <input type="hidden" name="cocktail-id" value="{{ cocktail._id }}">
-            <button id="form-submit" class="cocktail-header__bookmark-btn" name="form-submit" value="bookmark">
+            <button class="cocktail-header__bookmark-btn" name="form-submit" value="bookmark">
                 <p class="cocktail-header__function cocktail-header__function--bookmark">
                     {% if bookmark == "false" %}
                         <i class="far fa-bookmark inline-block"></i> Save
@@ -19,23 +19,57 @@
             </button>
         </form>
         {% if session.id == cocktail.author_id %}
-            <a href="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" class="cocktail-header__function cocktail-header__function--edit"><i class="fas fa-pencil-alt"></i> Edit</a>
+            <!--Author Edit Buttons-->
+            <a href="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" class="cocktail-header__function cocktail-header__function--edit">
+                <i class="fas fa-pencil-alt"></i> Edit
+            </a>
         {% endif %}
+
+        <!--Cocktail Rating-->
         <div class="cocktail-header__star-rating">
             {% if cocktail.rating == 0 %}
                 No Rating
             {% else %}
-                {%  for i in range (0, cocktail.rating) %}
+                {%  for i in range (0, cocktail.rating | round | int) %}
                     <i class="fas fa-star"></i>
                 {% endfor %}
             {% endif %}
             ({{ cocktail.no_rating }})
         </div>
+
+        <!--Cocktail Info-->
         <p class="cocktail-header__info"><strong>Date Added:</strong> {{ cocktail.date_added.strftime('%d/%m/%y') }}</p>
-        <p class="cocktail-header__info"><a href="{{ url_for('profile', profile_name=cocktail.author, profile_id=cocktail.author_id) }}">by <span class="cocktail-header__author">{{ cocktail.author }}</span></a></p>
-    {% if session.id != cocktail.author_id %}
-        <button class="cta cta--cocktail">Rate This Cocktail</button>
-    {% endif %}
+        <p class="cocktail-header__info">
+            <a href="{{ url_for('profile', profile_name=cocktail.author, profile_id=cocktail.author_id) }}">
+                by <span class="cocktail-header__author">{{ cocktail.author }}</span>
+            </a>
+        </p>
+
+        {% if (session.id) and (session.id != cocktail.author_id) and (cocktail._id | string not in user_rated_cocktails) %}
+            <!--Form Rate Cocktail-->
+            <div>
+                <form id="cocktail-rating" class="form-rating collapse" action="{{ url_for('cocktail', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" method="POST">
+                    <div id="star-rating" class="star-rating float-left">
+                        {% for i in range(5, 0, -1) %}
+                            {% if i == 5 %}
+                                <input type="radio" name="star-rating" value="{{ i }}" id="{{ i }}-stars" aria-label="{{ i }} star rating" required>
+                            {% else %}
+                                <input type="radio" name="star-rating" value="{{ i }}" id="{{ i }}-stars" aria-label="{{ i }} star rating">
+                            {% endif %}
+                            <label for="{{ i }}-stars"><i class="far fa-star"></i></label>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" name="random" value="{{ range(1, 10000000) | random }}">
+                    <input type="hidden" name="cocktail-id" value="{{ cocktail._id }}">
+                    <button class="form-rating__btn cta--create cta float-right" name="form-submit" value="rating">Submit</button>
+                </form>
+                <button class="cocktail-header__form-btn cta inline-block" type="button" data-toggle="collapse" data-target="#cocktail-rating" aria-expanded="false" aria-controls="cocktial-rating">
+                    Rate This Cocktail
+                </button>
+            </div>
+        {% elif cocktail._id | string in user_rated_cocktails %}
+            <p class="cocktail-header__info cocktail-header__info--feedback"> You Rated This Cocktails <i class="fas fa-thumbs-up"></i></p>
+        {% endif %}
     </section>
 
     <!--Cocktail Info-->

@@ -10,7 +10,7 @@
                 placeholder="Enter Cocktail Name" aria-label="enter cocktail name" maxlength="20" value="{{ cocktail.cocktail_name }}" required>
             <div class="cocktail-header__star-rating">
                 <p>
-                    {% for i in range(0, cocktail.rating) %}
+                    {% for i in range(0, cocktail.rating | round | int) %}
                         <i class="fas fa-star"></i>
                     {% endfor %}
                     <span>
