@@ -39,10 +39,13 @@ def get_db_collections():
 # Home
 @app.route("/", defaults={"alcohol_name": None}, methods=["GET", "POST"])
 @app.route("/home", defaults={"alcohol_name": None}, methods=["GET", "POST"])
-@app.route("/<alcohol_name>", methods=["GET", "POST"])
+@app.route("/home/<alcohol_name>", methods=["GET", "POST"])
 def home(alcohol_name):
     if alcohol_name:
         alcohol = mongo.db.alcohol.find_one({"alcohol_name": alcohol_name})
+
+        if not alcohol:
+            return render_template('404.html'), 404
 
         # Alcohol Newly Added
         newest = mongo.db.cocktails.find({
@@ -113,7 +116,7 @@ def home(alcohol_name):
         if form_type == "bookmark":
             submit_bookmark(user_bookmarks)
 
-    print(user_bookmarks)
+    print("I HOME run on 200")
 
     if not alcohol_name:
         return render_template(
