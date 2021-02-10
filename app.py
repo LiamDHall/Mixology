@@ -23,14 +23,17 @@ mongo = PyMongo(app)
 # dictonaries that aren't changed / updated offend if at all.
 # User can't edit these dictionaries.
 @app.context_processor
-def get_db_items():
+def get_db_collections():
     alcohol_categories = list(mongo.db.alcohol.find())
     units = list(mongo.db.units.find())
     tools = list(mongo.db.tools.find())
     glasses = list(mongo.db.glasses.find())
     return dict(
-        alcohol_categories=alcohol_categories, units=units, tools=tools,
-        glasses=glasses)
+        alcohol_categories=alcohol_categories,
+        units=units,
+        tools=tools,
+        glasses=glasses
+    )
 
 
 # Home
@@ -41,18 +44,28 @@ def home(alcohol_name):
     if alcohol_name:
         alcohol = mongo.db.alcohol.find_one({"alcohol_name": alcohol_name})
 
+        # Alcohol Newly Added
         newest = mongo.db.cocktails.find({
-            "alcohol": alcohol_name.lower()}).sort(
-            "date_added", -1).limit(18)
+            "alcohol": alcohol_name.lower()}
+        ).sort(
+            "date_added", -1
+        ).limit(18)
 
+        # Alcohol Top Rated
         top_rated = mongo.db.cocktails.find(
-            {"alcohol": alcohol_name.lower()}).sort(
-            [("rating", -1), ("no_rating", -1)]).limit(18)
+            {"alcohol": alcohol_name.lower()}
+        ).sort(
+            [("rating", -1), ("no_rating", -1)]
+        ).limit(18)
 
+        # Alcohol Most Popular
         popular = mongo.db.cocktails.find(
-            {"alcohol": alcohol_name.lower()}).sort(
-            [("no_of_bookmarks", -1), ("no_rating", -1)]).limit(18)
+            {"alcohol": alcohol_name.lower()}
+        ).sort(
+            [("no_of_bookmarks", -1), ("no_rating", -1)]
+        ).limit(18)
 
+        # Add the arrangements into a list for template to iterate
         sort_cats = [
             {"name": "Newly Added", "cocktails": newest},
             {"name": "Top Rated", "cocktails": top_rated},
@@ -62,11 +75,18 @@ def home(alcohol_name):
     else:
         alcohol = None
         # Sort Cocktails into different arrangements
+        # Newly Added
         newest = mongo.db.cocktails.find().sort("date_added", -1).limit(18)
+
+        # Top Rated
         top_rated = mongo.db.cocktails.find().sort(
-            [("rating", -1), ("no_rating", -1)]).limit(18)
+            [("rating", -1), ("no_rating", -1)]
+        ).limit(18)
+
+        # Most Popular
         popular = mongo.db.cocktails.find().sort(
-            "no_of_bookmarks", -1).limit(18)
+            "no_of_bookmarks", -1
+        ).limit(18)
 
         # Add the arrangements into a list for template to iterate
         sort_cats = [
@@ -78,7 +98,10 @@ def home(alcohol_name):
     # Get bookmarks of user if logged in
     if session.get('user'):
         user_bookmarks = mongo.db.users.find_one(
-            {"username": session["user"]}).get("bookmarks")
+            {"username": session["user"]}
+        ).get(
+            "bookmarks"
+        )
 
     # No bookmarks if no user is logged in
     else:
@@ -94,12 +117,18 @@ def home(alcohol_name):
 
     if not alcohol_name:
         return render_template(
-            "home.html", sort_cats=sort_cats, user_bookmarks=user_bookmarks)
+            "home.html",
+            sort_cats=sort_cats,
+            user_bookmarks=user_bookmarks
+        )
 
     else:
         return render_template(
-            "home.html", alcohol=alcohol, sort_cats=sort_cats,
-            user_bookmarks=user_bookmarks)
+            "home.html",
+            alcohol=alcohol,
+            sort_cats=sort_cats,
+            user_bookmarks=user_bookmarks
+        )
 
 
 # Login
@@ -113,8 +142,8 @@ def login():
         if user_in_db:
             # Check password of username matches password in datebase
             if check_password_hash(
-                    user_in_db["password"],
-                    request.form.get("login-password")):
+                user_in_db["password"], request.form.get("login-password")
+            ):
 
                 # If the password matches
                 # Set Username into session cookie
@@ -122,8 +151,10 @@ def login():
 
                 # Set user Id into session ID-
                 session["id"] = str(mongo.db.users.find_one(
-                    {"username": request.form.get
-                        ("login-username").lower()}).get("_id"))
+                    {"username": request.form.get("login-username").lower()}
+                ).get(
+                    "_id"
+                ))
 
                 # Set form submit for bookmarking functionality
                 # Set to value a random number genarator can't produce
@@ -180,8 +211,8 @@ def register():
         # Add user to session cookies
         session["user"] = request.form.get("reg-username").lower()
         session["id"] = str(mongo.db.users.find_one(
-                {"username": request.form.get(
-                    "reg-username").lower()}).get("_id"))
+            {"username": request.form.get("reg-username").lower()}
+        ).get("_id"))
 
         # Tells user they are successfil register
         flash("Success! Thank You for signing up to Mixology")
@@ -221,12 +252,17 @@ def profile(profile_name, profile_id, edit):
     # Determinds which form is being posted
     if request.method == "POST":
         form_type = request.form.get("form-submit")
+
         if form_type == "bookmark":
             submit_bookmark(user_bookmarks)
+
         elif form_type == "update-profile":
             update_return = update_profile(profile_name, profile_id)
+
+            # Will reload the page in edit mode
             if update_return == "true":
                 edit = "true"
+
         elif form_type == "delete-profile":
             delete_profile(profile_id)
 
@@ -255,21 +291,29 @@ def profile(profile_name, profile_id, edit):
 # Delete Profile
 @app.route("/delete-profile/<user_id>")
 def delete_profile(user_id):
+    # Delete profile from db
     mongo.db.users.delete_one({"_id": ObjectId(user_id)})
     print(user_id)
     print(type(user_id))
+
+    # Delete all cocktials in db owned by the user
     mongo.db.cocktails.delete_many({"author_id": user_id})
+
+    # Clear session / log out
     session.clear()
+
     flash("Profile Deleted")
     return redirect(url_for("home"))
 
 
 # Cocktail Recipe Page
-@app.route(
-    "/cocktail/<cocktail_name>/<cocktail_id>", methods=["GET", "POST"])
+@app.route("/cocktail/<cocktail_name>/<cocktail_id>", methods=[
+    "GET", "POST"
+])
 def cocktail(cocktail_name, cocktail_id):
     cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
 
+    # Get user bookmarks
     if session.get('user'):
         user_bookmarks = mongo.db.users.find_one(
             {"username": session["user"]}).get("bookmarks")
@@ -291,14 +335,20 @@ def cocktail(cocktail_name, cocktail_id):
         bookmark = "false"
 
     return render_template(
-        "cocktail.html", cocktail=cocktail, bookmark=bookmark)
+        "cocktail.html",
+        cocktail=cocktail,
+        bookmark=bookmark
+    )
 
 
 # Create Cocktail Form
 @app.route("/cocktail-edit/<cocktail_name>/<cocktail_id>", methods=[
-    "GET", "POST"])
+    "GET", "POST"
+])
 @app.route("/cocktail-create", defaults={
-    "cocktail_name": None, "cocktail_id": None}, methods=["GET", "POST"])
+    "cocktail_name": None,
+    "cocktail_id": None
+}, methods=["GET", "POST"])
 def cocktail_create(cocktail_name, cocktail_id):
     if request.method == "POST":
         # Get the number of each input field
@@ -358,14 +408,14 @@ def cocktail_create(cocktail_name, cocktail_id):
             }
 
             # Pushes the staged info to the datebase
-
             mongo.db.cocktails.update_one(cocktail_query, edit)
 
             # Gives the user feedback on a sucessful submission
             flash("Coctail Updated")
 
-            cocktail = mongo.db.cocktails.find_one(
-                {"_id": ObjectId(cocktail_id)})
+            cocktail = mongo.db.cocktails.find_one({
+                "_id": ObjectId(cocktail_id)
+            })
             return render_template("cocktail.html", cocktail=cocktail)
 
     elif not session.get("user"):
@@ -426,11 +476,14 @@ def formate_inputs(item, count):
 
 # Get users Bookmakers
 def get_bookmarked_cocktails():
+    # Get user bookmarked cocktial ids form db
     bookmark_list = mongo.db.users.find_one(
             {"username": session["user"]}).get("bookmarks")
 
+    # Empty array to add the bookmarked cocktails to
     bookmarked_cocktial = []
 
+    # Loops through bookmark list adding cocktails from db to arary above
     for cocktail_id in bookmark_list:
 
         cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
@@ -538,6 +591,8 @@ def update_profile(profile_name, profile_id):
 
 
 if __name__ == "__main__":
-    app.run(host=os.environ.get("IP"),
-            port=int(os.environ.get("PORT")),
-            debug=True)
+    app.run(
+        host=os.environ.get("IP"),
+        port=int(os.environ.get("PORT")),
+        debug=True
+    )
