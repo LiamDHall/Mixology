@@ -48,25 +48,25 @@ def home(alcohol_name):
             return render_template('404.html'), 404
 
         # Alcohol Newly Added
-        newest = mongo.db.cocktails.find({
+        newest = list(mongo.db.cocktails.find({
             "alcohol": alcohol_name.lower()}
         ).sort(
             "date_added", -1
-        ).limit(18)
+        ).limit(18))
 
         # Alcohol Top Rated
-        top_rated = mongo.db.cocktails.find(
+        top_rated = list(mongo.db.cocktails.find(
             {"alcohol": alcohol_name.lower()}
         ).sort(
             [("rating", -1), ("no_rating", -1)]
-        ).limit(18)
+        ).limit(18))
 
         # Alcohol Most Popular
-        popular = mongo.db.cocktails.find(
+        popular = list(mongo.db.cocktails.find(
             {"alcohol": alcohol_name.lower()}
         ).sort(
             [("no_of_bookmarks", -1), ("no_rating", -1)]
-        ).limit(18)
+        ).limit(18))
 
         # Add the arrangements into a list for template to iterate
         sort_cats = [
@@ -79,17 +79,19 @@ def home(alcohol_name):
         alcohol = None
         # Sort Cocktails into different arrangements
         # Newly Added
-        newest = mongo.db.cocktails.find().sort("date_added", -1).limit(18)
+        newest = list(mongo.db.cocktails.find().sort(
+            "date_added", -1
+        ).limit(18))
 
         # Top Rated
-        top_rated = mongo.db.cocktails.find().sort(
+        top_rated = list(mongo.db.cocktails.find().sort(
             [("rating", -1), ("no_rating", -1)]
-        ).limit(18)
+        ).limit(18))
 
         # Most Popular
-        popular = mongo.db.cocktails.find().sort(
+        popular = list(mongo.db.cocktails.find().sort(
             "no_of_bookmarks", -1
-        ).limit(18)
+        ).limit(18))
 
         # Add the arrangements into a list for template to iterate
         sort_cats = [

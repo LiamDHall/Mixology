@@ -27,19 +27,25 @@
                 <div class="swiper-pagination inline-block"></div>
             </div>
             <hr class="rec-carsousel__page-line page-line page-line--brand">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    {% for cocktail in cat.cocktails %}
-                        {% include "rec-card.html" %}
-                    {% endfor %}
+            {% if cat.cocktails | length > 0 %}
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        {% for cocktail in cat.cocktails %}
+                            {% include "rec-card.html" %}
+                        {% endfor %}
+                    </div>
+                    <!--Navigation buttons-->
+                    <div class="rec-carsousel__btn-container">
+                        <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+                        <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+                    </div>
                 </div>
-                <!--Navigation buttons-->
-                <div class="rec-carsousel__btn-container">
-                    <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
-                    <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+            {% else %}
+                <div class="no-cocktail">
+                    <h4 class="no-cocktails__text">No Cocktails</h4>
                 </div>
-            </div>
+            {% endif %}
         </section>
     {% endfor %}
 {% endblock %}
