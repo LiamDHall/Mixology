@@ -41,9 +41,11 @@ def get_db_collections():
 @app.route("/home", defaults={"alcohol_name": None}, methods=["GET", "POST"])
 @app.route("/home/<alcohol_name>", methods=["GET", "POST"])
 def home(alcohol_name):
+    # Alcohol Filter
     if alcohol_name:
         alcohol = mongo.db.alcohol.find_one({"alcohol_name": alcohol_name})
 
+        # Bad url catcher as the url will accept anything as an alcohol_name
         if not alcohol:
             return render_template('404.html'), 404
 
@@ -68,6 +70,16 @@ def home(alcohol_name):
             [("no_of_bookmarks", -1), ("no_rating", -1)]
         ).limit(18))
 
+        # Alcohol Featured Cocktail
+        mixology_cocktials = list(mongo.db.cocktails.find({
+            "alcohol": alcohol_name.lower(),
+            "author_id": "60255ef95f5d67939e673ce2"
+        }).sort(
+            [("no_of_bookmarks", -1), ("no_rating", -1)]
+        ).limit(1))
+
+        featured_cocktail = mixology_cocktials[0]
+
         # Add the arrangements into a list for template to iterate
         sort_cats = [
             {"name": "Newly Added", "cocktails": newest},
@@ -75,6 +87,7 @@ def home(alcohol_name):
             {"name": "Popular", "cocktails": popular}
         ]
 
+    # Homepage
     else:
         alcohol = None
         # Sort Cocktails into different arrangements
@@ -92,6 +105,15 @@ def home(alcohol_name):
         popular = list(mongo.db.cocktails.find().sort(
             "no_of_bookmarks", -1
         ).limit(18))
+
+        # Featured Cocktail
+        mixology_cocktials = list(mongo.db.cocktails.find({
+            "author_id": "60255ef95f5d67939e673ce2"
+        }).sort(
+            [("no_of_bookmarks", -1), ("no_rating", -1)]
+        ).limit(1))
+
+        featured_cocktail = mixology_cocktials[0]
 
         # Add the arrangements into a list for template to iterate
         sort_cats = [
@@ -124,7 +146,8 @@ def home(alcohol_name):
         return render_template(
             "home.html",
             sort_cats=sort_cats,
-            user_bookmarks=user_bookmarks
+            user_bookmarks=user_bookmarks,
+            featured_cocktail=featured_cocktail
         )
 
     else:
@@ -132,7 +155,8 @@ def home(alcohol_name):
             "home.html",
             alcohol=alcohol,
             sort_cats=sort_cats,
-            user_bookmarks=user_bookmarks
+            user_bookmarks=user_bookmarks,
+            featured_cocktail=featured_cocktail
         )
 
 
