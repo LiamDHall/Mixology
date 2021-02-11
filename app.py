@@ -388,6 +388,53 @@ def cocktail(cocktail_name, cocktail_id):
     )
 
 
+# Delete Cocktail
+@app.route("/delete-cocktail/<cocktail_id>")
+def delete_cocktail(cocktail_id):
+    # Delete cocktail from db
+    mongo.db.cocktails.delete_one({"_id": ObjectId(cocktail_id)})
+
+    # Delete cocktail form users bookmarks
+    users_booked = list(mongo.db.users.find({"bookmarks": cocktail_id}))
+    users_rated = list(mongo.db.users.find({"rated_cocktails": cocktail_id}))
+
+    print(users_rated)
+    # Remove Bookmarks
+    for user in users_booked:
+        if len(user["bookmarks"]) == 1:
+            removed_bookmark = []
+
+        else:
+            removed_bookmark = user["bookmarks"].remove(cocktail_id)
+
+        # Stage user new key values
+        user_query = {"_id": ObjectId(user["_id"])}
+        user_update = {"$set": {"bookmarks":  removed_bookmark}}
+
+        # Update datebase
+        mongo.db.users.update_one(user_query, user_update)
+
+    # Remove Ratings
+    for user in users_rated:
+        if len(user["rated_cocktails"]) == 1:
+            removed_rating = []
+
+        else:
+            removed_rating = user["rated_cocktails"].remove(cocktail_id)
+
+        # Stage user new key values
+        user_query = {"_id": ObjectId(user["_id"])}
+        user_update = {"$set": {"rated_cocktails":  removed_rating}}
+
+        # Update datebase
+        mongo.db.users.update_one(user_query, user_update)
+
+        print(user["rated_cocktails"])
+
+    flash("Cocktail Deleted")
+    return redirect(url_for("home"))
+
+
 # Create / Edit Cocktail Form
 @app.route("/cocktail-edit/<cocktail_name>/<cocktail_id>", methods=[
     "GET", "POST"

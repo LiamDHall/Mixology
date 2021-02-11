@@ -802,6 +802,11 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     margin-left: 20px;;
 }
 
+.cocktail-header__function--delete {
+    color: red;
+    margin-left: 16px;
+}
+
 .cocktail-header__star-rating {
     margin-bottom: 16px;
     font-size: 2rem;
