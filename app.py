@@ -286,6 +286,11 @@ def profile(profile_name, profile_id, edit):
 
     print(f"Test of Page: {edit}")
 
+    if edit == "true":
+        if session["id"] != profile_id:
+            edit = "false"
+            flash("Unauthorized to edit profile")
+
     return render_template(
         "profile.html",
         bookmarked_cocktails=bookmarked_cocktails,
@@ -354,7 +359,7 @@ def cocktail(cocktail_name, cocktail_id):
     )
 
 
-# Create Cocktail Form
+# Create / Edit Cocktail Form
 @app.route("/cocktail-edit/<cocktail_name>/<cocktail_id>", methods=[
     "GET", "POST"
 ])
@@ -438,6 +443,18 @@ def cocktail_create(cocktail_name, cocktail_id):
 
     elif cocktail_id:
         cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
+        print(session["id"])
+        print(cocktail["author_id"])
+        if cocktail["author_id"] != session["id"]:
+            flash("Unauthorized to edit cocktail")
+            return redirect(
+                url_for(
+                    "cocktail",
+                    cocktail_name=cocktail["cocktail_name"].replace(' ', '-'),
+                    cocktail_id=cocktail["_id"]
+                )
+            )
+
         return render_template("cocktail-edit.html", cocktail=cocktail)
 
     return render_template("cocktail-create.html")
