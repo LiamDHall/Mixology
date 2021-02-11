@@ -2,7 +2,7 @@
 {% block content %}
     <!--Cocktail Header-->
     <section class="cocktail-header">
-        <h1>Cocktail Creation</h1>
+        <h1>Edit Cocktail</h1>
 
         <!--Add Cocktail Form (in the style of view coctail page)-->
         <form id="cocktail-create" class="form-cocktail" action="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name, cocktail_id=cocktail._id) }}" method="POST">
@@ -22,7 +22,6 @@
                     </span>
                 </p>
             </div>
-            <p class="cocktail-header__author">by <a href="#">{{ session.user }}</a></p>
             
             <!--Cocktail Info-->
             <div class="cocktail row">
@@ -170,7 +169,11 @@
 
                 <!--Upload Image-->
                 <div class="cocktail__img-contianer col-4">
-                    <img class="cocktail__img" src="/static/images/bramble.jpg">
+                    <img class="cocktail__img" src="{{ cocktail.image }}" alt="cocktail image">
+                    <label for="cocktial-img" class="form__label">Copy and Paster Cocktail Image URL</label>
+                    <p>Image will preview if URL valid after you click away.</p>
+                    <p>Commonly the URL will end with the file name and .jpg, .jpeg or .png</p>
+                    <input type="url" id="cocktail-img-url" name="cocktail-img-url" class="form__input" placeholder="Enter URL for cocktail image eg. https//www.example.com/image" required>
                 </div>
             </div>
 

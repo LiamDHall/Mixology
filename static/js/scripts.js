@@ -19,7 +19,6 @@ var mySwiper = new Swiper('.swiper-container', {
     },
 })
 
-
 //  Navbar Active Link Toggler
 $( document ).ready(function() {
     var currentPage = window.location.href;                                 //  Get current page url

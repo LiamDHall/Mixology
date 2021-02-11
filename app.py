@@ -389,6 +389,7 @@ def cocktail_create(cocktail_name, cocktail_id):
             register = {
                 "cocktail_name": request.form.get("cocktail-name").lower(),
                 "alcohol": request.form.get("alcohol").lower(),
+                "image": request.form.get("cocktail-img-url"),
                 "date_added": datetime.datetime.utcnow(),
                 "rating": 0,
                 "no_rating": 0,
@@ -420,6 +421,7 @@ def cocktail_create(cocktail_name, cocktail_id):
                 "$set": {
                     "cocktail_name": request.form.get("cocktail-name").lower(),
                     "alcohol": request.form.get("alcohol").lower(),
+                    "image": request.form.get("cocktail-img-url"),
                     "ingredients": ingredients,
                     "garnish": garnishes,
                     "tools": tools,

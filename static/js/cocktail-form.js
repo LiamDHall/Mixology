@@ -407,3 +407,11 @@ $( document ).ready( function() {
         $('#add-tip').replaceWith(tipFeedback)
     }
 });
+
+/* Image Preview
+Source https://stackoverflow.com/questions/20820705/render-preview-image-from-url-input
+*/
+$('[name="cocktail-img-url"]').on('change', function() {
+     $('img.cocktail__img').prop('src', this.value);
+});
+// (END OF NOT ALL MY OWN CODE)
