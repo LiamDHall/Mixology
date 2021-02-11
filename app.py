@@ -358,6 +358,9 @@ def cocktail(cocktail_name, cocktail_id):
         user_rated_cocktails = mongo.db.users.find_one(
             {"username": session["user"]}).get("rated_cocktails")
 
+    else:
+        user_rated_cocktails = []
+
     # Determine which form has been submitted
     if request.method == "POST":
         form_type = request.form.get("form-submit")
