@@ -599,7 +599,7 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 
 .swiper-pagination {
     position: static;
-    margin-left: 20px;
+    margin:0 20px;
 }
 
 .swiper-pagination-bullet {

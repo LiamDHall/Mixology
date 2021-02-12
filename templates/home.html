@@ -22,8 +22,6 @@
         <section class="rec-carsousel">
             <div class="rec-carsousel__header">
                 <h2 class="rec-carsousel__title inline-block">{{ cat.name }}</h2>
-                <!--Pagination-->
-                <div class="swiper-pagination inline-block"></div>
             </div>
             <hr class="rec-carsousel__page-line page-line page-line--brand">
             {% if cat.cocktails | length > 0 %}
@@ -37,6 +35,8 @@
                     <!--Navigation buttons-->
                     <div class="rec-carsousel__btn-container">
                         <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+                        <!--Pagination-->
+                        <div class="swiper-pagination inline-block"></div>
                         <div class="rec-carsousel__swiper-button swiper-button-next"></div>
                     </div>
                 </div>
