@@ -596,7 +596,10 @@ def get_bookmarked_cocktails():
         # Loops through bookmark list adding cocktails from db to arary above
         for cocktail_id in bookmark_list:
 
-            cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
+            cocktail = mongo.db.cocktails.find_one(
+                {"_id": ObjectId(cocktail_id)}
+            )
+
             bookmarked_cocktial.insert(0, cocktail)
 
         return bookmarked_cocktial
