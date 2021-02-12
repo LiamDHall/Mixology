@@ -547,7 +547,7 @@ def formate_inputs(item, count):
     # Iterates through the number of a specific input
     # count must be +1 as not starting at 0
     for x in range(1, count + 1):
-        if item == "tool" or item == "instruction" or item == "tip":
+        if item == "tool" or item == "instruction":
 
             # Gets the item from form input
             item_info = request.form.get(f"{item}-{x}")

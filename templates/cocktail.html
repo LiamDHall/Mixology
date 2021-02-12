@@ -148,39 +148,13 @@
 
         <!--Cocktail Intructions-->
         <div class="cocktail__row row">
-            <div class="cocktail__intructions col-8">
+            <div class="cocktail__intructions col-12">
                 <h2 class="cocktail__item-title">Intructions</h2>
                 <ol class="cocktail__info">
                     {% for i in range(0, cocktail.instructions | length) %}
                         <li class="clear-both"><p class="float-left">{{ cocktail.instructions[i].capitalize() }}</p><span class="cocktail__checkbox float-right"><i class="far fa-square"></i></span></li>
                     {% endfor %}
                 </ol>
-            </div>
-
-            <!--Cocktail Tips-->
-            <div class="cocktail__tips col-4">
-                <h2 class="cocktail__item-title">Tips</h2>
-                <div class="cocktail__tips-wrapper">
-                    <ul class="cocktail__tip-list">
-                        <li>
-                            <div class="tip">
-                                <div class="tip__profile-container inline-block">
-                                    <img class="tip__profile-img" src="../static/images/pornstar-martini.jpg">
-                                </div>
-                                <p class="tip__text inline-block">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.<span class="tip__author"><br>by <a href="#">USERNAME</a></span></p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!--Leave a Tip Form-->
-                <div>
-                    <form id="tip-form" action="#" target="_blank" method="post">
-                        <label class="tip-form-label" for="tip-form-text">Leave a Tip</label>
-                        <textarea name="tip-form-text" class="form__text-area" id="tip-form-text" rows="3" placeholder="Type your tip here" maxlength="200"></textarea>
-                        <input type="submit" class="cta cta--form" id="tip-submit" value="Leave Tip" aria-label="login button">
-                    </form>
-                </div>
             </div>
         </div>
     </section>

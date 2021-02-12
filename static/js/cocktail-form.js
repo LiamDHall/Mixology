@@ -11,7 +11,6 @@ $( '#cocktail-create' ).submit(function( ) {
     $('#no-of-garnish').attr('value', garnishCount);
     $('#no-of-tools').attr('value', toolCount);
     $('#no-of-instr').attr('value', instrCount);
-    $('#no-of-tips').attr('value', tipCount);
     return true
 
 });
@@ -306,86 +305,12 @@ $(document).on('click', '.remove-instruction', function() {
     }
 });
 
-//  Add Tips
-var tipCount = $('#cocktail-tips .form-tip').length
-
-$(document).on('click', '#add-tip', function() {
-    console.log(tipCount)
-    var tipFeedback = `<p id="tip-feedback" class="cocktail__feedback clear-both">Max amount of Tips</p>`;
-    var tipInput = `
-        <li class="form-tip">
-            <textarea id="tip-${tipCount + 1}" name="tip-${tipCount + 1}" 
-                class="form-cocktail__input form-cocktail__text-area form-cocktail__text-area--tip" rows="3" placeholder="Type your tip here" maxlength="200" 
-                aria-label="enter tip" required></textarea>
-            
-            <!--Remove Tip Button-->
-            <button class="remove-tip cocktail-btn cocktail-btn--remove float-right" type="button">
-                <i class="fas fa-minus-circle"></i> Remove
-            </button>
-        </li>`;
-
-    if (tipCount == 0) {
-        $('#no-tip').remove();
-    }
-
-    $('#cocktail-tips').append(tipInput);
-    tipCount += 1;  
-
-    if (tipCount == 3) {
-        $('#add-tip').replaceWith(tipFeedback)
-    }
-});
-
-//  Remove Tip
-$(document).on('click', '.remove-tip', function() {
-    $(this).closest(".form-tip").remove();   
-    
-    if (tipCount == 3) {
-        var tipAdd = `
-            <button id="add-tip" class="cocktail-btn cocktail-btn--add clear-both" type="button">
-                <i class="fas fa-plus-circle"></i> Add Tip
-            </button>`;
-        $('#tip-feedback').replaceWith(tipAdd)
-    }
-    
-    tipCount -= 1
-
-    //  Re orders list items ids 
-    var list = document.getElementById('cocktail-tips'),
-    item = list.getElementsByTagName('li');
-
-    if(toolCount > 0) {
-        for (i = 0; i < item.length; ++i) {
-            currentLi = item[i];
-            console.log(currentLi)
-            input = currentLi.getElementsByTagName('textarea');
-            console.log(input)
-            console.log(input[0])
-            input[0].setAttribute('id', `tip-${i + 1}`);
-            input[0].setAttribute('name', `tip-${i + 1}`);
-        }
-    }
-
-    else {
-        return
-    }
-
-    if (tipCount == 0) {
-        noTip = `
-            <li id="no-tip" class="no-bullet clear-both">
-                <input type="text" id="-tip-1" name="tip-1" class="no-item" value="No Tips" readonly>
-            </li>`;
-        $('#cocktail-tips').append(noTip);
-    }
-});
-
 // Remove "Add Item" button on page load
 $( document ).ready( function() {
     var ingredFeedback = `<p id="ingred-feedback" class="cocktail__feedback">Max amount of Ingredients</p>`;
     var garnishFeedback = `<p id="garnish-feedback" class="cocktail__feedback">Max amount of Garnishes</p>`;
     var toolFeedback = `<p id="tool-feedback" class="cocktail__feedback">Max amount of Tools</p>`;
     var instrFeedback = `<p id="instruction-feedback" class="cocktail__feedback">Max amount of Instruction</p>`;
-    var tipFeedback = `<p id="tip-feedback" class="cocktail__feedback clear-both">Max amount of Tips</p>`;
 
     if (ingredCount == 12) {
         $('#add-ingredient').replaceWith(ingredFeedback)
@@ -402,8 +327,4 @@ $( document ).ready( function() {
     if (instrCount == 15) {
         $('#add-instruction').replaceWith(instrFeedback)
     };
-
-    if (tipCount == 3) {
-        $('#add-tip').replaceWith(tipFeedback)
-    }
 });

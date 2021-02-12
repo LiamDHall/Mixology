@@ -860,47 +860,6 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     margin-top: 50px;
 }
 
-.cocktail__tips-wrapper {
-    margin-bottom: 100px;
-}
-
-.cocktail__tip-list {
-    list-style: none;
-    padding-left: 0;
-}
-
-/*--Tips--*/
-.tip {
-    position: relative;
-}
-
-.tip__profile-container {
-    border-radius: 100%;
-    overflow: hidden;
-}
-
-.tip__profile-img {
-    height: 100px;
-    width: 100px;
-}
-
-.tip__text {
-    position: absolute;
-    margin-left: 20px;
-    margin-bottom: 0;
-    font-size: 1.5rem;
-}
-
-.tip__author {
-    margin: 5px 0 0 120px;
-    font-size: 1.25rem;
-}
-
-.tip-form-label {
-    font-size: 1.5rem;
-    font-weight: 500;
-}
-
 /*------------------------------------------------------Cocktail Add/Edit--*/
 .cocktail__feedback {
     color: limegreen;

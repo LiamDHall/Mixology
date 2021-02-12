@@ -21,10 +21,15 @@
         {% endif %}
 
     </form>
+
+    <!--Image-->
     <img class="rec-card__img card-img-top" src="{{ cocktail.image }}" alt="cocktail image">
+
+    <!--Card Body-->
     <div class="rec-card__info card-body">
         <h5 class="rec-card__title">{{ cocktail.cocktail_name.title() }}</h5>
         <div class="row">
+            <!--Star Rating-->
             <div class="rec-card__star-rating col-6">
                 <p>
                     {% if cocktail.rating == 0 %}
@@ -35,14 +40,26 @@
                         {% endfor %}
                     {% endif %}
                     ({{ cocktail.no_rating }})
-                    {{ cocktail._id }}
                 </p>
             </div>
+
+            <!--Make It-->
             <div class="rec-card__col col-6">
                 <a href="{{ url_for('cocktail', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" class="rec-card__cta cta">Make It</a>
             </div>
+
+            {% if not profile %}
+                <!--Author-->
+                <div class="col-12">
+                <a href="{{ url_for('profile', profile_name=cocktail.author, profile_id=cocktail.author_id) }}">
+                        by <span class="rec-card__author">{{ cocktail.author }}</span>
+                    </a>
+                </div>
+            {% endif %}
         </div>
+
         {% if (profile) and (session.id | string == cocktail.author_id | string) %}
+            <!--Function Buttons-->
             <div class="rec-card__container">
                 <a href="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" class="cta cta--edit cta--profile cta--link inline"><i class="fas fa-pencil-alt"></i> Edit</a>
                 <button class="cta cta--delete cta--fw cta--profile" type="button">
