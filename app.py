@@ -585,20 +585,24 @@ def formate_inputs(item, count):
 
 # Get users Bookmakers
 def get_bookmarked_cocktails():
-    # Get user bookmarked cocktial ids form db
-    bookmark_list = mongo.db.users.find_one(
-            {"username": session["user"]}).get("bookmarks")
+    if session.get('user'):
+        # Get user bookmarked cocktial ids form db
+        bookmark_list = mongo.db.users.find_one(
+                {"username": session["user"]}).get("bookmarks")
 
-    # Empty array to add the bookmarked cocktails to
-    bookmarked_cocktial = []
+        # Empty array to add the bookmarked cocktails to
+        bookmarked_cocktial = []
 
-    # Loops through bookmark list adding cocktails from db to arary above
-    for cocktail_id in bookmark_list:
+        # Loops through bookmark list adding cocktails from db to arary above
+        for cocktail_id in bookmark_list:
 
-        cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
-        bookmarked_cocktial.insert(0, cocktail)
+            cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
+            bookmarked_cocktial.insert(0, cocktail)
 
-    return bookmarked_cocktial
+        return bookmarked_cocktial
+
+    else:
+        return []
 
 
 # Bookmarking
