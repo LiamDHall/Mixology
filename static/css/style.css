@@ -92,7 +92,7 @@ button:focus {
 }
 
 .faded {
-    color: 50%;
+    opacity: 50%;
 }
 
 /*---------------------------Brand Colours--*/
@@ -685,7 +685,7 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 }
 
 .rec-card__star-rating {
-    font-size: 1.5rem;
+    font-size: 1.rem;
     color: var(--brand-cta);
     font-weight: 700;
     padding-right: 0;

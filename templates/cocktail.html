@@ -11,7 +11,11 @@
             <button class="cocktail-header__bookmark-btn" name="form-submit" value="bookmark">
                 <p class="cocktail-header__function cocktail-header__function--bookmark">
                     {% if bookmark == "false" %}
-                        <i class="far fa-bookmark inline-block"></i> Save
+                        {% if session.user %}
+                            <i class="far fa-bookmark inline-block"></i> Save
+                        {% else %}
+                            <span class="faded"><i class="far fa-bookmark inline-block"></i> Save</span>
+                        {% endif %}
                     {% else %}
                         <i class="fas fa-bookmark inline-block"></i> Saved
                     {% endif %}
