@@ -91,6 +91,10 @@ button:focus {
     padding: 0;
 }
 
+.faded {
+    color: 50%;
+}
+
 /*---------------------------Brand Colours--*/
 :root {
     --brand-color: purple;
@@ -660,7 +664,8 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 .rec-card__bookmark {
     background: none;
     border: none;
-    color: limegreen;
+    color: var(--brand-cta);
+
 }
 
 .rec-card__bookmark:focus {
@@ -681,14 +686,23 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 
 .rec-card__star-rating {
     font-size: 1.5rem;
+    color: var(--brand-cta);
+    font-weight: 700;
+    padding-right: 0;
 }
 
 .rec-card__star-rating p {
     margin: 0;
 }
 
+.rec-card__no_rating {
+    color: white;
+    font-weight: 500;
+}
+
 .rec-card__col {
     text-align: right;
+    padding-left: 0;
 }
 
 .rec-card__cta {
@@ -697,6 +711,11 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 
 .rec-card__container {
     margin-top: 17.5px;
+}
+
+.rec-card__author {
+    color: var(--brand-create);
+    font-weight: 700;
 }
 
 /*--No Rec Cards--*/
