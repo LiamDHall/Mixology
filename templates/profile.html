@@ -41,32 +41,52 @@
             </div>
         </div>
     </section>
-{% endif %} 
+{% endif %}
+
+{% if session.id == profile._id %}
+    <!--User Bookmarks-->
+    <section class="section-spacing">
+        <div class="rec-carsousel__header">
+            <h2 class="rec-carsousel__title inline-block">Your Bookmarks</h2>
+        </div>
+        <hr class="page-line page-line--brand">
+
+        {% if bookmarked_cocktails | length > 0 %}
+            <!--User Bookmark Carsousel-->
+            <div class="swiper-container clear-both">
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    {% for cocktail in bookmarked_cocktails %}
+                        {% include "rec-card.html" %}
+                    {% endfor %}
+                </div>
+                <!--Navigation buttons-->
+                <div class="rec-carsousel__btn-container">
+                    <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+                    <!--Pagination-->
+                    <div class="swiper-pagination inline-block"></div>
+                    <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+                </div>
+            </div>
+        {% else %}
+            <div class="no-cocktail">
+                <h4 class="no-cocktails__text">No Cocktails</h4>
+            </div>
+        {% endif %}
+    </section>
+{% endif %}
 
 <!--User Cocktails-->
 <section class="rec-carsousel section-spacing">
     <div class="rec-carsousel__header">
-        <h2 class="rec-carsousel__title inline-block">Your Cocktails</h2>
-        <a href="#" class="rec-carsousel__cta cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
+        {% if session.id == profile._id %}
+            <h2 class="rec-carsousel__title inline-block">Your Cocktails</h2>
+            <a href="#" class="rec-carsousel__cta cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
+        {% else %}
+            <h2 class="rec-carsousel__title inline-block">All {{ profile.username }} Cocktails</h2>
+        {% endif %}
     </div>
     <hr class="page-line page-line--brand">
-
-    <!--User Cocktails Filters-->
-    <div class="rec-carsousel__filter-contianer"> 
-        <div class="rec-carsousel__filter float-left">
-            <h3 class="rec-carsousel__tag inline-block">Filter:</h3>
-            {% for alcohol in alcohol_categories %}
-                <button class="cta cta--filter">{{ alcohol.alcohol_name }}</button>
-            {% endfor %}
-        </div>
-
-        <div class="rec-carsousel__sort float-right">
-            <h3 class="rec-carsousel__tag inline-block">Sort:</h3>
-            <button class="cta cta--filter">A-Z</button>
-            <button class="cta cta--filter">Rating</button>
-            <button class="cta cta--filter">Popularity</button>
-        </div>
-    </div>
     
     {% if user_cocktails | length > 0 %}
         <!--User Cocktails Carsousel-->
@@ -74,54 +94,6 @@
             <div class="swiper-wrapper">
                 <!-- Slides -->
                 {% for cocktail in user_cocktails %}
-                    {% include "rec-card.html" %}
-                {% endfor %}
-            </div>
-            <!--Navigation buttons-->
-            <div class="rec-carsousel__btn-container">
-                <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
-                <!--Pagination-->
-                <div class="swiper-pagination inline-block"></div>
-                <div class="rec-carsousel__swiper-button swiper-button-next"></div>
-            </div>
-        </div>
-    {% else %}
-        <div class="no-cocktail">
-            <h4 class="no-cocktails__text">No Cocktails</h4>
-        </div>
-    {% endif %}
-</section>
-
-<!--User Bookmarks-->
-<section class="section-spacing">
-    <div class="rec-carsousel__header">
-        <h2 class="rec-carsousel__title inline-block">Your Bookmarks</h2>
-    </div>
-    <hr class="page-line page-line--brand">
-
-    <!--User Bookmark Filters-->
-    <div class="rec-carsousel__filter-contianer"> 
-        <div class="rec-carsousel__filter float-left">
-            <h3 class="rec-carsousel__tag inline-block">Filter:</h3>
-            {% for alcohol in alcohol_categories %}
-                <button class="cta cta--filter">{{ alcohol.alcohol_name }}</button>
-            {% endfor %}
-        </div>
-
-        <div class="rec-carsousel__sort float-right">
-            <h3 class="rec-carsousel__tag inline-block">Sort:</h3>
-            <button class="cta cta--filter">A-Z</button>
-            <button class="cta cta--filter">Rating</button>
-            <button class="cta cta--filter">Popularity</button>
-        </div>
-    </div>
-
-    {% if bookmarked_cocktails | length > 0 %}
-        <!--User Bookmark Carsousel-->
-        <div class="swiper-container clear-both">
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-                {% for cocktail in bookmarked_cocktails %}
                     {% include "rec-card.html" %}
                 {% endfor %}
             </div>
