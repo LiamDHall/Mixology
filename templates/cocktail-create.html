@@ -44,7 +44,7 @@
                             <select name="alcohol" id="alcohol" class="form-cocktail__input" aria-label="dropdown menu to select alcohol type" required>
                                 <option value="" disabled selected hidden>Alcohol Type</option>
                                 {% for alcohol in alcohol_categories %}
-                                    <option value="{{ alcohol.alcohol_name }}">{{ alcohol.alcohol_name.title() }}</option>
+                                    <option value="{{ alcohol.alcohol_name.lower() }}">{{ alcohol.alcohol_name }}</option>
                                 {% endfor %}
                             </select>
                         </li>

@@ -462,7 +462,7 @@ def cocktail_create(cocktail_name, cocktail_id):
             # Stages form input ready to be pushed to the datebase
             register = {
                 "cocktail_name": request.form.get("cocktail-name").lower(),
-                "alcohol": request.form.get("alcohol").lower(),
+                "alcohol": request.form.get("alcohol"),
                 "image": request.form.get("cocktail-img-url"),
                 "date_added": datetime.datetime.utcnow(),
                 "rating": 0,

@@ -70,9 +70,9 @@
                                     <select name="alcohol" id="alcohol" class="form-cocktail__input" aria-label="dropdown menu to select alcohol type" required>
                                         {% for alcohol in alcohol_categories %}
                                             {% if cocktail.alcohol == alcohol.alcohol_name.lower() %}
-                                                <option value="{{ alcohol.alcohol_name }}" selected>{{ alcohol.alcohol_name.title() }}</option>
+                                                <option value="{{ alcohol.alcohol_name.lower() }}" selected>{{ alcohol.alcohol_name }}</option>
                                             {% else %}
-                                                <option value="{{ alcohol.alcohol_name }}">{{ alcohol.alcohol_name.title() }}</option>
+                                                <option value="{{ alcohol.alcohol_name.lower() }}">{{ alcohol.alcohol_name }}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
