@@ -536,7 +536,10 @@ def delete_cocktail(cocktail_id):
         print(user["rated_cocktails"])
 
     flash("Cocktail Deleted")
-    return redirect(url_for("home"))
+    return redirect(url_for(
+        "profile", profile_name=session["user"],
+        profile_id=session["id"]
+    ))
 
 
 # Create / Edit Cocktail Form
@@ -590,7 +593,8 @@ def cocktail_create(cocktail_name, cocktail_id):
 
             return redirect(url_for(
                 "profile", profile_name=session["user"],
-                profile_id=session["id"]))
+                profile_id=session["id"]
+            ))
 
         else:
             # Stages form input ready to be pushed to the datebase
