@@ -76,39 +76,41 @@
     </section>
 {% endif %}
 
-<!--User Cocktails-->
-<section class="rec-carsousel section-spacing">
-    <div class="rec-carsousel__header">
-        {% if session.id == profile._id | string %}
-            <h2 class="rec-carsousel__title inline-block">Your Cocktails</h2>
-            <a href="{{ url_for('cocktail_create') }}" class="rec-carsousel__cta cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
+{% for cat in user_alcohol_cats %}
+    <!--User Cocktails-->
+    <section class="rec-carsousel section-spacing">
+        <div class="rec-carsousel__header">
+            {% if session.id == profile._id | string %}
+                <h2 class="rec-carsousel__title inline-block">Your {{ cat.name }}</h2>
+                <a href="{{ url_for('cocktail_create') }}" class="rec-carsousel__cta cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
+            {% else %}
+                <h2 class="rec-carsousel__title inline-block">{{ profile.username }} {{cat.name}}</h2>
+            {% endif %}
+        </div>
+        <hr class="page-line page-line--brand">
+        
+        {% if cat.cocktails | length > 0 %}
+            <!--User Cocktails Carsousel-->
+            <div class="swiper-container clear-both">
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    {% for cocktail in cat.cocktails %}
+                        {% include "rec-card.html" %}
+                    {% endfor %}
+                </div>
+                <!--Navigation buttons-->
+                <div class="rec-carsousel__btn-container">
+                    <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+                    <!--Pagination-->
+                    <div class="swiper-pagination inline-block"></div>
+                    <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+                </div>
+            </div>
         {% else %}
-            <h2 class="rec-carsousel__title inline-block">All {{ profile.username }} Cocktails</h2>
+            <div class="no-cocktail">
+                <h4 class="no-cocktails__text">No Cocktails</h4>
+            </div>
         {% endif %}
-    </div>
-    <hr class="page-line page-line--brand">
-    
-    {% if user_cocktails | length > 0 %}
-        <!--User Cocktails Carsousel-->
-        <div class="swiper-container clear-both">
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-                {% for cocktail in user_cocktails %}
-                    {% include "rec-card.html" %}
-                {% endfor %}
-            </div>
-            <!--Navigation buttons-->
-            <div class="rec-carsousel__btn-container">
-                <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
-                <!--Pagination-->
-                <div class="swiper-pagination inline-block"></div>
-                <div class="rec-carsousel__swiper-button swiper-button-next"></div>
-            </div>
-        </div>
-    {% else %}
-        <div class="no-cocktail">
-            <h4 class="no-cocktails__text">No Cocktails</h4>
-        </div>
-    {% endif %}
-</section>
+    </section>
+{% endfor %}
 {% endblock %}

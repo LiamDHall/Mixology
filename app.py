@@ -408,14 +408,53 @@ def profile(profile_name, profile_id, edit):
         {"_id": ObjectId(profile_id)}
     )
 
-    user_cocktails = list(mongo.db.cocktails.find(
+    bookmarked_cocktails = get_bookmarked_cocktails()
+
+    user_all_cocktails = list(mongo.db.cocktails.find(
         {"author_id": profile_id}).sort("date_added", -1)
     )
 
-    bookmarked_cocktails = get_bookmarked_cocktails()
+    # Filter cocktail by alcohol
+    alcohol_categories = list(mongo.db.alcohol.find())
 
-    print(f"Test of Page: {edit}")
+    # Filter user cocktails by alcohol
+    user_vodka_cocktails = []
+    user_whiskey_cocktails = []
+    user_gin_cocktails = []
+    user_rum_cocktails = []
+    user_tequila_cocktails = []
 
+    # If user filter cocktails
+    for alcohol in alcohol_categories:
+        filt = f"user_{str(alcohol['alcohol_name'].lower())}_cocktails"
+        cocktails = list(mongo.db.cocktails.find({
+            "alcohol": alcohol['alcohol_name'].lower(),
+            "author_id": profile_id
+        }).sort("date_added", -1))
+
+        if len(cocktails) > 0:
+            vars()[filt].extend(cocktails)
+
+    # Stage info for template to iterate
+    user_alcohol_cats = [
+        {"name": "Cocktails", "cocktails": user_all_cocktails},
+        {
+            "name": "Vodka Cocktails",
+            "cocktails": user_vodka_cocktails
+        },
+        {
+            "name": "Whiskey Cocktails",
+            "cocktails": user_whiskey_cocktails
+        },
+        {"name": "Gin Cocktails", "cocktails": user_gin_cocktails},
+        {"name": "Rum Cocktails", "cocktails": user_rum_cocktails},
+        {
+            "name": "Tequila Cocktails",
+            "cocktails": user_tequila_cocktails
+        },
+    ]
+
+    # Block non profile Owners from editing via url
     if edit == "true":
         if session["id"] != profile_id:
             edit = "false"
@@ -424,7 +463,7 @@ def profile(profile_name, profile_id, edit):
     return render_template(
         "profile.html",
         bookmarked_cocktails=bookmarked_cocktails,
-        user_cocktails=user_cocktails,
+        user_alcohol_cats=user_alcohol_cats,
         profile=profile,
         user_bookmarks=user_bookmarks,
         edit=edit
