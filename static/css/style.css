@@ -620,6 +620,30 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     margin-bottom: 100px;
 }
 
+@media screen and (max-width: 840px) {
+    .rec-carsousel__title {
+        font-size: 1.5rem;
+    }
+
+    .rec-carsousel__cta {
+        top: -5px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .rec-carsousel__title {
+        font-size: 2rem;
+    }
+    
+    .rec-carsousel__cta {
+        position: static;
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+/*--Swiper--*/
 .swiper-button-disabled {
     display: inline !important;
 }
