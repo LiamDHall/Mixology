@@ -84,7 +84,7 @@ def home(alcohol_name):
         sort_cats = [
             {"name": "Newly Added", "cocktails": newest},
             {"name": "Top Rated", "cocktails": top_rated},
-            {"name": "Popular", "cocktails": popular}
+            {"name": "Most Popular", "cocktails": popular}
         ]
 
     # Homepage
