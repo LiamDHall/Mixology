@@ -95,8 +95,6 @@
                     {% if session.user %} 
                         <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" class="nav-dropdown__menu-item"><i class="fas fa-user-circle"></i> Profile</a>
                         <a href="{{ url_for('logout') }}" class="nav-dropdown__menu-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    {% else %}
-                        <a href="{{ url_for('register') }}" class="nav-dropdown__menu-item">Register</a>
                     {% endif %}
                 </div>
             </div>

@@ -119,10 +119,24 @@ button:focus {
     opacity: 50%;
 }
 
+.mobile-only {
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .mobile-hide {
+        display: none;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+}
+
 @media screen and (max-width: 768px) {
     main {
-    padding: 100px 10px;
-}
+        padding: 100px 10px;
+    }
 }
 
 /*---------------------------Brand Colours--*/
@@ -318,7 +332,6 @@ button:focus {
 /*--Profile Dropdown--*/
 .nav-dropdown {
     position: relative;
-    display: inline-block;
 }
 
 .nav-dropdown__btn {
@@ -342,7 +355,8 @@ button:focus {
     background-color: var(--brand-color);
     border-radius: 10px;
     z-index: 120;
-    width: 100%;
+    width: 150px;
+
 }
 
 .nav-dropdown__menu-item {
@@ -1109,10 +1123,6 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 
     .rec-card__star-rating {
         font-size: 0.85rem;
-    }
-
-    .mobile-hide {
-        display: none;
     }
 }
 
