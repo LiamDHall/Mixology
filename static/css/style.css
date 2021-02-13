@@ -399,6 +399,30 @@ button:focus {
     top: -3px;
 }
 
+/*--Search Mobile & Responsive--*/
+@media screen and (max-width: 768px) {
+    .search-page-input {
+        width: 80%;
+    }
+
+    .search-page-btn {
+        position: static;
+        display: inline-block;
+        margin-left: 0px;
+        width: 80%;
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .search-page-input,
+    .search-page-btn {
+        width: 100%;
+    }
+}
+
+
+
 /*------------------------------------------------------Site Header Mobile & Responsive--*/
 @media screen and (max-width: 1350px) {
     .search-input {
