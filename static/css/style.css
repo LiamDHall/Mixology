@@ -205,6 +205,17 @@ button:focus {
     padding-right: 22px;
 }
 
+.affiliate {
+    color: var(--brand-create);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.affiliate:hover {
+    text-decoration: underline;
+    color: var(--brand-create);
+}
+
 /*------------------------------------------------------Flash Massage--*/
 .flash-massage {
     margin: 0 auto;
@@ -1004,9 +1015,15 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 
 .footer__container {
     padding: 30px;
-    width: 100%;;
+    width: 100%;
+    margin: 0;
 }
 
+.footer_title {
+    color: var(--brand-cta);
+}
+
+.footer__social,
 .footer__list {
     list-style-type: none;
     padding: 0;
@@ -1019,3 +1036,27 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 .footer__social li {
     display: inline;
 }
+
+@media screen and (max-width: 1024px) {
+    .footer__list{
+        font-size: 1.75rem;
+    }
+
+    .footer__list li{
+        margin-top: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer__item:nth-child(3),
+    .footer__item:nth-child(4) {
+        margin-top: 50px; 
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .footer__item:nth-child(2) {
+        margin-top: 50px; 
+    }
+}
+
