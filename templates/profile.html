@@ -2,15 +2,17 @@
 {% block content %}
 <!--Profile Info-->
 {% if edit == "true" %}
-    <section class="section-spacing">
+    <section class="profile-spacing">
         <form class="form" action="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" method="POST">
             <div class="profile">
                 <div class="profile__container profile__container--img inline-block">
                     <img class="profile__img" src="{{ profile.image }}" alt="profile image">
                 </div>
-                <label for="image-url" class="form__label">Image URL</label> 
-                <input id="image-url" name="image-url" class="form__input form__input--narrow" value="{{ profile.image }}" placeholder="Enter URL of Image eg. https://www.example.com/image" required>
-                <div class="profile__container profile__container--text inline-block">
+                <label for="image-img" class="profile__label form__label">Copy and Paster Cocktail Image URL</label>
+                <p>Image will preview if URL valid after you click away.</p>
+                <p>Commonly the URL will end with the file name and .jpg, .jpeg or .png</p> 
+                <input id="image-url" name="image-url" class="form__input form__input--profile" value="{{ profile.image }}" placeholder="Enter URL of Image eg. https://www.example.com/image" required>
+                <div class="profile__container inline-block">
                     <label for="image-url" class="form__label">Username</label>
                     <input id="username" name="username" class="form__input form__input--font-large profile__name" pattern="^[a-zA-Z0-9]{4,25}$" maxlength="12" placeholder="Enter New Username" value="{{ profile.username }}" required>
                     <div class="profile__actions profile__actions--center">
@@ -24,18 +26,18 @@
         </form>
     </section>
 {% else %}
-    <section class="section-spacing">
+    <section class="profile-spacing">
         <div class="profile">
             <div class="profile__container profile__container--img inline-block">
                 <img class="profile__img" src="{{ profile.image }}" alt="profile image">
             </div>
             <div class="profile__container profile__container--text inline-block">
                 <h1 class="profile__name">{{ profile.username }}</h1>
-                <p class="profile__info"><strong>Number of Cocktails:</strong> 000 add link from template</p>
+                <p class="profile__info"><strong>Number of Cocktails:</strong> 10</p>
                 <p class="profile__info"><strong>Date Joined:</strong> {{ profile.date_added.strftime('%d/%m/%y') }}</p>
                 {% if profile._id | string == session.id %}
                     <div class="profile__actions">
-                        <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id, edit='true') }}" class="cta cta--confirm"><i class="fas fa-user-edit"></i> Edit</a>
+                        <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id, edit='true') }}" class="profile-cta cta cta--confirm"><i class="fas fa-user-edit"></i> Edit</a>
                     </div>
                 {% endif %}
             </div>

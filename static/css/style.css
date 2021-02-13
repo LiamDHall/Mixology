@@ -467,6 +467,11 @@ button:focus {
     min-height: 50px;
 }
 
+.form__input--profile {
+    width: 70%;
+    margin: 0 auto;
+}
+
 .form__input--narrow {
     margin: 0 auto;
     width: 20%;
@@ -807,6 +812,10 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 }
 
 /*------------------------------------------------------Profile--*/
+.profile-spacing {
+    padding-top: 50px;
+}
+
 .profile {
     margin: 0 auto;
     position: relative;
@@ -831,7 +840,7 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 }
 
 .profile__name {
-    font-size: 5rem;
+    font-size: 4.25rem;
 }
 
 .profile__actions {
@@ -861,6 +870,60 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 
 .profile__confirmation {
     margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .profile-spacing {
+        padding-top: 0;
+    }
+
+    .profile__container--text {
+        position:static;
+        text-align: center;
+        width: 100%;
+        margin-left: 0px;
+    }
+    
+    .profile__img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .profile-cta {
+        display: inline-block;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .profile__actions .cta--confirm {
+        width: 100%;
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+    .profile__actions .cta--confirm:nth-child(3) {
+        margin-left: 0px;
+        margin-top: 60px;
+    }
+}
+
+@media screen and (max-width: 578px) {
+    .profile__img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .profile__name {
+        font-size: 3rem;
+    }
+
+    .profile__info {
+        font-size: 1rem;
+    }
+
+    .profile__label {
+        margin-left: 0;
+    }
 }
 
 /*------------------------------------------------------Cocktail Recipe Page--*/
