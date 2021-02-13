@@ -21,56 +21,97 @@
 <body>
     <!--Site Header-->
     <header class="site-header">
-        <a id="logo" class="logo nav-item" href="{{ url_for('home') }}"><i class="fas fa-glass-martini-alt"></i> Mixology</a>
+        <div class="site-header__flex-container">
+            <!--logo-->
+            <a id="logo" class="logo nav-item" href="{{ url_for('home') }}"><i class="fas fa-glass-martini-alt"></i> Mixology</a>
+            
+            <!--Bootstrap Collapsible Menu-->
+            <nav class="site-header__nav navbar-expand-custom site-header__flex-item">
+                
+                <!--Nav Collapse Button-->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-header-collapsible-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <!--Site Nav-->
+                <div id="site-header-collapsible-navbar" class="navbar-collapse collapse">
+                    <ul class="site-header__navbar">
 
-        <!--Bootstrap Collapsible Menu-->
-        <nav class="site-header__nav navbar-expand-lg">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-header-collapsible-navbar" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+                        <!--Mobile Search -->
+                        <li class="nav-mobile nav-mobile--search">
+                            <form class="site-header__mobile-search" action="{{ url_for('search') }}" method="POST">
+                                <input type="text" name="query" class="search-input" value="">
+                                <button class="mobile-search" name="form-submit" value="search"><i class="fas fa-search"></i> Search</button>
+                            </form>
+                        </li>
 
-            <div id="site-header-collapsible-navbar" class="navbar-collapse collapse">
-                <ul class="site-header__navbar">
-                    <li><a href="{{ url_for('home') }}" id="home" class="nav-item">Home</a></li>
-                    {% for alcohol in alcohol_categories %}
-                        <li><a href="{{ url_for('home', alcohol_name=alcohol.alcohol_name) }}" id="{{ alcohol.alcohol_name.lower() }}" class="nav-item">{{ alcohol.alcohol_name }}</a></li>
-                    {% endfor %}
-                </ul>
-                <!--Search-->
-                <form class="form" action="{{ url_for('search') }}" method="POST">
-                    <input type="text" name="query" class="search-input">
-                    <button class="search-btn btn-icon nav-item" name="form-submit" value="search"><i class="fas fa-search"></i></button>
-                </form>
+                        <!--Mobile CTA-->
+                        <li class="nav-mobile nav-mobile--cta">
+                            {% if session.user %}
+                                <a href="{{ url_for('cocktail_create') }}" class="site_header__mobile-cta"><i class="fas fa-plus"></i> Add Cocktail</a>
+                            {% else %}
+                                <a href="{{ url_for('register') }}" class="site_header__mobile-cta">Register</a>
+                            {% endif %}
+                        </li>
 
-                <div class="nav-dropdown">
-                    {% if session.user %}
-                        <a class="nav-dropdown__btn btn-icon nav-item" href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}"><i class="nav-dropdown__profile fas fa-user-circle"></i>
-                            <span class="nav-dropdown__profile nav-dropdown__profile--username"> {{ session.user }}</span>
-                        </a>
-                    {% else %}
-                        <a class="nav-dropdown__btn btn-icon nav-item" href="{{ url_for('login') }}"><i class="nav-dropdown__profile fas fa-user-circle"></i>
-                            <span class="nav-dropdown__profile nav-dropdown__profile--username">Log In</span>
-                        </a>
-                    {% endif %}
-                    <div class="nav-dropdown__menu">
-                        {% if session.user %} 
-                            <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" class="nav-dropdown__menu-item"><i class="fas fa-user-circle"></i> Profile</a>
-                            <a href="{{ url_for('logout') }}" class="nav-dropdown__menu-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                        {% else %}
-                            <a href="{{ url_for('register') }}" class="nav-dropdown__menu-item">Register</a>
+                        <!--Main Menu Items-->
+                        <li class="nav-desktop"><a href="{{ url_for('home') }}" id="home" class="nav-item">Home</a></li>
+                        {% for alcohol in alcohol_categories %}
+                            <li class="nav-desktop"><a href="{{ url_for('home', alcohol_name=alcohol.alcohol_name) }}" id="{{ alcohol.alcohol_name.lower() }}" class="nav-item">{{ alcohol.alcohol_name }}</a></li>
+                        {% endfor %}
+
+                        <!--Mobile Profile-->
+                        {% if session.user %}
+                            <li class="nav-mobile nav-mobile--profile">
+                                <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" class="site-header__nav-profile"><i class="fas fa-user-circle"></i> {{ session.user }}</a>
+                            </li>
+                            <li class="nav-mobile nav-mobile--profile">
+                                <a href="{{ url_for('logout') }}" class="site-header__nav-profile"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </li>
                         {% endif %}
-                    </div>
+                    </ul>
                 </div>
+            </nav>
+
+            <!--Search-->
+            <form class="site-header__search form site-header__flex-item" action="{{ url_for('search') }}" method="POST">
+                <input type="text" name="query" class="search-input">
+                <button class="search-btn btn-icon nav-item" name="form-submit" value="search"><i class="fas fa-search"></i></button>
+            </form>
+
+            <!--Profile / Log in-->
+            <div class="nav-dropdown site-header__flex-item">
                 {% if session.user %}
-                    <a href="{{ url_for('cocktail_create') }}" class="cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
+                    <a class="nav-dropdown__btn btn-icon nav-item" href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}"><i class="nav-dropdown__profile fas fa-user-circle"></i>
+                        <span class="nav-dropdown__profile nav-dropdown__profile--username"> {{ session.user }}</span>
+                    </a>
                 {% else %}
-                    <a class="cta" href="{{ url_for('register') }}">Register</a>
+                    <a class="nav-dropdown__btn btn-icon nav-item" href="{{ url_for('login') }}"><i class="nav-dropdown__profile fas fa-user-circle"></i>
+                        <span class="nav-dropdown__profile nav-dropdown__profile--username">Log In</span>
+                    </a>
                 {% endif %}
+                <!--Profile / Log in Dropdown-->
+                <div class="nav-dropdown__menu">
+                    {% if session.user %} 
+                        <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" class="nav-dropdown__menu-item"><i class="fas fa-user-circle"></i> Profile</a>
+                        <a href="{{ url_for('logout') }}" class="nav-dropdown__menu-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('register') }}" class="nav-dropdown__menu-item">Register</a>
+                    {% endif %}
+                </div>
             </div>
-        </nav>
+            
+            <!--Site Header CTA-->
+            {% if session.user %}
+                <a href="{{ url_for('cocktail_create') }}" class="site_header__cta cta cta--create site-header__flex-item"><i class="fas fa-plus"></i> Add Cocktail</a>
+            {% else %}
+                <a class="site_header__cta site-header__flex-item cta" href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </div>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
+                    <!--Flash Message-->
                     <div class="flash-massage under-header">
                         <h4>{{ message }}</h4>
                     </div>
