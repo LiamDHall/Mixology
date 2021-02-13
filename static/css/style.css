@@ -300,6 +300,47 @@ button:focus {
 .nav-dropdown:hover {
     color: var(--brand-cta);
 }
+
+/*--Search--*/
+.search-btn {
+    background: none;
+    border: none;
+    color: white;
+}
+
+.search-input {
+    position: relative;
+    top: -5px;
+    line-height: 2;
+    border: 0px;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-from {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.search-page-input {
+    width: 60%;
+    border: 2px solid var(--brand-color);
+    border-radius: 7.5px;
+    font-size: 2rem;
+    padding-left: 16px;
+}
+
+.search-page-btn {
+    font-size: 1.4rem;
+    position: relative;
+    margin-left: 16px;
+    top: -3px;
+}
+
 /*------------------------------------------------------Page--*/
 .center-page {
     position: absolute;

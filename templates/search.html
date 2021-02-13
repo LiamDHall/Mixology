@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+    <section>
+       <form class="search-from form" action="{{ url_for('search') }}" method="POST">
+            <input type="text" name="query" class="search-page-input">
+            <button class="search-page-btn cta cta--create" name="form-submit" value="search"><i class="fas fa-search"></i> Serach</button>
+        </form>
+    </section>
+    {% for cat in cocktail_search_cats %}
+        <!--Cocktails-->
+        <section class="rec-carsousel">
+            <div class="rec-carsousel__header">
+                <h2 class="rec-carsousel__title inline-block">{{ cat.name }}</h2>
+            </div>
+            <hr class="rec-carsousel__page-line page-line page-line--brand">
+            {% if cat.cocktails | length > 0 %}
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        {% for cocktail in cat.cocktails %}
+                            {% include "rec-card.html" %}
+                        {% endfor %}
+                    </div>
+                    <!--Navigation buttons-->
+                    <div class="rec-carsousel__btn-container">
+                        <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+                        <!--Pagination-->
+                        <div class="swiper-pagination inline-block"></div>
+                        <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="no-cocktail">
+                    {% if cat.name != "User" %}
+                        <h4 class="no-cocktails__text">No Cocktails Found</h4>
+                    {% else %}
+                        <h4 class="no-cocktails__text">No User Found</h4>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </section>
+    {% endfor %}
+{% endblock %}
