@@ -43,7 +43,7 @@
     </section>
 {% endif %}
 
-{% if session.id == profile._id %}
+{% if session.id == profile._id | string %}
     <!--User Bookmarks-->
     <section class="section-spacing">
         <div class="rec-carsousel__header">
@@ -79,9 +79,9 @@
 <!--User Cocktails-->
 <section class="rec-carsousel section-spacing">
     <div class="rec-carsousel__header">
-        {% if session.id == profile._id %}
+        {% if session.id == profile._id | string %}
             <h2 class="rec-carsousel__title inline-block">Your Cocktails</h2>
-            <a href="#" class="rec-carsousel__cta cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
+            <a href="{{ url_for('cocktail_create') }}" class="rec-carsousel__cta cta cta--create"><i class="fas fa-plus"></i> Add Cocktail</a>
         {% else %}
             <h2 class="rec-carsousel__title inline-block">All {{ profile.username }} Cocktails</h2>
         {% endif %}
