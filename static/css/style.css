@@ -1099,6 +1099,10 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
         font-size: 1.2rem;
     }
 
+    .rec-card__pofile-cta {
+        font-size: 1rem;
+    }
+
     .rec-card__img {
         height: 250px;
     }
@@ -1237,9 +1241,9 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     margin-top: 20px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 915px) {
     .profile-spacing {
-        padding-top: 0;
+        padding-top: 20px;
     }
 
     .profile__container--text {
@@ -1288,6 +1292,12 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 
     .profile__label {
         margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .profile__name {
+        font-size: 2rem;
     }
 }
 
