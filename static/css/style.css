@@ -939,6 +939,25 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     display: none;
 }
 
+/*--No Rec Cards--*/
+.no-cocktail {
+    width: 100%;
+    text-align: center; 
+}
+
+.no-cocktails__text {
+    font-size: 3.5rem;
+    padding: 50px 0;
+    color: var(--brand-color);
+}
+
+/*------------------------------------------------------Recipe Carsousel Mobile & Responsive --*/
+@media screen and (max-width: 768px) {
+    .no-cocktails__text {
+        font-size: 2rem;
+    }
+}
+
 /*------------------------------------------------------Recipe (Rec) Card--*/
 .rec-card {
     color: white;
@@ -1032,18 +1051,6 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 .rec-card__author {
     color: var(--brand-create);
     font-weight: 700;
-}
-
-/*--No Rec Cards--*/
-.no-cocktail {
-    width: 100%;
-    text-align: center; 
-}
-
-.no-cocktails__text {
-    font-size: 3.5rem;
-    padding-top: 100px;
-    color: var(--brand-color);
 }
 
 /*------------------------------------------------------Profile--*/
