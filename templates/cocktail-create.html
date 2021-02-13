@@ -6,8 +6,10 @@
 
         <!--Add Cocktail Form (in the style of view coctail page)-->
         <form id="cocktail-create" class="form-cocktail" action="{{ url_for('cocktail_create') }}" method="POST">
+
+            <!--Cocktail Name-->
             <input type="text" name="cocktail-name" class="form-cocktail__input form-cocktail__input--title" id="cocktail-name" 
-                placeholder="Enter Cocktail Name" aria-label="enter cocktail name" maxlength="20" required>
+                placeholder="Enter Cocktail Name" aria-label="enter cocktail name" maxlength="15" required>
             <div class="cocktail-header__star-rating">
                 <p>
                     {% for i in range(0, 5) %}

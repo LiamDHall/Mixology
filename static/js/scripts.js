@@ -1,20 +1,20 @@
 //Set inital value for Swiper JS
 $(document).ready(function() {
-    var width = $(window).width();
-    if (width > 1440) {
+    var width = window.innerWidth;
+    if (width > 2150) {
         noSlides = 6;
     }
 
-    else if (width > 768) {
-        noSlides = 5
-    }
-
-    else if (width > 425) {
+    else if (width > 1200) {
         noSlides = 4
     }
 
+    else if (width > 768) {
+        noSlides = 3
+    }
+
     else {
-        noSlides = 3;
+        noSlides = 2;
     }
 
     console.log(width)
@@ -47,21 +47,21 @@ $(document).ready(function() {
 //Set dynamic value for Swiper JS
 var noSlides = 3;
 window.addEventListener('resize', function(){
-    var width = $(window).width();
-    if (width > 1440) {
+    var width = window.innerWidth;
+    if (width > 2150) {
         noSlides = 6;
     }
 
-    else if (width > 768) {
-        noSlides = 5
-    }
-
-    else if (width > 425) {
+    else if (width > 1200) {
         noSlides = 4
     }
 
+    else if (width > 768) {
+        noSlides = 3
+    }
+
     else {
-        noSlides = 3;
+        noSlides = 2;
     }
 
     console.log(width)

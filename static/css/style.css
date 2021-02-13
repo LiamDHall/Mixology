@@ -119,6 +119,12 @@ button:focus {
     opacity: 50%;
 }
 
+@media screen and (max-width: 768px) {
+    main {
+    padding: 100px 10px;
+}
+}
+
 /*---------------------------Brand Colours--*/
 :root {
     --brand-color: purple;
@@ -951,7 +957,7 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     color: var(--brand-color);
 }
 
-/*------------------------------------------------------Recipe Carsousel Mobile & Responsive --*/
+/*------------------------------------------------------Recipe Carsousel Mobile & Responsive--*/
 @media screen and (max-width: 768px) {
     .no-cocktails__text {
         font-size: 2rem;
@@ -1052,6 +1058,123 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     color: var(--brand-create);
     font-weight: 700;
 }
+
+/*------------------------------------------------------Recipe (Rec) Card Mobile & Responsive--*/
+@media screen and (max-width: 1440px) {
+    .rec-card__title {
+        font-size: 1.5rem;
+    }
+
+    .rec-card__col:nth-child(2) {
+        margin: 16px 0;
+        text-align: center;
+        padding: 0;
+    }
+
+    .rec-card__cta {
+        display: inline-block;
+        margin: 0 auto;
+        width: 80%;
+        font-size: 1rem;
+    }
+}
+
+/*--Four Rec Cards--*/
+@media screen and (max-width: 1200px) {
+    .rec-card__title {
+        font-size: 1.5rem;
+    }
+
+    .rec-card__cta {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .rec-card__title {
+        font-size: 1.25rem;
+    }
+
+    .rec-card__cta {
+        font-size: 1.2rem;
+    }
+
+    .rec-card__img {
+        height: 250px;
+    }
+
+    .rec-card__star-rating {
+        font-size: 0.85rem;
+    }
+
+    .mobile-hide {
+        display: none;
+    }
+}
+
+/*--Two Rec cards--*/
+@media screen and (max-width: 768px) {
+    .rec-card {
+        text-align: center;
+    }
+
+    .rec-card__star-rating{
+        margin-left: 0;
+    }
+
+   .rec-card__title {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .rec-card__img {
+        height: 200px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .rec-card__title {
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+}
+
+@media screen and (max-width: 424px) {
+    .rec-card__title {
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .rec-card__cta {
+        font-size: 1rem;
+    }
+
+    .rec-card__img {
+        height: 150px;
+        width: 100%;
+        border-top-left-radius: 7.5px;
+        border-top-right-radius: 7.5px;
+    }
+
+    .rec-card__star-rating {
+        font-size: 0.7rem;
+    }
+
+    .rec-card__author {
+        color: var(--brand-create);
+        font-weight: 700;
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .rec-card__title {
+        font-size: 3.5vw;
+        font-weight: 700;
+    }
+}
+
 
 /*------------------------------------------------------Profile--*/
 .profile-spacing {
