@@ -5,6 +5,8 @@
         <form class="rec-card__bookmark-form" action="{{ url_for('home', alcohol_name=alcohol.alcohol_name) }}" method="POST">
     {% elif profile %}
         <form class="rec-card__bookmark-form" action="{{ url_for('profile', profile_name=profile.username, profile_id=profile._id) }}" method="POST">
+    {% elif query %}
+        <form class="rec-card__bookmark-form" action="{{ url_for('search', query=query) }}" method="POST">
     {% else %}
         <form class="rec-card__bookmark-form" action="{{ url_for('home') }}" method="POST">
     {% endif %}

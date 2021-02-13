@@ -130,7 +130,7 @@ def home(alcohol_name):
             "bookmarks"
         )
 
-    # No bookmarks if no user is logged in
+    # No bookmarks if no user isnt logged in
     else:
         user_bookmarks = []
 
@@ -158,6 +158,110 @@ def home(alcohol_name):
             user_bookmarks=user_bookmarks,
             featured_cocktail=featured_cocktail
         )
+
+
+# Search
+@app.route("/search", defaults={"query": None}, methods=["GET", "POST"])
+@app.route("/search/<query>", methods=["GET", "POST"])
+def search(query):
+    # Get bookmarks of user if logged in
+    if session.get('user'):
+        user_bookmarks = mongo.db.users.find_one(
+            {"username": session["user"]}
+        ).get(
+            "bookmarks"
+        )
+
+    # No bookmarks if no user isnt logged in
+    else:
+        user_bookmarks = []
+
+    if request.method == "POST":
+        # Get Query
+        if query is None:
+            query = request.form.get("query").lower()
+
+        form_type = request.form.get("form-submit")
+
+        if form_type == "bookmark":
+            submit_bookmark(user_bookmarks)
+            return redirect(url_for(
+                "search",
+                query=query
+            ))
+
+    if not query:
+        query = " "
+    # Find Users
+    user = mongo.db.users.find_one({"username": query})
+
+    # if user, takes the user straight to the user profile page
+    if user:
+        flash("User Found")
+        return redirect(url_for(
+            "profile",
+            profile_name=user["username"],
+            profile_id=user["_id"]
+        ))
+
+    # Find all cocktails
+    all_cocktails = list(mongo.db.cocktails.find(
+        {"$text": {"$search": query}})
+    )
+
+    print(f"TEST INDEX: {all_cocktails}")
+    # Block blank searches
+    if query == "":
+        flash("Empty search input")
+        return redirect(url_for("home"))
+
+    alcohol_categories = list(mongo.db.alcohol.find())
+
+    # Filter cocktails by alcohol
+    vodka_cocktails = []
+    whiskey_cocktails = []
+    gin_cocktails = []
+    rum_cocktails = []
+    tequila_cocktails = []
+
+    # Used if no cocktail are found to tell user no user was found
+    user = []
+
+    # If all cocktail has at least one
+    if len(all_cocktails) > 0:
+        for alcohol in alcohol_categories:
+
+            # Create list name
+            filt = f"{str(alcohol['alcohol_name'].lower())}_cocktails"
+            cocktails = list(mongo.db.cocktails.find({
+                "$text": {
+                    "$search": query
+                },
+                "alcohol": alcohol['alcohol_name'].lower()
+            }))
+
+            if len(cocktails) > 0:
+                # Set list name as variable and extend cocktail to the
+                # corresponding list abover
+                vars()[filt].extend(cocktails)
+
+    # Stage info for template to iterate
+    cocktail_search_cats = [
+        {"name": "User", "cocktails": user},
+        {"name": "All Cocktails", "cocktails": all_cocktails},
+        {"name": "Vodka Cocktails", "cocktails": vodka_cocktails},
+        {"name": "Whiskey Cocktails", "cocktails": whiskey_cocktails},
+        {"name": "Gin Cocktails", "cocktails": gin_cocktails},
+        {"name": "Rum Cocktails", "cocktails": rum_cocktails},
+        {"name": "Tequila Cocktails", "cocktails": tequila_cocktails},
+    ]
+
+    return render_template(
+        "search.html",
+        cocktail_search_cats=cocktail_search_cats,
+        query=query,
+        user_bookmarks=user_bookmarks,
+    )
 
 
 # Login

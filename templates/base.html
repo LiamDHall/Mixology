@@ -36,7 +36,12 @@
                         <li><a href="{{ url_for('home', alcohol_name=alcohol.alcohol_name) }}" id="{{ alcohol.alcohol_name.lower() }}" class="nav-item">{{ alcohol.alcohol_name }}</a></li>
                     {% endfor %}
                 </ul>
-                <a class="btn-icon nav-item" href="#"><i class="fas fa-search"></i></a>
+                <!--Search-->
+                <form class="form" action="{{ url_for('search') }}" method="POST">
+                    <input type="text" name="query" class="search-input">
+                    <button class="search-btn btn-icon nav-item" name="form-submit" value="search"><i class="fas fa-search"></i></button>
+                </form>
+
                 <div class="nav-dropdown">
                     {% if session.user %}
                         <a class="nav-dropdown__btn btn-icon nav-item" href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}"><i class="nav-dropdown__profile fas fa-user-circle"></i>
@@ -85,7 +90,7 @@
             <div class="col-3">
                 <h4>Site Map</h4>
                 <ul class="footer__list">
-                    <li><a href="#"><i class="fas fa-search"></i> Search</a></li>
+                    <li><a href="{{ url_for('search') }}"><i class="fas fa-search"></i> Search</a></li>
                     <li><a href="{{ url_for('home') }}" class="nav-item">Home</a></li>
                     {% for alcohol in alcohol_categories %}
                         <li><a href="{{ url_for('home', alcohol_name=alcohol.alcohol_name) }}" class="nav-item">{{ alcohol.alcohol_name }}</a></li>
