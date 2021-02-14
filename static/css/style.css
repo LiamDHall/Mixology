@@ -119,6 +119,12 @@ button:focus {
     display: none;
 }
 
+.warning {
+    color: red;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
 /*------------------------------------------------------Basic Structure Mobile & Responsive --*/
 @media screen and (max-width: 1024px) {
     .mobile-hide {
@@ -208,7 +214,7 @@ button:focus {
 }
 
 .cta--profile:nth-child(2) {
-    margin-top: 10px;
+    margin: 10px 0;
 }
 
 .cta--fw {
@@ -1289,6 +1295,17 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     font-weight: 700;
 }
 
+.confirm-delete-profile {
+    display: none;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.confirm-delete {
+    display: none;
+    background-color: limegreen;
+}
+
 /*------------------------------------------------------Recipe (Rec) Card Mobile & Responsive--*/
 @media screen and (max-width: 1440px) {
     .rec-card__title {
@@ -1425,7 +1442,7 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 .profile__container--text {
     text-align: left;
     position: relative;
-    bottom: 45px;
+    bottom: 15px;
     margin-left: 50px;
 }
 

@@ -72,11 +72,11 @@ $('.cocktail__checkbox').click(function() {
     checkboxStatus = $(this).html();
     if(checkboxStatus == '<i class=\"far fa-square\"></i>') {
         $(this).html('<i class=\"fas fa-check\"></i>').css('color', 'limegreen');
-        $(this).closest("li").css("color", "limegreen");
+        $(this).closest('li').css('color', 'limegreen');
     }
     else {
         $(this).html('<i class=\"far fa-square\"></i>').css('color', 'inherit');
-        $(this).closest("li").css("color", "black");
+        $(this).closest('li').css('color', 'black');
     }                                 
 });
 
@@ -84,12 +84,12 @@ $('.cocktail__checkbox').click(function() {
 $(document).on('click', '.cocktail-header__form-btn', function() {
     collapseState = $(this).attr('aria-expanded')
 
-    if (collapseState == "true") {
-        $(this).addClass("cta--delete form-btn-align").html("Cancel");
+    if (collapseState == 'true') {
+        $(this).addClass('cta--delete form-btn-align').html('Cancel');
     }
 
     else {
-        $(this).removeClass("cta--delete form-btn-align").html("Rate This Cocktail");
+        $(this).removeClass('cta--delete form-btn-align').html('Rate This Cocktail');
     }
 });
 
@@ -114,3 +114,31 @@ window.addEventListener('beforeunload', function () {
     sessionStorage.setItem('currentpage', window.location.href);
 });
 // (END OF NOT ALL MY OWN CODE)
+
+// Delete cocktail confirmation toggle
+$(document).on('click', '.delete', function() {
+    currentState = $(this).html()
+    if (currentState == `<i class="fas fa-minus-circle"></i> Delete`) {
+        $(this).siblings('.confirm-delete').css('display', 'block');
+        $(this).html('Cancel');
+    }
+
+    else if (currentState == `Cancel`) {
+        $(this).siblings('.confirm-delete').css('display', 'none');
+        $(this).html(`<i class="fas fa-minus-circle"></i> Delete`);
+    }
+});
+
+// Delete profile confirmation toggle
+$(document).on('click', '.delete-profile', function() {
+    currentState = $(this).html()
+    if (currentState == `<i class="fas fa-times"></i> Delete Profile`) {
+        $('.confirm-delete-profile').css('display', 'block');
+        $(this).html('Cancel');
+    }
+
+    else if (currentState == 'Cancel') {
+        $('.confirm-delete-profile').css('display', 'none');
+        $(this).html(`<i class="fas fa-times"></i> Delete Profile`);
+    }
+});
