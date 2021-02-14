@@ -38,6 +38,7 @@
                 {% if profile._id | string == session.id %}
                     <div class="profile__actions">
                         <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id, edit='true') }}" class="cta--profile cta cta--confirm cta--link"><i class="fas fa-user-edit"></i> Edit</a>
+                        <a href="{{ url_for('logout') }}" class="cta cta--profile cta--confirm cta--loggout cta--link"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         <button class="delete-profile rec-card__pofile-cta cta cta--delete cta--profile cta--link inline" type="button"><i class="fas fa-times"></i> Delete Profile</button>
                     </div>
                 {% endif %}
