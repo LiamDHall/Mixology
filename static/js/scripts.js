@@ -1,49 +1,14 @@
 //Set inital value for Swiper JS
 $(document).ready(function() {
-    var width = window.innerWidth;
-    if (width > 2150) {
-        noSlides = 6;
-    }
-
-    else if (width > 1200) {
-        noSlides = 4
-    }
-
-    else if (width > 768) {
-        noSlides = 3
-    }
-
-    else {
-        noSlides = 2;
-    }
-
-    //  Swiper JS
-    var mySwiper = new Swiper('.swiper-container', {
-
-        // Optional Parameters
-        slidesPerView: noSlides,
-        slidesPerGroup: noSlides,
-        
-        spaceBetween: 10,
-        direction: 'horizontal',
-        loop: false,
-
-        //  Navigation Arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-
-        //  Pagination
-        pagination: {
-            el: '.swiper-pagination',
-        },
-    });
+    setSwiperSlideNo ()
 });
 
 //Set dynamic value for Swiper JS
-var noSlides = 3;
-window.addEventListener('resize', function(){
+$(window).resize(function() {
+    setTimeout(function() {setSwiperSlideNo()}, 50)
+});
+
+function setSwiperSlideNo() {
     var width = window.innerWidth;
     if (width > 2150) {
         noSlides = 6;
@@ -83,7 +48,7 @@ window.addEventListener('resize', function(){
             el: '.swiper-pagination',
         },
     });
-});
+}
 
 /* Image Preview
 Source https://stackoverflow.com/questions/20820705/render-preview-image-from-url-input
