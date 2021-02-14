@@ -622,10 +622,7 @@ button:focus {
 
 /*------------------------------------------------------Page--*/
 .center-page {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+   margin-top: 60px;
 }
 
 .page-title {
@@ -656,11 +653,9 @@ button:focus {
     .page-title {
         font-size: 2.5rem;
     }
-}
 
-@media screen and (max-width: 425px) {
-    .page-title {
-        font-size: 2rem;
+    .center-page {
+        margin-top: 50px;
     }
 }
 
@@ -856,6 +851,14 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     opacity: 1;
 }
 /*--(END OF NOT MY OWN CODE)--*/
+
+/*------------------------------------------------------Form Mobile & Responsive--*/
+@media screen and (max-width: 1024px) {
+    .form--narrow {
+        width: 92%;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .form__label {
         margin-left: 0px;
