@@ -2,29 +2,40 @@
 {% block content %}
     <!--Cocktail Header-->
     <section class="cocktail-header">
-        <h1>Create Cocktail</h1>
+        <h1 class="cocktail-header__title">Create Cocktail</h1>
 
         <!--Add Cocktail Form (in the style of view coctail page)-->
         <form id="cocktail-create" class="form-cocktail" action="{{ url_for('cocktail_create') }}" method="POST">
 
             <!--Cocktail Name-->
+            <label for="cocktail-name" class="form__label">Enter Cocktail Name</label>
             <input type="text" name="cocktail-name" class="form-cocktail__input form-cocktail__input--title" id="cocktail-name" 
                 placeholder="Enter Cocktail Name" aria-label="enter cocktail name" maxlength="15" required>
             <div class="cocktail-header__star-rating">
                 <p>
-                    {% for i in range(0, 5) %}
-                        <i class="far fa-star"></i>
-                    {% endfor %}
                     <span>(No rating yet)</span>
                 </p>
+            </div>
+
+            <!--Upload Image-->
+            <div class="row">
+                <div class="cocktail__img-contianer col-12">
+                    <img class="cocktail__img" src="https://drive.google.com/uc?export=view&id=1xxYCbYNJ5bQmalWEqNgZyl8zjxnV5Id9" alt="cocktial image">
+                </div>
+                    <div class="cocktail-img-input col-12">
+                        <label for="cocktial-img" class="form__label">Copy and Paster Cocktail Image URL</label>
+                        <p>Image will preview if URL valid after you click away.</p>
+                        <p>Commonly the URL will end with the file name and .jpg, .jpeg or .png</p>
+                        <input type="url" id="cocktail-img-url" name="cocktail-img-url" class="form-cocktail__input form-cocktail__input--url" placeholder="Enter URL for cocktail image eg. https//www.example.com/image" required>
+                    </div>
             </div>
 
             <!--Cocktail Info-->
             <div class="cocktail row">
 
                 <!--Cocktail Ingredients-->
-                <div class="cocktail__ingredients col-5">
-                    <h2 class="cocktail__item-title">Ingredients</h2>
+                <div class="cocktail__ingredients col-12">
+                    <h2 class="cocktail__item-title cocktail__item-title--form">Ingredients</h2>
 
                     <!--2 Hard coded inputs which can't be removed as all cocktail must have at least 2 ingrdients-->
                     <!--1st Ingredient-->
@@ -84,7 +95,7 @@
 
                             <!--Amount-->
                             <input type="text" id="garnish-amount-1" name="garnish-amount-1" class="form-cocktail__input form-cocktail__input--amount" 
-                                pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="1" aria-label="enter garnish amount" required>
+                                pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="Amount" aria-label="enter garnish amount" required>
                             
                             <!--Name-->
                             <input type="text" id="garnish-name-1" name="garnish-name-1" class="form-cocktail__input" placeholder="Garnish Name" 
@@ -102,7 +113,7 @@
                 </div>
 
                 <!--Cocktail Tools-->
-                <div class="cocktail__tools col-3">
+                <div class="cocktail__tools col-12">
                     <h2 class="cocktail__item-title">Tools</h2>
                     <ul id="cocktail-tools" class="cocktail__info">
                         <li class="tool">
@@ -140,15 +151,6 @@
                         </li>
                     </ul>
                 </div>
-
-                <!--Upload Image-->
-                <div class="cocktail__img-contianer col-4">
-                    <img class="cocktail__img" src="https://drive.google.com/uc?export=view&id=1xxYCbYNJ5bQmalWEqNgZyl8zjxnV5Id9" alt="cocktial image">
-                    <label for="cocktial-img" class="form__label">Copy and Paster Cocktail Image URL</label>
-                    <p>Image will preview if URL valid after you click away.</p>
-                    <p>Commonly the URL will end with the file name and .jpg, .jpeg or .png</p>
-                    <input type="url" id="cocktail-img-url" name="cocktail-img-url" class="form__input" placeholder="Enter URL for cocktail image eg. https//www.example.com/image" required>
-                </div>
             </div>
 
             <!--Cocktail Instructions-->
@@ -178,10 +180,10 @@
             <div class="row">
                 <div class="form-cocktail__submit col-12">
                     <!--Cancel Add Cocktail-->
-                    <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" class="cta cta--delete cta---lesser cta--submit">Cancel</a>
+                    <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" class="cta cta--delete cta--lesser cta--submit">Cancel</a>
 
                     <!--Publish-->
-                    <input type="submit" class="cta cta--create cta---greater cta--submit" value="Publish">
+                    <input type="submit" class="cta cta--create cta--greater cta--submit" value="Publish">
                 </div>
             </div>
         </form>
