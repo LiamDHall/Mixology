@@ -140,8 +140,6 @@ def home(alcohol_name):
         if form_type == "bookmark":
             submit_bookmark(user_bookmarks)
 
-    print("I HOME run on 200")
-
     if not alcohol_name:
         return render_template(
             "home.html",
@@ -209,7 +207,6 @@ def search(query):
         {"$text": {"$search": query}})
     )
 
-    print(f"TEST INDEX: {all_cocktails}")
     # Block blank searches
     if query == "":
         flash("Empty search input")
@@ -475,8 +472,6 @@ def profile(profile_name, profile_id, edit):
 def delete_profile(user_id):
     # Delete profile from db
     mongo.db.users.delete_one({"_id": ObjectId(user_id)})
-    print(user_id)
-    print(type(user_id))
 
     # Delete all cocktials in db owned by the user
     mongo.db.cocktails.delete_many({"author_id": user_id})
@@ -504,8 +499,6 @@ def cocktail(cocktail_name, cocktail_id):
     else:
         user_rated_cocktails = []
         user_bookmarks = []
-
-    print(user_bookmarks)
 
     # Determine which form has been submitted
     if request.method == "POST":
@@ -544,7 +537,6 @@ def delete_cocktail(cocktail_id):
     users_booked = list(mongo.db.users.find({"bookmarks": cocktail_id}))
     users_rated = list(mongo.db.users.find({"rated_cocktails": cocktail_id}))
 
-    print(users_rated)
     # Remove Bookmarks
     for user in users_booked:
         if len(user["bookmarks"]) == 1:
@@ -574,8 +566,6 @@ def delete_cocktail(cocktail_id):
 
         # Update datebase
         mongo.db.users.update_one(user_query, user_update)
-
-        print(user["rated_cocktails"])
 
     flash("Cocktail Deleted")
     return redirect(url_for(
@@ -665,14 +655,13 @@ def cocktail_create(cocktail_name, cocktail_id):
             })
             return render_template("cocktail.html", cocktail=cocktail)
 
+    # Non logged in user feedback
     elif not session.get("user"):
         flash("You must be logged in to create a cocktail")
         return redirect(url_for("login"))
 
     elif cocktail_id:
         cocktail = mongo.db.cocktails.find_one({"_id": ObjectId(cocktail_id)})
-        print(session["id"])
-        print(cocktail["author_id"])
         if cocktail["author_id"] != session["id"]:
             flash("Unauthorized to edit cocktail")
             return redirect(
@@ -771,17 +760,12 @@ def submit_bookmark(user_bookmarks):
 
         bookmark_count = cocktail.get("no_of_bookmarks")
 
-        print(f"Bookmark count = {bookmark_count}")
-
         # Grab random number from form
         form_random_value = request.form.get("random"),
-
-        print(form_random_value)
 
         # Block against reload re submits
         if form_random_value != session["formsubmitno"]:
             session["formsubmitno"] = form_random_value
-            print(f"Bookmarks = {user_bookmarks}")
 
             # Check if cocktail is already bookmarked
             if cocktail_id in user_bookmarks:
@@ -803,7 +787,6 @@ def submit_bookmark(user_bookmarks):
         cocktail_query = {"_id": ObjectId(cocktail_id)}
         cocktail_update = {"$set": {"no_of_bookmarks": bookmark_count}}
 
-        print(user_bookmarks)
         # Update datebase
         mongo.db.users.update_one(query, update)
         mongo.db.cocktails.update_one(cocktail_query, cocktail_update)
@@ -813,8 +796,6 @@ def submit_bookmark(user_bookmarks):
 def update_profile(profile_name, profile_id):
     # Grab random number from form
     form_random_value = request.form.get("random")
-
-    print(form_random_value)
 
     # Block against reload re submits
     if form_random_value != session["formsubmitno"]:
