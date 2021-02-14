@@ -70,8 +70,9 @@
             <!--Function Buttons-->
             <div class="rec-card__container">
                 <a href="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name.replace(' ', '-'), cocktail_id=cocktail._id) }}" class="rec-card__pofile-cta cta cta--edit cta--profile cta--link inline"><i class="fas fa-pencil-alt"></i> Edit</a>
-                <a href="{{ url_for('delete_cocktail', cocktail_id=cocktail._id) }}" class="rec-card__pofile-cta cta cta--delete cta--profile cta--link inline">
-                    <i class="fas fa-minus-circle"></i> Delete
+                <button class="delete rec-card__pofile-cta cta cta--delete cta--profile cta--link inline" type="button"><i class="fas fa-minus-circle"></i> Delete</button>
+                <a href="{{ url_for('delete_cocktail', cocktail_id=cocktail._id) }}" class="confirm-delete rec-card__pofile-cta cta cta--delete cta--profile cta--link inline">
+                    Confirm
                 </a>
             </div>
         {% endif %}

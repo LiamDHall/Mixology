@@ -37,10 +37,15 @@
                 <p class="profile__info"><strong>Date Joined:</strong> {{ profile.date_added.strftime('%d/%m/%y') }}</p>
                 {% if profile._id | string == session.id %}
                     <div class="profile__actions">
-                        <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id, edit='true') }}" class="profile-cta cta cta--confirm"><i class="fas fa-user-edit"></i> Edit</a>
+                        <a href="{{ url_for('profile', profile_name=session.user, profile_id=session.id, edit='true') }}" class="cta--profile cta cta--confirm cta--link"><i class="fas fa-user-edit"></i> Edit</a>
+                        <button class="delete-profile rec-card__pofile-cta cta cta--delete cta--profile cta--link inline" type="button"><i class="fas fa-times"></i> Delete Profile</button>
                     </div>
                 {% endif %}
             </div>
+        </div>
+        <div class="confirm-delete-profile">
+            <p class="warning" >This will permanently detele your profile and all cocktails. Are you sure?</p>
+            <a href="{{ url_for('delete_profile', user_id=session.id) }}" class="cta cta--create cta--fw inline-block"><i class="fas fa-times"></i> Delete Profile</a>
         </div>
     </section>
 {% endif %}
