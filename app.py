@@ -384,6 +384,14 @@ def profile(profile_name, profile_id, edit):
     else:
         user_bookmarks = []
 
+    profile = mongo.db.users.find_one(
+        {"username": profile_name}
+    )
+
+    if not profile:
+        flash("Profile Doesn't Exist")
+        return redirect(url_for("home"))
+
     # Determinds which form is being posted
     if request.method == "POST":
         form_type = request.form.get("form-submit")
@@ -400,10 +408,6 @@ def profile(profile_name, profile_id, edit):
 
         elif form_type == "delete-profile":
             delete_profile(profile_id)
-
-    profile = mongo.db.users.find_one(
-        {"_id": ObjectId(profile_id)}
-    )
 
     bookmarked_cocktails = get_bookmarked_cocktails()
 
@@ -456,6 +460,10 @@ def profile(profile_name, profile_id, edit):
         if session["id"] != profile_id:
             edit = "false"
             flash("Unauthorized to edit profile")
+
+    # Stop error from bad /edit url
+    elif edit != "true" or edit != "false":
+        edit = "false"
 
     return render_template(
         "profile.html",
