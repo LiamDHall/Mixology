@@ -2,7 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap');
 
-/*------------------------------------------------------Bootstrap Custom Breakpoint @ 1024px Source: https://www.codeply.com/go/J70zkpygvk (NOT MY OWN CODE)*/ 
+/*------------------------------------------------------Bootstrap Custom Breakpoint @ 1024px 
+Source: https://www.codeply.com/go/J70zkpygvk (NOT MY OWN CODE)*/ 
 /*--IMPORTANT: media query must be 1px higher then target breakpoint--*/
 @media (min-width: 1025px) { 
     .navbar-expand-custom {
@@ -102,11 +103,6 @@ button:focus {
     text-align: center;
 }
 
-.grid-spacing {
-    height: 20px;
-    background-color: aqua;
-}
-
 .padding-top {
     padding-top: 20px;
 }
@@ -123,6 +119,7 @@ button:focus {
     display: none;
 }
 
+/*------------------------------------------------------Basic Structure Mobile & Responsive --*/
 @media screen and (max-width: 1024px) {
     .mobile-hide {
         display: none;
@@ -153,11 +150,6 @@ button:focus {
 /*---------------------------Page Lines--*/
 .page-line {
     border: 1px solid;
-}
-
-.page-line--page {
-    border-color: var(--brand-cta);
-    width: 100%;
 }
 
 .page-line--brand {
@@ -693,7 +685,7 @@ button:focus {
     }
 }
 
-/*------------------------------------------------------Hero Image-- */
+/*------------------------------------------------------Hero Image--*/
 .hero {
     width: 100%;
     font-family: 'Playfair Display', serif;
@@ -702,6 +694,7 @@ button:focus {
 .hero__image {
     background: url(https://drive.google.com/uc?export=view&id=1xxYCbYNJ5bQmalWEqNgZyl8zjxnV5Id9) no-repeat center center;
     background-position: 60% 100%;
+    background-size: 2700px !important;
     position: relative;
     height: 80vh;
     width: 100%;
@@ -710,15 +703,14 @@ button:focus {
 }
 
 .hero__categ-name {
-    position: absolute;
-    left: 5%;
-    top: 15%;
     color: white;
     font-size: 8rem;
 }
 
 .hero__inner {
-    color: #ffffff;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 25px;
     position: absolute;
     left: 5%;
     top: 50%;
@@ -742,6 +734,9 @@ button:focus {
 
 .hero__page-line {
     width: 375px;
+    border-color: var(--brand-color);
+    background-color: var(--brand-color);
+    border-width: 3px;
 }
 
 .hero__tagline {
@@ -753,8 +748,125 @@ button:focus {
     font-size: 2rem;
     margin-top: 15px;
     display: inline-block;
-    background-color: limegreen;
+    background-color: var(--brand-create);
     color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+/*------------------------------------------------------Hero Image Mobile & Responsive--*/
+@media screen and (max-width: 2140px) {
+    .hero__image {
+        background-size: 2140px !important;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .hero__categ-name {
+        font-size: 5rem;
+    }
+
+    .hero__title {
+        font-size: 2.75rem;
+    }
+
+    .hero__image {
+        background-size: 2000px !important;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .hero__categ-name {
+        font-size: 5.5rem;
+    }
+
+    .hero__cocktail {
+        font-size: 5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero__image {
+        height: 60vh;
+        background-size: 1250px !important;
+    }
+
+    .hero__categ-name {
+        font-size: 4.5rem;
+    }
+
+    .hero__title {
+        font-size: 2.25rem;
+    }
+
+    .hero__cocktail {
+        font-size: 3.5rem;
+    }
+
+    .hero__tagline {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .hero__inner {
+        left: 4%;
+        width: 92%;
+    }
+
+    .hero__page-line {
+        min-width: 100%;
+        max-width: 0;
+    }
+
+    .hero__categ-name {
+        font-size: 3rem;
+    }
+
+    .hero__title {
+        font-size: 1.75rem;
+    }
+
+    .hero__cocktail {
+        font-size: 2.75rem;
+    }
+
+    .hero__tagline {
+        font-size: 1.25rem;
+    }
+
+    .hero__cta {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .hero__image {
+        background-size: 1200px !important;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .hero__categ-name {
+        font-size: 2rem;
+    }
+
+    .hero__title {
+        font-size: 1rem;
+    }
+
+    .hero__cocktail {
+        font-size: 2rem;
+    }
+
+    .hero__tagline {
+        font-size: 1rem;
+    }
+
+    .hero__cta {
+        font-size: 1rem;
+    }
+    .hero__image {
+        background-size: 900px !important;
+    }
 }
 
 /*------------------------------------------------------Form--*/
