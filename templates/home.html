@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
+    <!--Hero Image-->
+    <section class="hero">
+        <div class="hero__image" style="background: url('{{ featured_cocktail.image }}') no-repeat center center">
+            {% if alcohol %}
+                <h1 class="hero__categ-name">{{ alcohol.alcohol_name}}</h1>
+            {% else %}
+                <h1 class="hero__categ-name">Cocktails Made Easy</h1>
+            {% endif %}
+            <div class="hero__inner">
+                <h2 class="hero__title">Featured Cocktail</h2>
+                <h2 class="hero__cocktail">{{ featured_cocktail.cocktail_name.title() }}</h2>
+                <hr class="hero__page-line page-line page-line--brand page-line--left">
+                <h3 class="hero__tagline">Test your skils<br>with one of our favourites.</h3>
+                <a class="hero__cta cta" href="{{ url_for('cocktail', cocktail_name=featured_cocktail.cocktail_name.replace(' ', '-'), cocktail_id=featured_cocktail._id) }}">Try It At Home</a>
+            </div>
+        </div>
+    </section>
+    
     {% for cat in sort_cats %}
         <!--New Cocktails-->
         <section class="rec-carsousel">
