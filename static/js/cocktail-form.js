@@ -25,7 +25,10 @@ $(document).on('click', '#add-ingredient', function() {
             <input type="text" id="ingredient-amount-${ingredCount + 1}" name="ingredient-amount-${ingredCount + 1}" 
                 class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" 
                 placeholder="Amount" aria-label="enter amount of ingredient" required>
-            
+            <div class="invalid-feedback">
+                <p>Missing or contains illegal character. Numbers and period only.</p>
+            </div>
+
             <!--Unit-->
             <select id="ingredient-unit-${ingredCount + 1}" name="ingredient-unit-${ingredCount + 1}" class="form-cocktail__input" 
                 aria-label="dropdown menu to select a unit type" required>
@@ -35,10 +38,16 @@ $(document).on('click', '#add-ingredient', function() {
                     <option value="dashes">dash/es</option>
                     <option value="no unit">no unit</option>
             </select>
+            <div class="invalid-feedback">
+                <p>Please select unit</p>
+            </div>
 
             <!--Name-->
             <input type="text" id="ingredient-name-${ingredCount + 1}" name="ingredient-name-${ingredCount + 1}" 
                 class="form-cocktail__input" placeholder="Ingredient Name" aria-label="enter ingredient name" required>
+            <div class="invalid-feedback">
+                <p>Missing</p>
+            </div>
 
             <button class="remove-ingredient cocktail-btn cocktail-btn--remove" type="button">
                 <i class="fas fa-minus-circle"></i> Remove
@@ -109,11 +118,16 @@ $(document).on('click', '#add-garnish', function() {
             <input type="text" id="garnish-amount-${garnishCount + 1}" name="garnish-amount-${garnishCount + 1}" 
                 class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" 
                 placeholder="Amount" aria-label="enter garnish amount" required>
-            
+            <div class="invalid-feedback">
+                <p>Missing or contains illegal character. Numbers and period only.</p>
+            </div>
             <!--Name-->
             <input type="text" id="garnish-name-${garnishCount + 1}" name="garnish-name-${garnishCount + 1}" 
                 class="form-cocktail__input" placeholder="Garnish Name" aria-label="enter garnish name" required>
-            
+            <div class="invalid-feedback">
+                <p>Missing</p>
+            </div>
+
             <!--Remove Item Button-->
             <button class="remove-garnish cocktail-btn cocktail-btn--remove" type="button">
                 <i class="fas fa-minus-circle"></i> Remove
@@ -193,6 +207,9 @@ $(document).on('click', '#add-tool', function() {
                     <option value="muddler">Muddler</option>
                     <option value="mixing glass">Mixing Glass</option>
             </select>
+            <div class="invalid-feedback">
+                <p>Please select tool. Remove if not being used.</p>
+            </div>
 
             <!--Remove Tip-->
             <button class="remove-tool cocktail-btn cocktail-btn--remove" type="button">
@@ -262,7 +279,10 @@ $(document).on('click', '#add-instruction', function() {
             <textarea id="instruction-${instrCount + 1}" name="instruction-${instrCount + 1}" 
                 class="form-cocktail__input form-cocktail__text-area" 
                 rows="3" placeholder="Type Instructions Here" maxlength="400" aria-label="enter instruction" required></textarea>
-
+            <div class="invalid-feedback">
+                <p>Empty.</p>
+            </div>
+            
             <button class="remove-instruction cocktail-btn cocktail-btn--remove" type="button">
                 <i class="fas fa-minus-circle"></i> Remove
             </button>

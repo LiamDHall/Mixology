@@ -5,7 +5,7 @@
         <h1>Edit Cocktail</h1>
 
         <!--Add Cocktail Form (in the style of view coctail page)-->
-        <form id="cocktail-create" class="form-cocktail" action="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name, cocktail_id=cocktail._id) }}" method="POST">
+        <form id="cocktail-create" class="form-cocktail needs-validation" action="{{ url_for('cocktail_create', cocktail_name=cocktail.cocktail_name, cocktail_id=cocktail._id) }}" method="POST" novalidate>
             <!--Cocktail Name-->
             <input type="text" name="cocktail-name" class="form-cocktail__input form-cocktail__input--title" id="cocktail-name" 
                 placeholder="Enter Cocktail Name" aria-label="enter cocktail name" maxlength="15" value="{{ cocktail.cocktail_name }}" required>
@@ -52,8 +52,11 @@
                                 <!--Amount-->
                                 <input type="text" id="ingredient-amount-{{ i + 1 }}" name="ingredient-amount-{{ i + 1 }}" class="form-cocktail__input form-cocktail__input--amount" 
                                     pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="25" aria-label="enter amount of main alcohol" value="{{ cocktail.ingredients[i][0] }}" required>
-                                
-                                    <!--Unit-->
+                                <div class="invalid-feedback">
+                                    <p>Missing or contains illegal character. Numbers and period only.</p>
+                                </div>
+
+                                <!--Unit-->
                                 {% if i == 0 %}
                                     <input type="text" id="ingredient-unit-{{ i + 1 }}" name="ingredient-unit-{{ i + 1 }}" class="form-cocktail__input form-cocktail__input--fixed" value="ml" aria-label="ml main alcohol unit" readonly>
                                 {% else %}
@@ -67,15 +70,24 @@
                                             {% endif %}
                                         {% endfor %}
                                     </select>
+                                    <div class="invalid-feedback">
+                                        <p>Please select unit</p>
+                                    </div>
                                 {% endif %}
                                 
                                 <!--Name-->
                                 {% if i == 0 %}  
                                     <input type="text" id="ingredient-name-{{ i + 1 }}" name="ingredient-name-{{ i + 1 }}" class="form-cocktail__input" placeholder="Main Alcohol Name" 
                                         aria-label="enter name of main alcohol" value="{{ cocktail.ingredients[i][2] }}" required>
+                                    <div class="invalid-feedback">
+                                        <p>Missing</p>
+                                    </div>
                                 {% else %}
                                     <input type="text" id="ingredient-name-{{ i + 1 }}" name="ingredient-name-{{ i + 1 }}" class="form-cocktail__input" placeholder="Ingredient Name" 
                                         aria-label="enter name of main alcohol" value="{{ cocktail.ingredients[i][2] }}" required>
+                                    <div class="invalid-feedback">
+                                        <p>Missing</p>
+                                    </div>
                                 {% endif %}
 
                                 <!--Alcohol Type-->
@@ -89,6 +101,9 @@
                                             {% endif %}
                                         {% endfor %}
                                     </select>
+                                    <div class="invalid-feedback">
+                                        <p>Please select an alcohol</p>
+                                    </div>
                                 {% endif %}
 
                                 <!--Remove Button-->
@@ -114,10 +129,16 @@
                                     <!--Amount-->
                                     <input type="text" id="garnish-amount-{{ i + 1 }}" name="garnish-amount-{{ i + 1 }}" class="form-cocktail__input form-cocktail__input--amount" 
                                         pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="Amount" aria-label="enter garnish amount" value="{{ cocktail.garnish[i][0] }}" required>
+                                    <div class="invalid-feedback">
+                                        <p>Missing or contains illegal character. Numbers and period only.</p>
+                                    </div>
                                     
                                     <!--Name-->
                                     <input type="text" id="garnish-name-{{ i + 1 }}" name="garnish-name-{{ i + 1 }}" class="form-cocktail__input" placeholder="Garnish Name" 
                                         aria-label="enter garnish name" value="{{ cocktail.garnish[i][1] }}" required>
+                                    <div class="invalid-feedback">
+                                        <p>Missing</p>
+                                    </div>
                                     
                                     <!--Remove Item Button-->
                                     <button class="remove-garnish cocktail-btn cocktail-btn--remove" type="button">
@@ -135,6 +156,7 @@
                 <div class="cocktail__tools col-12">
                     <h2 class="cocktail__item-title">Tools</h2>
                     <ul id="cocktail-tools" class="cocktail__info">
+
                         <!--Tool Selector-->
                         {% for i in range(0, cocktail.tools | length) %}
                             <li class="tool">
@@ -147,6 +169,9 @@
                                         {% endif %}
                                     {% endfor %}
                                 </select>
+                                <div class="invalid-feedback">
+                                    <p>Please select tool. Remove if not being used.</p>
+                                </div>
 
                                 <!--Remove Tool-->
                                 <button class="remove-tool cocktail-btn cocktail-btn--remove" type="button">
@@ -175,6 +200,9 @@
                                     {% endif %}
                                 {% endfor %}
                             </select>
+                            <div class="invalid-feedback">
+                                <p>Please select a glass.</p>
+                            </div>
                         </li>
                     </ul>
 
@@ -192,6 +220,9 @@
                                     rows="3" placeholder="Type Instructions Here" maxlength="400" aria-label="enter instruction" required>
                                     {{- cocktail.instructions[i].capitalize() -}}
                                 </textarea>
+                                <div class="invalid-feedback">
+                                    <p>Empty.</p>
+                                </div>
                                 {% if i > 0 %}
                                     <button class="remove-instruction cocktail-btn cocktail-btn--remove" type="button">
                                         <i class="fas fa-minus-circle"></i> Remove
@@ -230,4 +261,5 @@
 {% endblock %}
 {% block scripts %}
     <script defer src="{{ url_for('static', filename='js/cocktail-form.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/form-validation-handler.js') }}"></script>
 {% endblock %}

@@ -7,21 +7,27 @@
     <h1 class="page-title">Sign Up</h1>
     <h2 class="page-tagline center-text">Allows you to bookmark your favourite recipes and add your own!</h2>
     <!--Register Form-->
-    <form id="resigter-form" class="form form--narrow" action="{{ url_for('register') }}" method="POST">
+    <form id="resigter-form" class="form form--narrow needs-validation" action="{{ url_for('register') }}" method="POST" novalidate>
          <!--Reg Usernane-->
         <div class="row">
             <div class="col-12">
-                <label for="reg-username" class="form__label">Username <span class="form__input-info form__input-info--right">Min 4 letters. No spaces or specail characters</span></label>
+                <label for="reg-username" class="form__label">Username</label>
                 <input type="text" name="reg-username" class="form__input" id="reg-username" placeholder="examplebartender" pattern="^[a-zA-Z0-9]{4,25}$" maxlength="12" required>
+                <div class="invalid-feedback">
+                    Please enter a username or remove spaces
+                </div>
+                <p class="form__input-info form__input-info--right">Min 4 letters. No spaces or specail characters</p>
             </div>
         </div>
 
         <!--Reg Password-->
         <div class="row">
             <div class="col-12">
-                <label for="reg-password" class="form__label">Password <span class="form__input-info form__input-info--right">Click eye to toggle password visibility</span></label>
+                <label for="reg-password" class="form__label">Password</label>
                 <input type="password" name="reg-password" class="form__input" id="reg-password" placeholder="Type your passsword here" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,25}" minlength="6" maxlength="25" required>
-                <p class="form__input-info form__input-info--bottom">Must contain at least: one number, one uppercase letter, one lowercase letter and be at least 6 or more characters.<br>No spaces or specail characters</p>
+                <div class="invalid-feedback">
+                    <p>Must contain at least:<br>one number,<br>one uppercase letter,<br>one lowercase letter<br>6 or more characters.<br>No spaces or specail characters</p>
+                </div>
             </div>
             <p class="form__input-check block">Please check your password is correct before submitting</p>
             <input type="submit" class="cta cta--form" id="signup-submit" value="Sign Up" aria-label="sign up button">
@@ -29,4 +35,7 @@
     </form>
     <p class="center-text">Already have an account? <strong>Login <a href="{{ url_for('login') }}" class="brand-color bold">here</a></strong></p>
 </section>
+{% endblock %}
+{% block scripts %}
+    <script defer src="{{ url_for('static', filename='js/form-validation-handler.js') }}"></script>
 {% endblock %}

@@ -949,6 +949,23 @@ button:focus {
     top: -27px;
 }
 
+.form__input:focus {
+    outline: 2px solid var(--brand-cta);
+    border: none;
+}
+
+#resigter-form .form__input:valid {
+    border: 3px solid;
+    border-color: limegreen;
+}
+
+.invalid-feedback {
+    font-size: 1.25rem;
+    padding-left: 16px;
+    color: red;
+    font-weight: 500;
+}
+
 /* Star Rating 
 Source: https://bbbootstrap.com/snippets/star-rating-pure-css-19646372 
 Apdated For My Needs (NOT All MY OWN CODE)--*/
@@ -1008,6 +1025,10 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 @media screen and (max-width: 768px) {
     .form__label {
         margin-left: 0px;
+    }
+
+    .invalid-feedback {
+        padding-left: 0;
     }
 }
 
@@ -1687,6 +1708,16 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     background-color: white;
 }
 
+.form-cocktail__input:focus {
+    outline: 2px solid var(--brand-cta);
+    border: none;
+}
+
+.form-cocktail__input:valid {
+    border: 3px solid;
+    border-color: limegreen;
+}
+
 .form-cocktail__input--fixed {
     width:150px;
 }
@@ -1728,9 +1759,8 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     color: var(--brand-create);
 }
 
-.form-tip,
 .instruction {
-    height: 160px;
+    height: 200px;
 }
 
 
