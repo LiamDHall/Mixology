@@ -23,7 +23,7 @@
                     <img class="cocktail__img" src="https://drive.google.com/uc?export=view&id=1xxYCbYNJ5bQmalWEqNgZyl8zjxnV5Id9" alt="cocktial image">
                 </div>
                     <div class="cocktail-img-input col-12">
-                        <label for="cocktial-img" class="form__label">Copy and Paster Cocktail Image URL</label>
+                        <label for="cocktail-img-url" class="form__label">Copy and Paster Cocktail Image URL</label>
                         <p>Image will preview if URL valid after you click away.</p>
                         <p>Commonly the URL will end with the file name and .jpg, .jpeg or .png</p>
                         <input type="url" id="cocktail-img-url" name="cocktail-img-url" class="form-cocktail__input form-cocktail__input--url" placeholder="Enter URL for cocktail image eg. https//www.example.com/image" required>
@@ -43,11 +43,11 @@
                         <li class="ingredient">
 
                             <!--Amount-->
-                            <input type="text" id="ingredient-amount-1" name="ingredient-amount-1" class="form-cocktail__input form-cocktail__input--amount" 
+                            <input type="text" id="ingredient-amount-1" name="ingredient-amount-1" class="form-cocktail__input form-cocktail__input--amount"
                                 pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="25" aria-label="enter amount of main alcohol" required>
                             
                             <!--Unit-->    
-                            <input type="text" id="ingredient-unit-1" name="ingredient-unit-1" class="form-cocktail__input form-cocktail__input--fixed" value="ml" readonly>
+                            <input type="text" id="ingredient-unit-1" name="ingredient-unit-1" class="form-cocktail__input form-cocktail__input--fixed" value="ml" aria-label="ml main alcohol unit" readonly>
                                 
                             <!--Name--> 
                             <input type="text" id="ingredient-name-1" name="ingredient-name-1" class="form-cocktail__input" placeholder="Main Alcohol Name" 

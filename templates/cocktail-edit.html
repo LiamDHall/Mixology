@@ -30,10 +30,10 @@
                     <img class="cocktail__img" src="{{ cocktail.image }}" alt="cocktail image">
                 </div>
                 <div class="cocktail-img-input col-12">
-                    <label for="cocktial-img" class="form__label">Copy and Paster Cocktail Image URL</label>
+                    <label for="cocktial-img-url" class="form__label">Copy and Paster Cocktail Image URL</label>
                     <p>Image will preview if URL valid after you click away.</p>
                     <p>Commonly the URL will end with the file name and .jpg, .jpeg or .png</p>
-                    <input type="url" id="cocktail-img-url" name="cocktail-img-url" class="form-cocktail__input form-cocktail__input--url" placeholder="Enter URL for cocktail image eg. https//www.example.com/image" value="{{ cocktail.image }}" required>
+                    <input type="url" id="cocktial-img-url" name="cocktail-img-url" class="form-cocktail__input form-cocktail__input--url" placeholder="Enter URL for cocktail image eg. https//www.example.com/image" value="{{ cocktail.image }}" required>
                 </div>
             </div>
             
@@ -55,7 +55,7 @@
                                 
                                     <!--Unit-->
                                 {% if i == 0 %}
-                                    <input type="text" id="ingredient-unit-{{ i + 1 }}" name="ingredient-unit-{{ i + 1 }}" class="form-cocktail__input form-cocktail__input--fixed" value="ml" readonly>
+                                    <input type="text" id="ingredient-unit-{{ i + 1 }}" name="ingredient-unit-{{ i + 1 }}" class="form-cocktail__input form-cocktail__input--fixed" value="ml" aria-label="ml main alcohol unit" readonly>
                                 {% else %}
                                     <select id="ingredient-unit-{{ i + 1 }}" name="ingredient-unit-{{ i + 1 }}" class="form-cocktail__input" aria-label="dropdown menu to select a unit type" required>
                                         {% for unit in units %}

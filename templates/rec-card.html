@@ -15,11 +15,11 @@
 
         <!--Bookmark Icon Changer-->
         {% if cocktail._id | string in user_bookmarks %}
-            <button class="rec-card__bookmark" name="form-submit" value="bookmark">
+            <button class="rec-card__bookmark" name="form-submit" value="bookmark" aria-label="bookmark cocktail">
                 <i class="cocktail-header__bookmark fas fa-bookmark inline-block"></i>
             </button>
         {% else %}
-            <button class="rec-card__bookmark" name="form-submit" value="bookmark">
+            <button class="rec-card__bookmark" name="form-submit" value="bookmark" aria-label="bookmark cocktail">
                 {% if session.user %}
                     <i class="far fa-bookmark inline-block"></i>
                 {% else %}

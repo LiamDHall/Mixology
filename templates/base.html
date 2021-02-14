@@ -40,8 +40,8 @@
                         <!--Mobile Search -->
                         <li class="nav-mobile nav-mobile--search">
                             <form class="site-header__mobile-search" action="{{ url_for('search') }}" method="POST">
-                                <input type="text" name="query" class="search-input" value="">
-                                <button class="mobile-search" name="form-submit" value="search"><i class="fas fa-search"></i> Search</button>
+                                <input type="hidden" name="query" class="search-input" value="">
+                                <button class="mobile-search" name="form-submit" value="search"><i class="fas fa-search" aria-label="search"></i> Search</button>
                             </form>
                         </li>
 
@@ -75,8 +75,8 @@
 
             <!--Search-->
             <form class="site-header__search form site-header__flex-item" action="{{ url_for('search') }}" method="POST">
-                <input type="text" name="query" class="search-input">
-                <button class="search-btn btn-icon nav-item" name="form-submit" value="search"><i class="fas fa-search"></i></button>
+                <input type="text" name="query" class="search-input" aria-label="search input">
+                <button class="search-btn btn-icon nav-item" name="form-submit" value="search" aria-label="search"><i class="fas fa-search"></i></button>
             </form>
 
             <!--Profile / Log in-->
