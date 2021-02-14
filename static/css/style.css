@@ -281,7 +281,7 @@ button:focus {
 }
 
 @media screen and (max-width: 1024px) {
-        .cta--home {
+    .cta--home {
         width: 100%;
     }
 }
@@ -291,7 +291,6 @@ button:focus {
     text-align: center;
     color: white;
     padding: 5px 0;
-    font-size: 0.75rem;
     background-color: rgb(36, 138, 255);
     position: absolute;
     top: 69px;
@@ -301,6 +300,20 @@ button:focus {
 
 .message {
     margin: 2px 0;
+    font-size: 1.75rem;
+}
+
+/*------------------------------------------------------Flash Massage Mobile & Responsive--*/
+@media screen and (max-width: 768px) {
+    .message {
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .message {
+        font-size: 1rem;
+    }
 }
 
 /*------------------------------------------------------Site Header--*/
