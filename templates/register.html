@@ -6,16 +6,7 @@
     </div>
     <h1 class="page-title">Sign Up</h1>
     <h2 class="page-tagline center-text">Allows you to bookmark your favourite recipes and add your own!</h2>
-    <!--Flash Messages-->
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="flash-massage">
-                    <h4>{{ message }}</h4>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    <!--Register Form-->
     <form id="resigter-form" class="form form--narrow" action="{{ url_for('register') }}" method="POST">
          <!--Reg Usernane-->
         <div class="row">
