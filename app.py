@@ -503,6 +503,9 @@ def cocktail(cocktail_name, cocktail_id):
 
     else:
         user_rated_cocktails = []
+        user_bookmarks = []
+
+    print(user_bookmarks)
 
     # Determine which form has been submitted
     if request.method == "POST":
