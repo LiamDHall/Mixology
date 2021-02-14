@@ -25,7 +25,7 @@ $(document).on('click', '#add-ingredient', function() {
             <!--Amount-->
             <input type="text" id="ingredient-amount-${ingredCount + 1}" name="ingredient-amount-${ingredCount + 1}" 
                 class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" 
-                placeholder="12.5" aria-label="enter amount of ingredient" required>
+                placeholder="Amount" aria-label="enter amount of ingredient" required>
             
             <!--Unit-->
             <select id="ingredient-unit-${ingredCount + 1}" name="ingredient-unit-${ingredCount + 1}" class="form-cocktail__input" 
@@ -115,7 +115,7 @@ $(document).on('click', '#add-garnish', function() {
             <!--Amount-->
             <input type="text" id="garnish-amount-${garnishCount + 1}" name="garnish-amount-${garnishCount + 1}" 
                 class="form-cocktail__input form-cocktail__input--amount" pattern="^[0-9.]{0,5}$" maxlength="5" 
-                placeholder="1" aria-label="enter garnish amount" required>
+                placeholder="Amount" aria-label="enter garnish amount" required>
             
             <!--Name-->
             <input type="text" id="garnish-name-${garnishCount + 1}" name="garnish-name-${garnishCount + 1}" 
