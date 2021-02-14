@@ -68,6 +68,10 @@
                             <li class="nav-mobile nav-mobile--profile">
                                 <a href="{{ url_for('logout') }}" class="site-header__nav-profile"><i class="fas fa-sign-out-alt"></i> Logout</a>
                             </li>
+                        {% else %}
+                            <li class="nav-mobile nav-mobile--profile">
+                                <a href="{{ url_for('login') }}" class="site-header__nav-profile"><i class="fas fa-user-circle"></i> Log In</a>
+                            </li>
                         {% endif %}
                     </ul>
                 </div>
