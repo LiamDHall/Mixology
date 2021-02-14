@@ -223,6 +223,14 @@ button:focus {
     width: 100%;
 }
 
+.cta--home {
+    width: 60%;
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 75px;
+}
+
 .cta--greater {
     width: 50%;
     margin-right: 20px;
@@ -277,6 +285,12 @@ button:focus {
 
     .cta--greater {
         margin-top: 25px;;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+        .cta--home {
+        width: 100%;
     }
 }
 
