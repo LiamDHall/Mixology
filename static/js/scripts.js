@@ -17,9 +17,6 @@ $(document).ready(function() {
         noSlides = 2;
     }
 
-    console.log(width)
-    console.log(noSlides)
-
     //  Swiper JS
     var mySwiper = new Swiper('.swiper-container', {
 
@@ -63,9 +60,6 @@ window.addEventListener('resize', function(){
     else {
         noSlides = 2;
     }
-
-    console.log(width)
-    console.log(noSlides)
 
     //  Swiper JS
     var mySwiper = new Swiper('.swiper-container', {
@@ -124,16 +118,13 @@ $('.cocktail__checkbox').click(function() {
 // Rate Cocktail Button Style Toggle
 $(document).on('click', '.cocktail-header__form-btn', function() {
     collapseState = $(this).attr('aria-expanded')
-    console.log("click check")
-    console.log(collapseState)
+
     if (collapseState == "true") {
         $(this).addClass("cta--delete form-btn-align").html("Cancel");
-        console.log("if ran")
     }
 
     else {
         $(this).removeClass("cta--delete form-btn-align").html("Rate This Cocktail");
-        console.log("else ran")
     }
 });
 

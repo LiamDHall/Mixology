@@ -6,7 +6,6 @@ stage the users input before it is commited to the datebase.
 */
 // Submit Event listner Functions - Sets values of hidden input just before submit to be used by the back end
 $( '#cocktail-create' ).submit(function( ) {
-    console.log('ran')
     $('#no-of-ingred').attr('value', ingredCount);
     $('#no-of-garnish').attr('value', garnishCount);
     $('#no-of-tools').attr('value', toolCount);
@@ -75,10 +74,7 @@ $(document).on('click', '.remove-ingredient', function() {
     for (i = 0; i < item.length; ++i) {
         if (i > 0) {
             currentLi = item[i];
-            console.log(currentLi)
             input = currentLi.getElementsByTagName('input');
-            console.log(input)
-            console.log(input[0])
             input[0].setAttribute('id', `ingredient-amount-${i + 1}`);
             input[0].setAttribute('name', `ingredient-amount-${i + 1}`);
             input[1].setAttribute('id', `ingredient-name-${i + 1}`);
@@ -91,10 +87,7 @@ $(document).on('click', '.remove-ingredient', function() {
 
         else {
             currentLi = item[i];
-            console.log(currentLi)
             input = currentLi.getElementsByTagName('input');
-            console.log(input)
-            console.log(input[0])
             input[0].setAttribute('id', `ingredient-amount-${i + 1}`);
             input[0].setAttribute('name', `ingredient-amount-${i + 1}`);
             input[1].setAttribute('id', `ingredient-unit-${i + 1}`);
@@ -167,11 +160,7 @@ $(document).on('click', '.remove-garnish', function() {
 
     if(garnishCount > 0) {
         for (i = 0; i < item.length; ++i) {
-            currentLi = item[i];
-            console.log(currentLi)
             input = currentLi.getElementsByTagName('input');
-            console.log(input)
-            console.log(input[0])
             input[0].setAttribute('id', `garnish-amount-${i + 1}`);
             input[0].setAttribute('name', `garnish-amount-${i + 1}`);
             input[1].setAttribute('id', `garnish-name-${i + 1}`);
@@ -252,10 +241,7 @@ $(document).on('click', '.remove-tool', function() {
     if(toolCount > 0) {
         for (i = 0; i < item.length; ++i) {
             currentLi = item[i];
-            console.log(currentLi)
             select = currentLi.getElementsByTagName('select');
-            console.log(select)
-            console.log(select[0])
             select[0].setAttribute('id', `tool-${i + 1}`);
             select[0].setAttribute('name', `tool-${i + 1}`);
         }
@@ -270,7 +256,6 @@ $(document).on('click', '.remove-tool', function() {
 var instrCount = $('#cocktail-instructions .instruction').length
 
 $(document).on('click', '#add-instruction', function() {
-    console.log(instrCount)
     var instrFeedback = `<p id="instruction-feedback" class="cocktail__feedback">Max amount of Instruction</p>`;
     var instructionInput = `
         <li class="instruction">
@@ -312,10 +297,7 @@ $(document).on('click', '.remove-instruction', function() {
 
     for (i = 0; i < item.length; ++i) {
         currentLi = item[i];
-        console.log(currentLi)
         input = currentLi.getElementsByTagName('textarea');
-        console.log(input)
-        console.log(input[0])
         input[0].setAttribute('id', `instruction-${i + 1}`);
         input[0].setAttribute('name', `instruction-${i + 1}`);
     }
