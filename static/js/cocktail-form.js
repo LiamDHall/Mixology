@@ -33,7 +33,7 @@ $(document).on('click', '#add-ingredient', function() {
                     <option value="ml">ml</option>
                     <option value="tsp">tsp</option>
                     <option value="dashes">dash/es</option>
-                    <option value="no unit">n/a</option>
+                    <option value="no unit">no unit</option>
             </select>
 
             <!--Name-->
@@ -72,17 +72,15 @@ $(document).on('click', '.remove-ingredient', function() {
     item = list.getElementsByTagName('li');
 
     for (i = 0; i < item.length; ++i) {
-        if (i > 0) {
+        if (i == 0) {
             currentLi = item[i];
             input = currentLi.getElementsByTagName('input');
             input[0].setAttribute('id', `ingredient-amount-${i + 1}`);
             input[0].setAttribute('name', `ingredient-amount-${i + 1}`);
-            input[1].setAttribute('id', `ingredient-name-${i + 1}`);
-            input[1].setAttribute('name', `ingredient-name-"${i + 1}"`);
-
-            select = currentLi.getElementsByTagName('select');
-            select[0].setAttribute('id', `ingredient-unit-${i + 1}`);
-            select[0].setAttribute('name', `ingredient-unit-${i + 1}`);
+            input[1].setAttribute('id', `ingredient-unit-${i + 1}`);
+            input[1].setAttribute('name', `ingredient-unit-${i + 1}`);
+            input[2].setAttribute('id', `ingredient-name-${i + 1}`);
+            input[2].setAttribute('name', `ingredient-name-${i + 1}`);
         }
 
         else {
@@ -90,10 +88,12 @@ $(document).on('click', '.remove-ingredient', function() {
             input = currentLi.getElementsByTagName('input');
             input[0].setAttribute('id', `ingredient-amount-${i + 1}`);
             input[0].setAttribute('name', `ingredient-amount-${i + 1}`);
-            input[1].setAttribute('id', `ingredient-unit-${i + 1}`);
-            input[1].setAttribute('name', `ingredient-unit-"${i + 1}"`);
-            input[2].setAttribute('id', `ingredient-name-${i + 1}`);
-            input[2].setAttribute('name', `ingredient-name-"${i + 1}"`);
+            input[1].setAttribute('id', `ingredient-name-${i + 1}`);
+            input[1].setAttribute('name', `ingredient-name-${i + 1}`);
+
+            select = currentLi.getElementsByTagName('select');
+            select[0].setAttribute('id', `ingredient-unit-${i + 1}`);
+            select[0].setAttribute('name', `ingredient-unit-${i + 1}`);
         }
     }
 });
