@@ -3,12 +3,12 @@
     <!--Hero Image-->
     <section class="hero">
         <div class="hero__image" style="background: url('{{ featured_cocktail.image }}') no-repeat center center">
-            {% if alcohol %}
-                <h1 class="hero__categ-name">{{ alcohol.alcohol_name}}</h1>
-            {% else %}
-                <h1 class="hero__categ-name">Cocktails Made Easy</h1>
-            {% endif %}
             <div class="hero__inner">
+                {% if alcohol %}
+                    <h1 class="hero__categ-name">{{ alcohol.alcohol_name}}</h1>
+                {% else %}
+                    <h1 class="hero__categ-name">Cocktails<br class="mobile-only"> Made Easy</h1>
+                {% endif %}
                 <h2 class="hero__title">Featured Cocktail</h2>
                 <h2 class="hero__cocktail">{{ featured_cocktail.cocktail_name.title() }}</h2>
                 <hr class="hero__page-line page-line page-line--brand page-line--left">
