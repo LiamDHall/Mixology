@@ -244,6 +244,13 @@ button:focus {
     color: var(--brand-color);
 }
 
+.cta--four-o {
+    display: inline-block;
+    width: 80%;
+    font-size: 2rem;
+    margin-top: 25px;
+}
+
 .btn-icon {
     font-size: 2rem;
     padding-right: 22px;
@@ -631,6 +638,11 @@ button:focus {
 
 .page-title {
     text-align: center;
+}
+
+.four-o-title {
+    color: purple;
+    font-size: 3rem;
 }
 
 .page-tagline {
@@ -1446,7 +1458,6 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     font-size: 2rem;
     position: relative;
     bottom: 5px;
-}
 
 .cocktail__affiliate {
     margin-top: 50px;
