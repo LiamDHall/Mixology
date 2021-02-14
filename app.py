@@ -361,7 +361,7 @@ def register():
 def logout():
     # Removes all session cookies
     session.clear()
-
+    session["formsubmitno"] = "nothing"
     # Tells user they have logged out
     flash("You have successfully logged out")
     return redirect(url_for("home"))
@@ -487,6 +487,10 @@ def delete_profile(user_id):
     # Clear session / log out
     session.clear()
 
+    # Set form submit no or error thrown when form submitted
+    # Set to value a random number genarator can't produce
+    session["formsubmitno"] = "nothing"
+
     flash("Profile Deleted")
     return redirect(url_for("home"))
 
@@ -577,7 +581,8 @@ def delete_cocktail(cocktail_id):
 
     flash("Cocktail Deleted")
     return redirect(url_for(
-        "profile", profile_name=session["user"],
+        "profile",
+        profile_name=session["user"],
         profile_id=session["id"]
     ))
 
@@ -592,76 +597,100 @@ def delete_cocktail(cocktail_id):
 }, methods=["GET", "POST"])
 def cocktail_create(cocktail_name, cocktail_id):
     if request.method == "POST":
-        # Get the number of each input field
-        ingred_count = int(request.form.get("no-of-ingred"))
-        garnish_count = int(request.form.get("no-of-garnish"))
-        tool_count = int(request.form.get("no-of-tools"))
-        instr_count = int(request.form.get("no-of-instr"))
+        # Grab random number from form
+        form_random_value = request.form.get("random"),
 
-        # Sets the formated inputs to variables
-        # Calling the formate function with the correct input and counter
-        ingredients = formate_inputs("ingredient", ingred_count)
-        garnishes = formate_inputs("garnish", garnish_count)
-        tools = formate_inputs("tool", tool_count)
-        instructions = formate_inputs("instruction", instr_count)
+        # Block against reload re submits
+        if form_random_value != session["formsubmitno"]:
+            session["formsubmitno"] = form_random_value
 
-        if not cocktail_id:
-            # Stages form input ready to be pushed to the datebase
-            register = {
-                "cocktail_name": request.form.get("cocktail-name").lower(),
-                "alcohol": request.form.get("alcohol"),
-                "image": request.form.get("cocktail-img-url"),
-                "date_added": datetime.datetime.utcnow(),
-                "rating": 0,
-                "no_rating": 0,
-                "no_of_bookmarks": 0,
-                "author": session["user"],
-                "author_id": session["id"],
-                "ingredients": ingredients,
-                "garnish": garnishes,
-                "tools": tools,
-                "glass": request.form.get("glass").lower(),
-                "instructions": instructions,
-                "rating_sum": 0,
-            }
+            # Get the number of each input field
+            ingred_count = int(request.form.get("no-of-ingred"))
+            garnish_count = int(request.form.get("no-of-garnish"))
+            tool_count = int(request.form.get("no-of-tools"))
+            instr_count = int(request.form.get("no-of-instr"))
 
-            # Pushes the staged info to the datebase
-            mongo.db.cocktails.insert_one(register)
+            # Sets the formated inputs to variables
+            # Calling the formate function with the correct input and counter
+            ingredients = formate_inputs("ingredient", ingred_count)
+            garnishes = formate_inputs("garnish", garnish_count)
+            tools = formate_inputs("tool", tool_count)
+            instructions = formate_inputs("instruction", instr_count)
 
-            # Gives the user feedback on a sucessful submission
-            flash("Coctail Added")
-
-            return redirect(url_for(
-                "profile", profile_name=session["user"],
-                profile_id=session["id"]
-            ))
-
-        else:
-            # Stages form input ready to be pushed to the datebase
-            cocktail_query = {"_id": ObjectId(cocktail_id)}
-            edit = {
-                "$set": {
+            if not cocktail_id:
+                # Stages form input ready to be pushed to the datebase
+                register = {
                     "cocktail_name": request.form.get("cocktail-name").lower(),
-                    "alcohol": request.form.get("alcohol").lower(),
+                    "alcohol": request.form.get("alcohol"),
                     "image": request.form.get("cocktail-img-url"),
+                    "date_added": datetime.datetime.utcnow(),
+                    "rating": 0,
+                    "no_rating": 0,
+                    "no_of_bookmarks": 0,
+                    "author": session["user"],
+                    "author_id": session["id"],
                     "ingredients": ingredients,
                     "garnish": garnishes,
                     "tools": tools,
                     "glass": request.form.get("glass").lower(),
-                    "instructions": instructions
+                    "instructions": instructions,
+                    "rating_sum": 0,
                 }
-            }
 
-            # Pushes the staged info to the datebase
-            mongo.db.cocktails.update_one(cocktail_query, edit)
+                # Pushes the staged info to the datebase
+                mongo.db.cocktails.insert_one(register)
 
-            # Gives the user feedback on a sucessful submission
-            flash("Coctail Updated")
+                # Gives the user feedback on a sucessful submission
+                flash("Coctail Added")
 
-            cocktail = mongo.db.cocktails.find_one({
-                "_id": ObjectId(cocktail_id)
-            })
-            return render_template("cocktail.html", cocktail=cocktail)
+                return redirect(url_for(
+                    "profile", profile_name=session["user"],
+                    profile_id=session["id"]
+                ))
+
+            else:
+                # Stages form input ready to be pushed to the datebase
+                cocktail_query = {"_id": ObjectId(cocktail_id)}
+                edit = {
+                    "$set": {
+                        "cocktail_name": request.form.get(
+                            "cocktail-name"
+                        ).lower(),
+                        "alcohol": request.form.get("alcohol").lower(),
+                        "image": request.form.get("cocktail-img-url"),
+                        "ingredients": ingredients,
+                        "garnish": garnishes,
+                        "tools": tools,
+                        "glass": request.form.get("glass").lower(),
+                        "instructions": instructions
+                    }
+                }
+
+                # Pushes the staged info to the datebase
+                mongo.db.cocktails.update_one(cocktail_query, edit)
+
+                # Gives the user feedback on a sucessful submission
+                flash("Coctail Updated")
+
+                cocktail = mongo.db.cocktails.find_one({
+                    "_id": ObjectId(cocktail_id)
+                })
+                return render_template("cocktail.html", cocktail=cocktail)
+
+        else:
+            if cocktail_id:
+                flash("Changes Saved")
+                cocktail = mongo.db.cocktails.find_one({
+                    "_id": ObjectId(cocktail_id)
+                })
+                return render_template("cocktail.html", cocktail=cocktail)
+            else:
+                flash("Cocktail Already Added")
+                return redirect(url_for(
+                    "profile",
+                    profile_name=session["user"],
+                    profile_id=session["id"]
+                ))
 
     # Non logged in user feedback
     elif not session.get("user"):
