@@ -1424,6 +1424,7 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 .cocktail__img-contianer {
     text-align: center;
     height: 700px;
+    overflow: hidden;
 }
 
 .cocktail__img {
@@ -1449,6 +1450,59 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 
 .cocktail__affiliate {
     margin-top: 50px;
+}
+
+/*------------------------------------------------------Cocktail Recipe Page Mobile & Responsive--*/
+@media screen and (max-width: 768px) {
+    .cocktail__info>li >p {
+        width: 80%;
+    } 
+}
+
+@media screen and (max-width: 628px) {
+    .cocktail-header__function {
+        margin-top: 16px;;
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .form-rating{
+        width: 100%;
+    }
+
+    .form-rating__btn,
+    .cocktail-header__form-btn {
+        float: none !important;
+        display: inline-block;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .form-rating__btn {
+        margin-top: 30px;
+    }
+
+    .cocktail-header__form-btn {
+        margin-top: 50px;
+    }
+
+    .star-rating {
+        float: none !important;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .cocktial-header__name {
+        font-size: 1.9rem;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .cocktail-header__function--delete {
+        display: block;
+    }
 }
 
 /*------------------------------------------------------Cocktail Add/Edit--*/
@@ -1604,11 +1658,6 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 
     .form-cocktail__input--title {
         font-size: 2rem;
-    }
-
-    .cocktail-header__function--edit,
-    .cocktail-header__function--delete {
-        width: 50%;
     }
 
     .cocktail__img-contianer {
