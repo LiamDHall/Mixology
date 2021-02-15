@@ -44,7 +44,6 @@ def home(alcohol_name):
     # Alcohol Filter
     if alcohol_name:
         alcohol = mongo.db.alcohol.find_one({"alcohol_name": alcohol_name})
-
         # Bad url catcher as the url will accept anything as an alcohol_name
         if not alcohol:
             return render_template('404.html'), 404
@@ -170,7 +169,7 @@ def search(query):
             "bookmarks"
         )
 
-    # No bookmarks if no user isnt logged in
+    # No bookmarks if no user is logged in
     else:
         user_bookmarks = []
 
@@ -257,6 +256,87 @@ def search(query):
         "search.html",
         cocktail_search_cats=cocktail_search_cats,
         query=query,
+        user_bookmarks=user_bookmarks,
+    )
+
+
+@app.route("/view-all/<order_by>", methods=["GET", "POST"])
+def view_all(order_by):
+    # Get bookmarks of user if logged in
+    if session.get("user"):
+        user_bookmarks = mongo.db.users.find_one(
+            {"username": session["user"]}
+        ).get(
+            "bookmarks"
+        )
+
+    # No bookmarks if no user is logged in
+    else:
+        user_bookmarks = []
+
+    if request.method == "POST":
+        form_type = request.form.get("form-submit")
+        if form_type == "bookmark":
+            submit_bookmark(user_bookmarks)
+            return redirect(url_for(
+                "view_all",
+                order_by=order_by
+            ))
+
+    if order_by == "top-rated":
+        order = "rating"
+
+    elif order_by == "newly-added":
+        order = "date_added"
+
+    elif order_by == "most-popular":
+        order = "no_of_bookmarks"
+
+    else:
+        return render_template('404.html'), 404
+
+    all_cocktails = list(mongo.db.cocktails.find().sort(order, -1))
+
+    alcohol_categories = list(mongo.db.alcohol.find())
+
+    # Filter cocktails by alcohol
+    vodka_cocktails = []
+    whiskey_cocktails = []
+    gin_cocktails = []
+    rum_cocktails = []
+    tequila_cocktails = []
+
+    # If all cocktail has at least one
+    if len(all_cocktails) > 0:
+        for alcohol in alcohol_categories:
+
+            # Create list name
+            filt = f"{str(alcohol['alcohol_name'].lower())}_cocktails"
+            cocktails = list(mongo.db.cocktails.find({
+                "alcohol": alcohol['alcohol_name'].lower()
+            }).sort(
+                order, -1
+            ))
+
+            if len(cocktails) > 0:
+                # Set list name as variable and extend cocktail to the
+                # corresponding list abover
+                vars()[filt].extend(cocktails)
+
+    # Stage info for template to iterate
+    cocktail_search_cats = [
+        {"name": "All Cocktails", "cocktails": all_cocktails},
+        {"name": "Vodka Cocktails", "cocktails": vodka_cocktails},
+        {"name": "Whiskey Cocktails", "cocktails": whiskey_cocktails},
+        {"name": "Gin Cocktails", "cocktails": gin_cocktails},
+        {"name": "Rum Cocktails", "cocktails": rum_cocktails},
+        {"name": "Tequila Cocktails", "cocktails": tequila_cocktails},
+    ]
+
+    return render_template(
+        "view-all.html",
+        order_by=order_by,
+        cocktail_search_cats=cocktail_search_cats,
         user_bookmarks=user_bookmarks,
     )
 
