@@ -501,8 +501,6 @@ button:focus {
     }
 }
 
-
-
 /*------------------------------------------------------Site Header Mobile & Responsive--*/
 @media screen and (max-width: 1350px) {
     .search-input {
@@ -778,6 +776,7 @@ button:focus {
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
+
 /*------------------------------------------------------Hero Image Mobile & Responsive--*/
 @media screen and (max-width: 2140px) {
     .hero__image {
@@ -1029,7 +1028,6 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     font-size: 27px;
     color: var(--brand-cta);
 }
-
 
 .star-rating>label:hover:before,
 .star-rating>label:hover~label:before {
@@ -1643,7 +1641,6 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     font-size: 1.25rem;
 }
 
-
 .cocktail-header__info {
     font-size: 1.5rem;
 }
@@ -1836,7 +1833,6 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     height: 200px;
 }
 
-
 /*----------------------------Cocktail Recipe Page and Add/Edit Form Mobile & Responsive--*/
 @media screen and (max-width: 2200px) {
     .cocktail-header, 
@@ -1953,8 +1949,6 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
         height: 300px;
     }
 }
-
-
 
 /*------------------------------------------------------Footer--*/
 .footer {
