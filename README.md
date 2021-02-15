@@ -328,9 +328,11 @@ The following features are suggestions to improve the site for developers to inc
 -   **Tip System:** I had wanted to add tips and throughout the build of the website I was planning to include them. The tip system would allow users to leave tips on recipes they had tried to make which they thought would help other users to improve the cocktail.
 -	**Recommendations:**  at the bottom of every Cocktail Recipe Page have a carousel of other similar cocktails the user might like to try after their currently selected one. 
 
+-	**Video Tutorials:** this feature would make it even easier for the users to follow step by step instructions with a visual guide.
+
 ## Technologies Used
 
--	[HTML 5](https://en.wikipedia.org/wiki/HTML5):language used to structure and provide content of pages of the website .
+-	[HTML 5](https://en.wikipedia.org/wiki/HTML5):language used to structure and provide content of pages of the website.
 
 -	[CSS 3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets): visual language used to style and format the html.
 
