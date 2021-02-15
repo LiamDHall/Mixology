@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <section>
+    <section class="center-text">
+        <h1>Search</h1>
        <form class="search-from form" action="{{ url_for('search') }}" method="POST">
             <input type="text" name="query" class="search-page-input">
             <button class="search-page-btn cta cta--create" name="form-submit" value="search"><i class="fas fa-search"></i> Search</button>
