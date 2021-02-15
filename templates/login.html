@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
+<!--Login-->
 <section class="center-page">
     <div class="page-icon">
         <i class="far fa-user-circle"></i>
     </div>
     <h1 class="page-title">Login</h1>
+    
+    <!--Login Form-->
     <form id="login-form" class="form form--narrow" action="{{ url_for('login') }}" method="POST">
         <div class="row">
             <div class="col-12">

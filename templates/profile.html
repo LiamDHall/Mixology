@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<!--Profile Info-->
 {% if edit == "true" %}
+    <!--Profile Editing-->
     <section class="profile-spacing">
         <form class="form" action="{{ url_for('profile', profile_name=session.user, profile_id=session.id) }}" method="POST">
             <div class="profile">
@@ -25,6 +25,7 @@
         </form>
     </section>
 {% else %}
+    <!--Profile Info-->
     <section class="profile-spacing">
         <div class="profile">
             <div class="profile__container profile__container--img inline-block">

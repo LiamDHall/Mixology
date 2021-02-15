@@ -122,34 +122,34 @@
                     </button>
 
                     <!--Cocktail Garnish-->
-                        <h3 class="cocktail__item-title">Garnish</h3>
-                        <ul id="cocktail-garnish" class="cocktail__info">
-                            {% for i in range(0, cocktail.garnish | length) %}
-                                <li class="garnish">
-                                    <!--Amount-->
-                                    <input type="text" id="garnish-amount-{{ i + 1 }}" name="garnish-amount-{{ i + 1 }}" class="form-cocktail__input form-cocktail__input--amount" 
-                                        pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="Amount" aria-label="enter garnish amount" value="{{ cocktail.garnish[i][0] }}" required>
-                                    <div class="invalid-feedback">
-                                        <p>Missing or contains illegal character. Numbers and period only.</p>
-                                    </div>
-                                    
-                                    <!--Name-->
-                                    <input type="text" id="garnish-name-{{ i + 1 }}" name="garnish-name-{{ i + 1 }}" class="form-cocktail__input" placeholder="Garnish Name" 
-                                        aria-label="enter garnish name" value="{{ cocktail.garnish[i][1] }}" required>
-                                    <div class="invalid-feedback">
-                                        <p>Missing</p>
-                                    </div>
-                                    
-                                    <!--Remove Item Button-->
-                                    <button class="remove-garnish cocktail-btn cocktail-btn--remove" type="button">
-                                        <i class="fas fa-minus-circle"></i> Remove
-                                    </button>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        <button id="add-garnish" class="cocktail-btn cocktail-btn--add" type="button">
-                            <i class="fas fa-plus-circle"></i> Add Garnish
-                        </button>
+                    <h3 class="cocktail__item-title">Garnish</h3>
+                    <ul id="cocktail-garnish" class="cocktail__info">
+                        {% for i in range(0, cocktail.garnish | length) %}
+                            <li class="garnish">
+                                <!--Amount-->
+                                <input type="text" id="garnish-amount-{{ i + 1 }}" name="garnish-amount-{{ i + 1 }}" class="form-cocktail__input form-cocktail__input--amount" 
+                                    pattern="^[0-9.]{0,5}$" maxlength="5" placeholder="Amount" aria-label="enter garnish amount" value="{{ cocktail.garnish[i][0] }}" required>
+                                <div class="invalid-feedback">
+                                    <p>Missing or contains illegal character. Numbers and period only.</p>
+                                </div>
+                                
+                                <!--Name-->
+                                <input type="text" id="garnish-name-{{ i + 1 }}" name="garnish-name-{{ i + 1 }}" class="form-cocktail__input" placeholder="Garnish Name" 
+                                    aria-label="enter garnish name" value="{{ cocktail.garnish[i][1] }}" required>
+                                <div class="invalid-feedback">
+                                    <p>Missing</p>
+                                </div>
+                                
+                                <!--Remove Item Button-->
+                                <button class="remove-garnish cocktail-btn cocktail-btn--remove" type="button">
+                                    <i class="fas fa-minus-circle"></i> Remove
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <button id="add-garnish" class="cocktail-btn cocktail-btn--add" type="button">
+                        <i class="fas fa-plus-circle"></i> Add Garnish
+                    </button>
                 </div>
 
                 <!--Cocktail Tools-->
@@ -205,7 +205,6 @@
                             </div>
                         </li>
                     </ul>
-
                 </div>
             </div>
 
