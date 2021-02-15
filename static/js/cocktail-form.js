@@ -10,12 +10,12 @@ $( '#cocktail-create' ).submit(function( ) {
     $('#no-of-garnish').attr('value', garnishCount);
     $('#no-of-tools').attr('value', toolCount);
     $('#no-of-instr').attr('value', instrCount);
-    return true
+    return true;
 
 });
 
 //  Add Ingredient
-var ingredCount = $('#cocktail-ingredients .ingredient').length
+var ingredCount = $('#cocktail-ingredients .ingredient').length;
 
 $(document).on('click', '#add-ingredient', function() {
     var ingredFeedback = `<p id="ingred-feedback" class="cocktail__feedback">Max amount of Ingredients</p>`;
@@ -58,8 +58,8 @@ $(document).on('click', '#add-ingredient', function() {
     ingredCount += 1;
 
     if (ingredCount == 12) {
-        $('#add-ingredient').replaceWith(ingredFeedback)
-    };                    
+        $('#add-ingredient').replaceWith(ingredFeedback);
+    }                    
 });
 
 //  Remove Ingredient
@@ -108,7 +108,7 @@ $(document).on('click', '.remove-ingredient', function() {
 });
 
 //  Add Garnish
-var garnishCount = $('#cocktail-garnish .garnish').length
+var garnishCount = $('#cocktail-garnish .garnish').length;
 
 $(document).on('click', '#add-garnish', function() {
     var garnishFeedback = `<p id="garnish-feedback" class="cocktail__feedback">Max amount of Garnishes</p>`;
@@ -142,7 +142,7 @@ $(document).on('click', '#add-garnish', function() {
     garnishCount += 1;  
 
     if (garnishCount == 3) {
-        $('#add-garnish').replaceWith(garnishFeedback)
+        $('#add-garnish').replaceWith(garnishFeedback);
     }
 });
 
@@ -155,10 +155,10 @@ $(document).on('click', '.remove-garnish', function() {
             <button id="add-garnish" class="cocktail-btn cocktail-btn--add" type="button">
                 <i class="fas fa-plus-circle"></i> Add Garnish
             </button>`;
-        $('#garnish-feedback').replaceWith(garnishAdd)
+        $('#garnish-feedback').replaceWith(garnishAdd);
     }
     
-    garnishCount -= 1
+    garnishCount -= 1;
 
     if (garnishCount == 0) {
         noGarnish = `
@@ -183,12 +183,12 @@ $(document).on('click', '.remove-garnish', function() {
     }
 
     else {
-        return
+        return;
     }
 });
 
 //  Add Tool
-var toolCount = $('#cocktail-tools .tool').length
+var toolCount = $('#cocktail-tools .tool').length;
 
 $(document).on('click', '#add-tool', function() {
     var toolFeedback = `<p id="tool-feedback" class="cocktail__feedback">Max amount of Tools</p>`;
@@ -222,26 +222,26 @@ $(document).on('click', '#add-tool', function() {
     } 
 
     $('#cocktail-tools').append(toolSelect);
-    toolCount += 1
+    toolCount += 1;
 
     if (toolCount == 5) {
-        $('#add-tool').replaceWith(toolFeedback)
-    };  
+        $('#add-tool').replaceWith(toolFeedback);
+    }  
 });
 
 //  Remove Tool (Must be a .on("click") as the elements are added dynamically)
 $(document).on('click', '.remove-tool', function() {
-    $(this).closest(".tool").remove()
+    $(this).closest(".tool").remove();
 
     if (toolCount == 5) {
         var toolAdd = `
             <button id="add-tool" class="cocktail-btn cocktail-btn--add" type="button">
                 <i class="fas fa-plus-circle"></i> Add Tool
             </button>`;
-        $('#tool-feedback').replaceWith(toolAdd)
+        $('#tool-feedback').replaceWith(toolAdd);
     }
 
-    toolCount -= 1  
+    toolCount -= 1;  
     
     if (toolCount == 0) {
         noTool = `
@@ -265,12 +265,12 @@ $(document).on('click', '.remove-tool', function() {
     }
 
     else {
-        return
+        return;
     }
 });
 
 //  Add Instruction
-var instrCount = $('#cocktail-instructions .instruction').length
+var instrCount = $('#cocktail-instructions .instruction').length;
 
 $(document).on('click', '#add-instruction', function() {
     var instrFeedback = `<p id="instruction-feedback" class="cocktail__feedback">Max amount of Instruction</p>`;
@@ -293,8 +293,8 @@ $(document).on('click', '#add-instruction', function() {
     instrCount += 1;
 
     if (instrCount == 15) {
-        $('#add-instruction').replaceWith(instrFeedback)
-    };                    
+        $('#add-instruction').replaceWith(instrFeedback);
+    }                   
 });
 
 //  Remove Instruction
@@ -331,18 +331,18 @@ $( document ).ready( function() {
     var instrFeedback = `<p id="instruction-feedback" class="cocktail__feedback">Max amount of Instruction</p>`;
 
     if (ingredCount == 12) {
-        $('#add-ingredient').replaceWith(ingredFeedback)
-    };
+        $('#add-ingredient').replaceWith(ingredFeedback);
+    }
 
     if (garnishCount == 3) {
-        $('#add-garnish').replaceWith(garnishFeedback)
+        $('#add-garnish').replaceWith(garnishFeedback);
     }
 
     if (toolCount == 5) {
-        $('#add-tool').replaceWith(toolFeedback)
-    };
+        $('#add-tool').replaceWith(toolFeedback);
+    }
 
     if (instrCount == 15) {
-        $('#add-instruction').replaceWith(instrFeedback)
-    };
+        $('#add-instruction').replaceWith(instrFeedback);
+    }
 });
