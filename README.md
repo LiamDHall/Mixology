@@ -578,16 +578,18 @@ Please follows the steps below to set up the hosting:
 8.  Press Enter and a local clone will be created.
     The following steps are then required to make the clone work as intended using Gitpod. The following steps may vary based on the IDE you use.
 9.  Sign Up for a free Mongodb account here <https://www.mongodb.com/cloud/atlas/signup>
-10. Recreate the collections shown in the [Planning Doc]() under Date Model / Schema section.
+10. Recreate the collections shown in the [Planning Doc](https://github.com/LiamDHall/Mixology/blob/master/supporting-docs/mixology-planning-doc.pdf) under Date Model / Schema section.
 11. Install the required dependencies by running **pip3 install -r requirements.txt**
 12. Create an env.py and a .gitignore file. Add the env.py to the .gitignore file to stop it from being committed and pushed to route storage.
 13. In your env.py set the following value replacing the <placeholders> with your correct values
-    **import os
-    os.environ.setdefault("IP", "0.0.0.0")
-    os.environ.setdefault("PORT", "5000")
-    os.environ.setdefault("SECRET_KEY", "youSerectKey")
-    os.environ.setdefault("MONGO_URI", "yourMongodbUrl")
-    os.environ.setdefault("MONGO_DBNAME", "yourMongodbDatebaseName")**
+    
+	**import os
+	os.environ.setdefault("IP", "0.0.0.0")
+	os.environ.setdefault("PORT", "5000")
+	os.environ.setdefault("SECRET_KEY", "youSerectKey")
+	os.environ.setdefault("MONGO_URI", "yourMongodbUrl")
+	os.environ.setdefault("MONGO_DBNAME", "yourMongodbDatebaseName")**
+    
 14. Lastly before running the application you will need to turn the debugger on by going into the *app.py** and then right at the bottom turn the line **debug=False** to **debug=True**
 15. In command line run **python3 app.py**
 16. A pop up will appear in the bottom right hand corner.
