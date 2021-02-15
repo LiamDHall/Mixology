@@ -541,6 +541,12 @@ The spaces in URL cause this error.
 
 **This issue is still present in the live site**
 
+### Form invalid messages being displayed even when inputs correct on cocktail form
+
+Using brootstrap form validation for the ingredients inputs its seem if one is invalid in a row all of them display their invalid message.
+
+**This issue is still present in the live site**
+
 ## Deployment
 
 ### Remote Development
