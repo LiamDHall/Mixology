@@ -565,6 +565,7 @@ def profile(profile_name, profile_id, edit):
 
     return render_template(
         "profile.html",
+        user_all_cocktails=user_all_cocktails,
         bookmarked_cocktails=bookmarked_cocktails,
         user_alcohol_cats=user_alcohol_cats,
         profile=profile,

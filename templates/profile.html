@@ -33,7 +33,7 @@
             </div>
             <div class="profile__container profile__container--text inline-block">
                 <h1 class="profile__name">{{ profile.username }}</h1>
-                <p class="profile__info"><strong>Number of Cocktails:</strong> 10</p>
+                <p class="profile__info"><strong>Number of Cocktails:</strong> {{ user_all_cocktails | length }}</p>
                 <p class="profile__info"><strong>Date Joined:</strong> {{ profile.date_added.strftime('%d/%m/%y') }}</p>
                 {% if profile._id | string == session.id %}
                     <div class="profile__actions">
