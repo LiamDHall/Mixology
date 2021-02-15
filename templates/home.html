@@ -17,12 +17,12 @@
             </div>
         </div>
     </section>
-    
     {% for cat in sort_cats %}
         <!--New Cocktails-->
         <section class="rec-carsousel">
             <div class="rec-carsousel__header">
                 <h2 class="rec-carsousel__title inline-block">{{ cat.name }}</h2>
+                <a href="{{ url_for('view_all', order_by=cat.name.lower().replace(' ', '-')) }}" class="view-all cta cta--create">View All</a>
             </div>
             <hr class="rec-carsousel__page-line page-line page-line--brand">
             {% if cat.cocktails | length > 0 %}

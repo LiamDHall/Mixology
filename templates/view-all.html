@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="view-all-header">
+       <h1 class=>View All</h1>
+       <div class="view-all-container">
+            <a href="{{ url_for('view_all', order_by='newly-added') }}" class="cta cta--order">Newly Added</a>
+            <a href="{{ url_for('view_all', order_by='top-rated') }}" class="cta cta--order">Top Rated</a>
+            <a href="{{ url_for('view_all', order_by='most-popular') }}" class="cta cta--order">Most Popular</a>
+       </div>
+    </section>
+    {% for cat in cocktail_search_cats %}
+        <!--Cocktails-->
+        <section class="rec-carsousel">
+            <div class="rec-carsousel__header">
+                <h2 class="rec-carsousel__title inline-block">{{ cat.name }}</h2>
+            </div>
+            <hr class="rec-carsousel__page-line page-line page-line--brand">
+            {% if cat.cocktails | length > 0 %}
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!--Slides-->
+                        {% for cocktail in cat.cocktails %}
+                            {% include "rec-card.html" %}
+                        {% endfor %}
+                    </div>
+                    <!--Navigation buttons-->
+                    <div class="rec-carsousel__btn-container">
+                        <div class="rec-carsousel__swiper-button swiper-button-prev"></div>
+                        <!--Pagination-->
+                        <div class="swiper-pagination inline-block"></div>
+                        <div class="rec-carsousel__swiper-button swiper-button-next"></div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="no-cocktail">
+                    {% if cat.name != "User" %}
+                        <h4 class="no-cocktails__text">No Cocktails Found</h4>
+                    {% else %}
+                        <h4 class="no-cocktails__text">No User Found</h4>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </section>
+    {% endfor %}
+    <div class="center-text">
+        <a href="{{ url_for('home') }}" class="cta cta--home">Home</a>
+    </div>
+{% endblock %}

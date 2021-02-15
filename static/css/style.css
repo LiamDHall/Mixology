@@ -244,10 +244,10 @@ button:focus {
     margin-right: 20px;
 }
 
-.cta--filter {
-    border: 2px solid var(--brand-color);
-    background: transparent;
-    color: var(--brand-color);
+.cta--order {
+    width: 25%;
+    margin: 0 20px;
+    display: inline-block;
 }
 
 .cta--four-o {
@@ -257,10 +257,16 @@ button:focus {
     margin-top: 25px;
 }
 
+.cta--loggout {
+    background-color: rgb(36, 138, 255);
+    color: white;
+}
+
 .btn-icon {
     font-size: 2rem;
     padding-right: 22px;
 }
+
 
 .affiliate {
     color: var(--brand-create);
@@ -287,8 +293,13 @@ button:focus {
 }
 
 @media screen and (max-width: 1024px) {
+    .cta--order,
     .cta--home {
         width: 100%;
+    }
+
+    .cta--order{
+        margin: 25px 0;
     }
 }
 
@@ -1102,9 +1113,15 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 }
 
 /*------------------------------------------------------Recipe Carsousel Mobile & Responsive--*/
+@media screen and (max-width: 1024px) {
+    .rec-carsousel {
+        margin-top: 60px;
+    }
+}
+
 @media screen and (max-width: 840px) {
     .rec-carsousel__title {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .rec-carsousel__cta {
@@ -1113,15 +1130,17 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 }
 
 @media screen and (max-width: 576px) {
-    .rec-carsousel__title {
-        font-size: 2rem;
-    }
-    
     .rec-carsousel__cta {
         position: static;
         display: block;
         width: 100%;
         margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .rec-carsousel__title {
+        margin-left: 0px;
     }
 }
 
@@ -1422,6 +1441,35 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     }
 }
 
+/*------------------------------------------------------View All--*/
+.view-all-header {
+    text-align: center;
+}
+
+.view-all-container {
+    width: 100%;
+    margin: 50px 0;
+    text-align: center;
+}
+
+.view-all {
+    font-size: 1rem;
+    margin-left: 25px;
+    position: relative;
+    top: -10px;
+}
+
+@media screen and (max-width: 425px) {
+    .view-all {
+       font-size: 0.75rem;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .view-all {
+       margin-left: 0;
+    }
+}
 
 /*------------------------------------------------------Profile--*/
 .profile-spacing {
