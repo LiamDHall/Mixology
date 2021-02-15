@@ -1,11 +1,11 @@
 //Set inital value for Swiper JS
 $(document).ready(function() {
-    setSwiperSlideNo ()
+    setSwiperSlideNo ();
 });
 
 //Set dynamic value for Swiper JS
 $(window).resize(function() {
-    setTimeout(function() {setSwiperSlideNo()}, 50)
+    setTimeout(function() {setSwiperSlideNo();}, 50);
 });
 
 function setSwiperSlideNo() {
@@ -15,11 +15,11 @@ function setSwiperSlideNo() {
     }
 
     else if (width > 1200) {
-        noSlides = 4
+        noSlides = 4;
     }
 
     else if (width > 768) {
-        noSlides = 3
+        noSlides = 3;
     }
 
     else {
@@ -63,7 +63,7 @@ $(document).ready(function() {
     var currentPage = window.location.href;                                 //  Get current page url
     var pageTitle = currentPage.substr(currentPage.lastIndexOf('/') + 1);   //  Get page title after domain "/"
     $('.nav-item').removeClass('active');                                   //  Remove active class off old nav link
-    var pageTitleLower = pageTitle.toLowerCase()                            //  Convert page title to lowercase to match nav ids
+    var pageTitleLower = pageTitle.toLowerCase();                            //  Convert page title to lowercase to match nav ids
     $(`#${pageTitleLower}`).addClass('active');                             //  Add active class to nav link
 });
 
@@ -82,7 +82,7 @@ $('.cocktail__checkbox').click(function() {
 
 // Rate Cocktail Button Style Toggle
 $(document).on('click', '.cocktail-header__form-btn', function() {
-    collapseState = $(this).attr('aria-expanded')
+    collapseState = $(this).attr('aria-expanded');
 
     if (collapseState == 'true') {
         $(this).addClass('cta--delete form-btn-align').html('Cancel');
@@ -117,7 +117,7 @@ window.addEventListener('beforeunload', function () {
 
 // Delete cocktail confirmation toggle
 $(document).on('click', '.delete', function() {
-    currentState = $(this).html()
+    currentState = $(this).html();
     if (currentState == `<i class="fas fa-minus-circle"></i> Delete`) {
         $(this).siblings('.confirm-delete').css('display', 'block');
         $(this).html('Cancel');
