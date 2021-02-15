@@ -22,7 +22,7 @@ Mixology uses Mongodb as its database to store cocktail information.
 
 All cocktails on the website have been written by me under the usernames mixology and ldhhall.
 
-[View Live Site](http://mixology-cocktails.herokuapp.com/home)
+[View Live Site](https://mixology-cocktails.herokuapp.com/home)
 
 ## Contents
  
@@ -552,7 +552,7 @@ Using brootstrap form validation for the ingredients inputs its seem if one is i
 ## Deployment
 
 ### Remote Development
-This web application is hosted on Heroku. [View Live Site](http://mixology-cocktails.herokuapp.com/home)
+This web application is hosted on Heroku. [View Live Site](https://mixology-cocktails.herokuapp.com/home)
 
 Please follows the steps below to set up the hosting:
 
