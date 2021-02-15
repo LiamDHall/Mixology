@@ -225,12 +225,12 @@ I originally wanted users to be able to upload files from their computer to the 
 
 ### Form Input Labels
 
-I only gave form inputs labels where appropriate. The reason for this is that I didn't want to cluter the UI. This is mainly the case on the cocktail form page. If a form input doesn't have a label it has a aria label instead. Hint text as to what goes into a input is provide by placeholder text.
+I only gave form inputs labels where appropriate. The reason for this is that I didn't want to cluter the UI. This is mainly the case on the cocktail form page. If a form input doesn't have a label it has a aria label instead. Hint text is present for all inputs on the cocktail form to prompt the user as to what goes into an input displayed as placeholder text.
 
 ### Form Validation URL Validation
 
-Some forms use custom bootstrap form validation which give the user feedback as to what is wrong or missing. Forms that need to check the database gives feedback via flash messages. I couldn't work out a way to validate URLs for images or if the URLs actually pointed to an image.
-I set up a image preview so the user can self validate if the URL works. The user can however add any URL even if it doesn't point an image.
+Some forms use custom bootstrap form validation which give the user feedback as to what is wrong or missing. Forms that need to check the database gives feedback via flash messages. I couldn't work out a way to validate URLs for images as in if they actually pointed to an image.
+I set up a image preview so the user can self validate if the URL works. The user can however add any URL even if it doesn't point an image. This is an issue still in the live site
 
 ### Images
 
@@ -283,7 +283,7 @@ As there is also no naming conversion at the moment for CSS Variables meaning on
     -	**Top Rated:** by rating then if the cocktails have equal rating by the number of ratings
     -	**Most Popular:** by the number of times the cocktail is bookmarked
 
--   **View All Page:** User can view all of the cocktail in one of three orders: **Newly Added**, **Top Rated** and **Most Popular**. These three categories are filtered even further dividing all the cocktail into their alcohol type.
+-   **View All Page:** User can view all of the cocktail in one of three orders: **Newly Added**, **Top Rated** or **Most Popular**. These three categories are filtered even further dividing all the cocktail into their alcohol type. All the cocktails are present on this page regardless of what order is selected.
 
 -	**Bookmarking:** users can bookmark cocktails anywhere they can see them via their recipe card or Cocktail Recipe Page by pressing the bookmark icon. These bookmarked cocktails will then appear on the users profile page under the “Your Bookmarks”. Bookmarked cocktails will be indicated by the bookmark icon being filled in.
     Even though the page is reloaded, the page is reloaded to the same scroll position as before the reload.
@@ -429,7 +429,7 @@ Internet Explorer is out of date and it itself Recommendes updating to Microsoft
 ### **Python**
 I used [pep8online](http://pep8online.com/) to check my Python was PEP8 compliant.
 
-It said that my code was PEP8 compliant.
+The validator said that my code was PEP8 compliant.
 
 ### **Functionality Testing**
 
