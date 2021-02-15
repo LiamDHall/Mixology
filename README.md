@@ -112,15 +112,15 @@ At the start of this project I asked a group of potential users what they would 
     Please find the user story
 
 
-    Please find user story fulfillment screenshots [here](#) 
+    Please find user story fulfillment screenshots [here](https://github.com/LiamDHall/Mixology/tree/master/static/images/readme-images/user-stories-fulfilment) 
 
 ## Development
 
 ### Planning
 
-Please find the planning document [here](#). This document contains the following planning stages **Scope, Strategy, Structure, Data Model and Schema** for the website.
+Please find the planning document [here](https://github.com/LiamDHall/Mixology/blob/master/supporting-docs/mixology-planning-doc.pdf). This document contains the following planning stages **Scope, Strategy, Structure, Data Model and Schema** for the website.
 
-The wireframe for the websire can be found [here](#). The wireframe for the cocktail page (and create / edit form) for desktop deffers from the live site. This is because it was diffacult to make the three column layout work on even the largest of screens, therefore I adpeted it to be more similar to the mobile verison.
+The wireframe for the websire can be found [here](https://github.com/LiamDHall/Mixology/tree/master/supporting-docs/wireframes). The wireframe for the cocktail page (and create / edit form) for desktop deffers from the live site. This is because it was diffacult to make the three column layout work on even the largest of screens, therefore I adpeted it to be more similar to the mobile verison.
 
 Some elements have been changed or moved around from when the wireframes where created. I did this as some elements I designed werent pratically or easy to interacte with.
 
@@ -390,6 +390,8 @@ I used [W3C Jigsaw Validation](https://jigsaw.w3.org/css-validator/) to check my
 #### **Errors**
 
 The errors produced in the validator are due to [Bootstrap](https://getbootstrap.com/) and [Swiper JS API](https://swiperjs.com/swiper-api) and not code written by myself.
+
+<img src="https://github.com/LiamDHall/Mixology/blob/master/static/images/readme-images/css-errors.png">
  
 #### **Warning**
 
@@ -401,7 +403,7 @@ As I used [CSS Variables](https://www.w3schools.com/css/css3_variables.asp) in m
 This warning is also produced for the CSS Variables and transformation browser compatibility rules provided by [Bootstrap](https://getbootstrap.com/) and [Swiper JS API](https://swiperjs.com/swiper-api) and [Font Awesome](https://fontawesome.com/).
 **The use of CSS Variables is not a warning. This is flagged as Jigsaw Validation does not support level 4 CSS.**
 
-<img src="#">
+<img src="https://github.com/LiamDHall/Mixology/blob/master/static/images/readme-images/css-warnings.png">
 
 #### **Console Log Warning**
 
@@ -556,20 +558,15 @@ Please follows the steps below to set up the hosting:
 10. Scroll to “Connect to GitHub” your github name should appear in the select box then in the text box type your repository for the apps name. Click “Search” and your repository should appear underneath.
 11. Click Connect.
 12. Scroll to “Automatic deploys”  and choose a branch to deploy (master is preferred) in the selection box.
-
-    <img src="#">
-
 13. Click “Enable Automatic Deploys”, this will automatically build the web application everytime you push a commit to your Github repository for the app.
 14. Alternatively to the last two steps you can manually deploy the app by scrolling down to “Manually deploy” and with “master” in the selection box click “Deploy Branch”.  
-
-    <img src="#">
 
 ### Cloning Local Development
 
 1. Open the Github repository - <https://github.com/LiamDHall/Mixology>
 2.  Click the green drop down that says **Code**, **Download** or **Clone**.
  
-    <img src="#">
+    <img src="https://github.com/LiamDHall/Mixology/blob/master/static/images/readme-images/clone.png">
  
 3.  To clone with HTTPS copy the URL in the box. <https://github.com/liamdhall/Mixology.git>
 4.  Open up your Integrated Development Environment (IDE).
@@ -596,7 +593,7 @@ Please follows the steps below to set up the hosting:
 16. A pop up will appear in the bottom right hand corner.
 17. I clicked on **Open Browser** and the website opens in a new tab.
 
-    <img src="#">
+    <img src="https://github.com/LiamDHall/Mixology/blob/master/static/images/readme-images/preview.png">
 
 ## Credits
 Code from third parties has been credited in the code of the website where appropriate.
@@ -629,7 +626,7 @@ All images are from
 -   [pexels.com](https://www.pexels.com/)
 -   [pixabay.com](https://pixabay.com/)
 
-These images are all royality and copyrigth free meaning I don't need a license to use them.
+These images are all royality and copyright free meaning I don't need a license to use them.
 I also don't need to credit the authors. 
 
 ### Acknowledgements
