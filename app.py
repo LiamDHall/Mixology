@@ -18,12 +18,14 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-# Set dictories as a global variable so all templates can call it
-# Used for dictionaries that are used in more then one template and
-# dictonaries that aren't changed / updated offend if at all.
-# User can't edit these dictionaries.
+# Set accessible variables
 @app.context_processor
 def get_db_collections():
+    """Set dictories as a global variable so all templates can call it
+    Used for dictionaries that are used in more then one template and
+    dictonaries that aren't changed / updated offend if at all.
+    User can't edit these dictionaries.
+    """
     alcohol_categories = list(mongo.db.alcohol.find())
     units = list(mongo.db.units.find())
     tools = list(mongo.db.tools.find())
@@ -41,10 +43,15 @@ def get_db_collections():
 @app.route("/home", defaults={"alcohol_name": None}, methods=["GET", "POST"])
 @app.route("/home/<alcohol_name>", methods=["GET", "POST"])
 def home(alcohol_name):
+    """The plain homepage will return all the cocktails but the user
+    can filter the cocktails from the main site nav. This selection
+    will cause the alcohol filter to run and only cocktails that
+    use that alochol will be presenteed on the page.
+    """
     # Alcohol Filter
     if alcohol_name:
         alcohol = mongo.db.alcohol.find_one({"alcohol_name": alcohol_name})
-        # Bad url catcher as the url will accept anything as an alcohol_name
+        # Catch bad url, alcohol_name will accept anything as correct
         if not alcohol:
             return render_template('404.html'), 404
 
@@ -90,6 +97,7 @@ def home(alcohol_name):
     else:
         alcohol = None
         # Sort Cocktails into different arrangements
+
         # Newly Added
         newest = list(mongo.db.cocktails.find().sort(
             "date_added", -1
@@ -121,17 +129,8 @@ def home(alcohol_name):
             {"name": "Most Popular", "cocktails": popular}
         ]
 
-    # Get bookmarks of user if logged in
-    if session.get('user'):
-        user_bookmarks = mongo.db.users.find_one(
-            {"username": session["user"]}
-        ).get(
-            "bookmarks"
-        )
-
-    # No bookmarks if no user isnt logged in
-    else:
-        user_bookmarks = []
+    # Get user bookmarks
+    user_bookmarks = get_bookmarks()
 
     # Bookmarking
     if request.method == "POST":
@@ -161,17 +160,16 @@ def home(alcohol_name):
 @app.route("/search", defaults={"query": None}, methods=["GET", "POST"])
 @app.route("/search/<query>", methods=["GET", "POST"])
 def search(query):
-    # Get bookmarks of user if logged in
-    if session.get('user'):
-        user_bookmarks = mongo.db.users.find_one(
-            {"username": session["user"]}
-        ).get(
-            "bookmarks"
-        )
-
-    # No bookmarks if no user is logged in
-    else:
-        user_bookmarks = []
+    """ The search gets the query from the form input
+    (if no form input the query will be set to " " and
+    no results will be return, the user can then search
+    from the results page). The search results are filter
+    via alochol type and user. If a user is found the
+    session user will be taken straight to the user
+    profile.
+    """
+    # Get user bookmarks
+    user_bookmarks = get_bookmarks()
 
     if request.method == "POST":
         # Get Query
@@ -180,6 +178,7 @@ def search(query):
 
         form_type = request.form.get("form-submit")
 
+        # Bookmarking
         if form_type == "bookmark":
             submit_bookmark(user_bookmarks)
             return redirect(url_for(
@@ -262,18 +261,15 @@ def search(query):
 
 @app.route("/view-all/<order_by>", methods=["GET", "POST"])
 def view_all(order_by):
-    # Get bookmarks of user if logged in
-    if session.get("user"):
-        user_bookmarks = mongo.db.users.find_one(
-            {"username": session["user"]}
-        ).get(
-            "bookmarks"
-        )
+    """ View All finds all the cocktails in the database
+    and then filters them into their alochol types then
+    sorts them by the users selected link value
+    eg. Top Rated, Most Popular, Newly Added
+    """
+    # Get user bookmarks
+    user_bookmarks = get_bookmarks()
 
-    # No bookmarks if no user is logged in
-    else:
-        user_bookmarks = []
-
+    # Bookmarking
     if request.method == "POST":
         form_type = request.form.get("form-submit")
         if form_type == "bookmark":
@@ -344,6 +340,14 @@ def view_all(order_by):
 # Login
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """Checks user's credentials agianest the datebase.
+    If the username is found the function will check
+    the password hash against the one is the datebase.
+    If everything matches the user is logged in and
+    their username and id are add as session cookies.
+    They are then taken to the homepage else feedback
+    is given and the user remains on the login page
+    """
     if request.method == "POST":
         # Check username is in database
         user_in_db = mongo.db.users.find_one(
@@ -390,8 +394,15 @@ def login():
 # Resigster
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method == "POST":
+    """The user signs up for the site. The username
+    is checked against the datebase to see if the
+    name is already taken.
+    If successful they are taken to the homepage
+    and their username and id are added to as
+    session cookies to be used by other functions.
+    """
 
+    if request.method == "POST":
         # Check username isnt already taken by another user
         user_in_db = mongo.db.users.find_one(
             {"username": request.form.get("reg-username").lower()})
@@ -439,6 +450,12 @@ def register():
 # Logout
 @app.route("/logout")
 def logout():
+    """The user is logged out by clearing their
+    session cookies. The form submission number
+    cookie is re added as it is used by over
+    function to stop forms being resubmitted on
+    reload
+    """
     # Removes all session cookies
     session.clear()
     session["formsubmitno"] = "nothing"
@@ -449,20 +466,21 @@ def logout():
 
 # Profile
 @app.route(
-    "/profile/<profile_name>/<profile_id>", defaults={"edit": "false"},
+    "/profile/<profile_name>/<profile_id>",
+    defaults={"edit": "false"},
     methods=["GET", "POST"])
 @app.route(
     "/profile/<profile_name>/<profile_id>/<edit>",
     methods=["GET", "POST"])
 def profile(profile_name, profile_id, edit):
-    # Get bookmarks of user if logged in
-    if session.get("user"):
-        user_bookmarks = mongo.db.users.find_one(
-            {"username": session["user"]}).get("bookmarks")
-
-    # No bookmarks if no user is logged in
-    else:
-        user_bookmarks = []
+    """Finds all of the cocktails authored by
+    the user and filters them by alcohol type.
+    If the user owns the profile they can update
+    their profile and the changes will be made
+    to the datebase.
+    """
+    # Get user bookmarks
+    user_bookmarks = get_bookmarks()
 
     profile = mongo.db.users.find_one(
         {"username": profile_name}
@@ -558,6 +576,11 @@ def profile(profile_name, profile_id, edit):
 # Delete Profile
 @app.route("/delete-profile/<user_id>")
 def delete_profile(user_id):
+    """Finds all of the cocktails authored by
+    the user and deletes them from the datebase
+    as well as the user. The user is logged out
+    by the session cookies being cleared.
+    """
     # Delete profile from db
     mongo.db.users.delete_one({"_id": ObjectId(user_id)})
 
@@ -577,10 +600,18 @@ def delete_profile(user_id):
 
 # Cocktail Recipe Page
 @app.route("/cocktail/<cocktail_name>/<cocktail_id>", methods=[
-    "GET", "POST"
-])
+    "GET", "POST"])
 def cocktail(cocktail_name, cocktail_id):
-    # Get user bookmarks
+    """This function find the cocktail by id
+    in the datebase for the template to display it.
+    This function will also determine if the cocktail
+    has been bookmarked by the user.
+
+    User can view rate and bookmark cocktails from
+    this page. This function calls the function to
+    handle updating the database.
+    """
+    # Get user bookmarks and user rated cocktails
     if session.get('user'):
         user_bookmarks = mongo.db.users.find_one(
             {"username": session["user"]}).get("bookmarks")
@@ -622,6 +653,10 @@ def cocktail(cocktail_name, cocktail_id):
 # Delete Cocktail
 @app.route("/delete-cocktail/<cocktail_id>")
 def delete_cocktail(cocktail_id):
+    """When a cocktail is deleted via this function
+    its ID is removed from all user lists e.g.
+    Bookmarks and Rated Cocktails.
+    """
     # Delete cocktail from db
     mongo.db.cocktails.delete_one({"_id": ObjectId(cocktail_id)})
 
@@ -676,6 +711,11 @@ def delete_cocktail(cocktail_id):
     "cocktail_id": None
 }, methods=["GET", "POST"])
 def cocktail_create(cocktail_name, cocktail_id):
+    """Stages the cocktail information to be add
+    or updated to the datebase depending on where
+    the cocktail is being added or edited. It then
+    pushes this staged information to the datebase.
+    """
     if request.method == "POST":
         # Grab random number from form
         form_random_value = request.form.get("random"),
@@ -690,8 +730,10 @@ def cocktail_create(cocktail_name, cocktail_id):
             tool_count = int(request.form.get("no-of-tools"))
             instr_count = int(request.form.get("no-of-instr"))
 
-            # Sets the formated inputs to variables
-            # Calling the formate function with the correct input and counter
+            """" Sets the formated inputs to variables
+            Calling the formate function with the correct input
+            and counter
+            """
             ingredients = formate_inputs("ingredient", ingred_count)
             garnishes = formate_inputs("garnish", garnish_count)
             tools = formate_inputs("tool", tool_count)
@@ -794,9 +836,16 @@ def cocktail_create(cocktail_name, cocktail_id):
     return render_template("cocktail-create.html")
 
 
-# Formates cocktail form information into correct formate for datebase
-# count is set by cocktail_create() form inputs form cocktail create form
 def formate_inputs(item, count):
+    """Formates cocktail information into correct
+    formate for the datebase.
+
+    Variables are given by the cocktail_create()
+    function.
+
+    Count is set by cocktail_create()
+    form inputs from cocktail create form
+    """
     # Empty array to put the formated items into
     item_formatted = []
 
@@ -841,6 +890,11 @@ def formate_inputs(item, count):
 
 # Get users Bookmakers
 def get_bookmarked_cocktails():
+    """Retrieves bookmark cocktail IDs from user
+    bookmark list in datebase. It then returns
+    the cocktails from the IDs and puts them in
+    a list.
+    """
     if session.get('user'):
         # Get user bookmarked cocktial ids form db
         bookmark_list = mongo.db.users.find_one(
@@ -864,8 +918,33 @@ def get_bookmarked_cocktails():
         return []
 
 
+# Get bookmarks of user
+def get_bookmarks():
+    """Gets logged in users bookmarks if
+    no user in session cookie it will
+    set it to an empty list so forms that
+    rely on it can still function.
+    """
+    if session.get('user'):
+        bookmarks = mongo.db.users.find_one(
+            {"username": session["user"]}
+        ).get(
+            "bookmarks"
+        )
+
+    # No bookmarks if no user is logged in
+    else:
+        bookmarks = []
+
+    return bookmarks
+
+
 # Bookmarking
 def submit_bookmark(user_bookmarks):
+    """Add or removes cocktail ID from
+    session user bookmarks and updates it
+    in the database.
+    """
     if not session.get("user"):
         flash("You must be logged in to bookmark cocktails")
 
@@ -911,6 +990,9 @@ def submit_bookmark(user_bookmarks):
 
 # Update User Info
 def update_profile(profile_name, profile_id):
+    """Stages and updates user information
+    to the database.
+    """
     # Grab random number from form
     form_random_value = request.form.get("random")
 
@@ -955,8 +1037,13 @@ def update_profile(profile_name, profile_id):
                 mongo.db.cocktails.update_many(cocktail_query, cocktail_update)
 
 
-# Cocktail Rating
+# Submit Cocktail Rating
 def submit_rating(user_rated_cocktails):
+    """Calculates bookmark rating and
+    adds the cocktail ID to the session
+    user bookmark list and updates the
+    database.
+    """
     # Grab random number from form
     form_random_value = request.form.get("random")
 
