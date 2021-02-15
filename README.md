@@ -20,6 +20,8 @@ From the home page users can quickly choose their preferred alcohol of choice fr
 
 Mixology uses Mongodb as its database to store cocktail information.
 
+All cocktails on the website have been written by me under the usernames mixology and ldhhall.
+
 [View Live Site](http://mixology-cocktails.herokuapp.com/home)
 
 ## Contents
