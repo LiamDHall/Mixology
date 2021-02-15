@@ -67,10 +67,6 @@ button:focus {
     margin-bottom: 16px;
 }
 
-.under-header {
-    margin-top: 67.35;
-}
-
 .section {
     margin-top: 20px;
 }
@@ -1281,7 +1277,7 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 }
 
 .rec-card__star-rating {
-    font-size: 1.rem;
+    font-size: 1rem;
     color: var(--brand-cta);
     font-weight: 700;
     padding-right: 0;
@@ -1684,7 +1680,6 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
 
 .cocktail__info {
     font-size: 1.5rem;
-    padding-inline-start: 25px;
 }
 
 .cocktail__checkbox {
@@ -1934,7 +1929,7 @@ Apdated For My Needs (NOT All MY OWN CODE)--*/
     }
 
     .form-cocktail__input {
-        width: 100;
+        width: 100%;
     }
 }
 
