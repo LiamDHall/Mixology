@@ -535,7 +535,7 @@ Some are handled by the the 404 error catcher I add but some returned 500 errors
 
 **This issue is still present in the live site**
 
-### JGuery Error in Console Log on Search 
+### jQuery Error in Console Log on Search 
 
 When a user searches for something containing a space JQuery throws an error as the search query is passed to the function via the URL.
 
